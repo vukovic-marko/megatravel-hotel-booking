@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/Korisnik"
+    xmlns:kor="http://www.ftn.uns.ac.rs/Korisnik" xmlns:sm="http://www.ftn.uns.ac.rs/entiteti">
+    <xs:import
+        schemaLocation="https://github.com/ivanIndjic/xml_i_web_servisi/blob/master/Entiteti.xsd"/>
+    <xs:complexType abstract="true" name="TKorisnik">
+        <xs:sequence>
+            <xs:element name="Id_korisnika" type="xs:long"/>
+            <xs:element name="Ime" type="xs:string"/>
+            <xs:element name="Prezime" type="xs:string"/>
+            <xs:element name="Email" type="xs:string"/>
+            <xs:element name="Lozinka" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Krajnji_korisnik">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="kor:TKorisnik">
+                    <xs:sequence>
+                        <xs:element name="Ulogovan" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Agent">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="kor:TKorisnik">
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" ref="sm:Smestaj"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Administrator" type="kor:TKorisnik"/>
+</xs:schema>
