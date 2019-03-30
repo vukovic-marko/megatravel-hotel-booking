@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:ent="http://www.ftn.uns.ac.rs/entiteti" xmlns:kor="http://www.ftn.uns.ac.rs/Korisnik">
+    <xs:import namespace="ent"
+        schemaLocation="https://github.com/ivanIndjic/xml_i_web_servisi/blob/master/Entiteti.xsd"/>
+    <xs:import namespace="kor"
+        schemaLocation="https://github.com/ivanIndjic/xml_i_web_servisi/blob/master/Korisnik.xsd"/>
+    <xs:element name="Rezervacija">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Datum_dolaska" type="xs:date"/>
+                <xs:element name="Datum_odlaska" type="xs:date"/>
+                <xs:element name="Broj_osoba" type="xs:int"/>
+                <xs:element maxOccurs="1" ref="ent:Smestaj"/>
+                <xs:element ref="kor:Krajnji_korisnik"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Ponuda">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ent:Smestaj"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Ocena_smestaja">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="kor:Krajnji_korisnik"/>
+                <xs:element ref="ent:Smestaj"/>
+                <xs:element name="Ocena" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Postavljanje_komentara">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="kor:Krajnji_korisnik"/>
+                <xs:element ref="ent:Smestaj"/>
+                <xs:element name="Sadrzaj" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Postavljanje_smestaja">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="kor:Agent"/>
+                <xs:element ref="ent:Smestaj"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
