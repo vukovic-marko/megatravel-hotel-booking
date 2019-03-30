@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/entiteti"
+    xmlns:ent="http://www.ftn.uns.ac.rs/entiteti" xmlns:kor="http://www.ftn.uns.ac.rs/Korisnik">
+    <xs:element name="Smestaj">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id_smestaja" type="xs:long"/>
+                <xs:element name="Grad" type="xs:string"/>
+                <xs:element name="Drzava" type="xs:string"/>
+                <xs:element name="Ocena" type="xs:double"/>
+                <xs:element name="Naziv" type="xs:string"/>
+                <xs:element name="Id_agenta" type="xs:long"/>
+                <xs:element name="Odobreno" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
