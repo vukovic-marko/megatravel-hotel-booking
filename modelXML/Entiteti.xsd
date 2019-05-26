@@ -19,6 +19,7 @@
     <xs:element name="Adresa">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="Id"/>
                 <xs:element name="Grad" type="xs:string"/>
                 <xs:element name="Drzava" type="xs:string"/>
                 <xs:element name="Ulica_i_broj" type="xs:string"/>

@@ -6,6 +6,7 @@
     <xs:element name="Rezervacija">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="Id_rezervacije" type="xs:long"/>
                 <xs:element name="Datum_dolaska" type="xs:date"/>
                 <xs:element name="Datum_odlaska" type="xs:date"/>
                 <xs:element name="Broj_osoba" type="xs:int"/>
@@ -24,6 +25,7 @@
     <xs:element name="Ocena_smestaja">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="Id_ocene" type="xs:long"/>
                 <xs:element ref="kor:Krajnji_korisnik"/>
                 <xs:element name="Ocena" type="xs:double"/>
                 <xs:element ref="ent:Soba"/>
@@ -33,6 +35,7 @@
     <xs:element name="Postavljanje_komentara">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="Id_komentara" type="xs:long"/>
                 <xs:element ref="kor:Krajnji_korisnik"/>
                 <xs:element name="Sadrzaj" type="xs:string"/>
                 <xs:element ref="ent:Soba"/>
