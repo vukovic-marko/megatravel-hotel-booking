@@ -34,5 +34,13 @@
             </xs:complexContent>
         </xs:complexType>
     </xs:element>
-    <xs:element name="Administrator" type="kor:TKorisnik"/>
+    <xs:element name="Administrator">
+      <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="kor:TKorisnik">
+                 
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
