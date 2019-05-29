@@ -10,7 +10,6 @@ package rs.ac.uns.ftn.korisnik;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -24,9 +23,6 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;extension base="{http://www.ftn.uns.ac.rs/korisnik}TKorisnik">
- *       &lt;sequence>
- *         &lt;element name="Ulogovan" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -35,31 +31,11 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "ulogovan"
-})
-@XmlRootElement(name = "Krajnji_korisnik")
-public class KrajnjiKorisnik
+@XmlType(name = "")
+@XmlRootElement(name = "Administrator")
+public class Administrator
     extends TKorisnik
 {
 
-    @XmlElement(name = "Ulogovan")
-    protected boolean ulogovan;
-
-    /**
-     * Gets the value of the ulogovan property.
-     * 
-     */
-    public boolean isUlogovan() {
-        return ulogovan;
-    }
-
-    /**
-     * Sets the value of the ulogovan property.
-     * 
-     */
-    public void setUlogovan(boolean value) {
-        this.ulogovan = value;
-    }
 
 }

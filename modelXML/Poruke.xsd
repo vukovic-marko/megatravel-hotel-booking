@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+   targetNamespace="http://www.ftn.uns.ac.rs/poruke"
     xmlns:ent="http://www.ftn.uns.ac.rs/entiteti" xmlns:kor="http://www.ftn.uns.ac.rs/korisnik">
     <xs:import namespace="http://www.ftn.uns.ac.rs/entiteti" schemaLocation="Entiteti.xsd"/>
     <xs:import namespace="http://www.ftn.uns.ac.rs/korisnik" schemaLocation="Korisnik.xsd"/>
