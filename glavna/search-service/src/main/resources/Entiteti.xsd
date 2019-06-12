@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/entiteti"
+    xmlns:ent="http://www.ftn.uns.ac.rs/entiteti">
+
+    <xs:element name="Soba">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id_soba" type="xs:long"/>
+                <xs:element name="Broj_sobe" type="xs:int"/>
+                <xs:element name="Broj_kreveta" type="xs:int"/>
+                <xs:element name="Ocena" type="xs:double"/>
+                <xs:element name="Odobreno" type="xs:boolean"/>
+                <xs:element ref="ent:Adresa"/>
+                <xs:element name="Id_agenta" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Adresa">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id"/>
+                <xs:element name="Grad" type="xs:string"/>
+                <xs:element name="Drzava" type="xs:string"/>
+                <xs:element name="Ulica_i_broj" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,27 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.ftn.uns.ac.rs/poruke"
+           targetNamespace="http://www.ftn.uns.ac.rs/poruke" elementFormDefault="qualified">
+
+    <xs:element name="getSobaRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="brojSobe" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getSobaResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="soba" type="tns:soba"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="soba">
+        <xs:sequence>
+                <xs:element name="idSobe" type="xs:long"/>
+                <xs:element name="brojSobe" type="xs:int"/>
+                <xs:element name="brojKreveta" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
