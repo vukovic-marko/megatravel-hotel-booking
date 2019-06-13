@@ -1,27 +1,19 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.ftn.uns.ac.rs/poruke"
-           targetNamespace="http://www.ftn.uns.ac.rs/poruke" elementFormDefault="qualified">
-
-    <xs:element name="getSobaRequest">
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.ftn.uns.ac.rs/poruke" xmlns:ent="http://www.ftn.uns.ac.rs/entiteti">
+    <xs:import namespace="http://www.ftn.uns.ac.rs/entiteti" schemaLocation="Entiteti.xsd"/>
+    <xs:element name="getAgentRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="brojSobe" type="xs:int"/>
+                <xs:element name="Username" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-    <xs:element name="getSobaResponse">
+    <xs:element name="getAgentResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="soba" type="tns:soba"/>
+                <xs:element ref="ent:Agent"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-    <xs:complexType name="soba">
-        <xs:sequence>
-                <xs:element name="idSobe" type="xs:long"/>
-                <xs:element name="brojSobe" type="xs:int"/>
-                <xs:element name="brojKreveta" type="xs:int"/>
-        </xs:sequence>
-    </xs:complexType>
 </xs:schema>
