@@ -51,13 +51,13 @@ public class Agent
     extends TKorisnik
 {
 
-    @XmlElement(name = "Soba", required = true)
-    @OneToMany(mappedBy = "idAgenta")
-    protected List<Soba> soba;
-    
-    @XmlElement(name = "Poruka")
-    @OneToMany(mappedBy="")
-    protected List<Poruka> poruka;
+//    @XmlElement(name = "Soba", required = true)
+//    @OneToMany(mappedBy = "idAgenta")
+//    protected List<Soba> soba;
+//    
+//    @XmlElement(name = "Poruka")
+//    @OneToMany(mappedBy="")
+//    protected List<Poruka> poruka;
 
     /**
      * Gets the value of the soba property.
@@ -81,12 +81,12 @@ public class Agent
      * 
      * 
      */
-    public List<Soba> getSoba() {
-        if (soba == null) {
-            soba = new ArrayList<Soba>();
-        }
-        return this.soba;
-    }
+//    public List<Soba> getSoba() {
+//        if (soba == null) {
+//            soba = new ArrayList<Soba>();
+//        }
+//        return this.soba;
+//    }
 
     /**
      * Gets the value of the poruka property.
@@ -110,11 +110,11 @@ public class Agent
      * 
      * 
      */
-    public List<Poruka> getPoruka() {
-        if (poruka == null) {
-            poruka = new ArrayList<Poruka>();
-        }
-        return this.poruka;
-    }
+//    public List<Poruka> getPoruka() {
+//        if (poruka == null) {
+//            poruka = new ArrayList<Poruka>();
+//        }
+//        return this.poruka;
+//    }
 
 }
