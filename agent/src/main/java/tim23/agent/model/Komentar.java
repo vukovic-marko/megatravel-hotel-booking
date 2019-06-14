@@ -63,7 +63,7 @@ public class Komentar {
     
     @XmlElement(name = "Sadrzaj", required = true)
     @Column
-    protected String sadrzaj;
+    private String sadrzaj;
     
     @XmlElement(name="Smestaj", required = true)
     @OneToOne

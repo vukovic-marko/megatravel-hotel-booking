@@ -57,13 +57,13 @@ public class KrajnjiKorisnik
     @Column
     protected Boolean blokiran;
     
-    @XmlElement(name = "Primljene_poruke")
-    @OneToMany(mappedBy="idPrimaoca")
-    protected List<Poruka> primljenePoruke;
-    
-    @XmlElement(name = "Poslate_poruke")
-    @OneToMany(mappedBy="idPosiljaoca")
-    private List<Poruka> poslatePoruke;
+//    @XmlElement(name = "Primljene_poruke")
+//    @OneToMany(mappedBy="idPrimaoca")
+//    protected List<Poruka> primljenePoruke;
+//    
+//    @XmlElement(name = "Poslate_poruke")
+//    @OneToMany(mappedBy="idPosiljaoca")
+//    private List<Poruka> poslatePoruke;
     
     @XmlElement(name = "Uklonjen")
     @Column
@@ -124,21 +124,21 @@ public class KrajnjiKorisnik
 		this.blokiran = blokiran;
 	}
 
-	public List<Poruka> getPrimljenePoruke() {
-		return primljenePoruke;
-	}
-
-	public void setPrimljenePoruke(List<Poruka> primljenePoruke) {
-		this.primljenePoruke = primljenePoruke;
-	}
-
-	public List<Poruka> getPoslatePoruke() {
-		return poslatePoruke;
-	}
-
-	public void setPoslatePoruke(List<Poruka> poslatePoruke) {
-		this.poslatePoruke = poslatePoruke;
-	}
+//	public List<Poruka> getPrimljenePoruke() {
+//		return primljenePoruke;
+//	}
+//
+//	public void setPrimljenePoruke(List<Poruka> primljenePoruke) {
+//		this.primljenePoruke = primljenePoruke;
+//	}
+//
+//	public List<Poruka> getPoslatePoruke() {
+//		return poslatePoruke;
+//	}
+//
+//	public void setPoslatePoruke(List<Poruka> poslatePoruke) {
+//		this.poslatePoruke = poslatePoruke;
+//	}
 
 	public Boolean getUklonjen() {
 		return uklonjen;

@@ -103,7 +103,7 @@ public class Soba {
     @XmlElement(name = "Id_agenta")
     @ManyToOne
     @JoinColumn(name="agent")
-    private Integer idAgenta;
+    private Agent idAgenta;
     
     @XmlElement(name = "Tip_smestaja", required = true)
     @ManyToOne
@@ -113,8 +113,8 @@ public class Soba {
     @XmlElement(name = "Opis_smestaja", required = true)
     private String opisSmestaja;
     
-    @XmlElement(name = "Rezervacija")
-    protected List<Rezervacija> rezervacija;
+//    @XmlElement(name = "Rezervacija")
+//    protected List<Rezervacija> rezervacija;
 
     /**
      * Gets the value of the idSoba property.
@@ -224,7 +224,7 @@ public class Soba {
      * Gets the value of the idAgenta property.
      * 
      */
-    public long getIdAgenta() {
+    public Agent getIdAgenta() {
         return idAgenta;
     }
 
@@ -232,7 +232,7 @@ public class Soba {
      * Sets the value of the idAgenta property.
      * 
      */
-    public void setIdAgenta(Integer value) {
+    public void setIdAgenta(Agent value) {
         this.idAgenta = value;
     }
 

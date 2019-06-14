@@ -9,11 +9,10 @@
 package tim23.agent.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -59,14 +58,13 @@ import javax.xml.bind.annotation.XmlType;
     KrajnjiKorisnik.class,
     Agent.class
 })
-@Entity
-@Table(name = "TKorisnik")
+@MappedSuperclass
 public abstract class TKorisnik {
 
     @XmlElement(name = "Id_korisnika")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected int idKorisnika;
+    protected Integer idKorisnika;
     
     @XmlElement(name = "Ime", required = true)
     @Column(length=50,nullable=false)

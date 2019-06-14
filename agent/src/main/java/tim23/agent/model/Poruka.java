@@ -13,8 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -65,27 +65,31 @@ public class Poruka {
     private int idPoruka;
     
     @XmlElement(name = "Klijent_posiljalac")
-    @OneToMany(mappedBy = "idKorisnika")
+    @ManyToOne
+    @JoinColumn(name="klijent_posiljac")
     private KrajnjiKorisnik klijentPosiljalac;
     
     @XmlElement(name = "Klijent_primalac")
-    @OneToMany(mappedBy = "idKorisnika")
+    @ManyToOne
+    @JoinColumn(name="klijent_primalac")
     private KrajnjiKorisnik klijentPrimalac;
     
     @XmlElement(name = "Agent_posiljalac")
-    @OneToMany(mappedBy = "idKorisnika")
+    @ManyToOne
+    @JoinColumn(name="agent_posiljac")
     private Agent agentPosiljac;
     
     @XmlElement(name = "Agent_primalac")
-    @OneToMany(mappedBy = "idKorisnika")
+    @ManyToOne
+    @JoinColumn(name="agent_primalac")
     private Agent agentPrimalac;
     
-    @XmlElement(name = "Id_primaoca")
-    private Integer idPrimaoca;
-    @XmlElement(name = "Tip_posiljaoca", required = true)
-    private String tipPosiljaoca;
-    @XmlElement(name = "Tip_primaoca", required = true)
-    private String tipPrimaoca;
+//    @XmlElement(name = "Id_primaoca")
+//    private Integer idPrimaoca;
+//    @XmlElement(name = "Tip_posiljaoca", required = true)
+//    private String tipPosiljaoca;
+//    @XmlElement(name = "Tip_primaoca", required = true)
+//    private String tipPrimaoca;
     
     @XmlElement(name = "Sadrzaj", required = true)
     @Column
@@ -140,13 +144,13 @@ public class Poruka {
 		this.agentPrimalac = agentPrimalac;
 	}
 
-	public Integer getIdPrimaoca() {
-		return idPrimaoca;
-	}
+//	public Integer getIdPrimaoca() {
+//		return idPrimaoca;
+//	}
 
-	public void setIdPrimaoca(Integer idPrimaoca) {
-		this.idPrimaoca = idPrimaoca;
-	}
+//	public void setIdPrimaoca(Integer idPrimaoca) {
+//		this.idPrimaoca = idPrimaoca;
+//	}
 
 	public void setIdPoruka(int idPoruka) {
 		this.idPoruka = idPoruka;
@@ -160,9 +164,9 @@ public class Poruka {
      *     {@link String }
      *     
      */
-    public String getTipPosiljaoca() {
-        return tipPosiljaoca;
-    }
+//    public String getTipPosiljaoca() {
+//        return tipPosiljaoca;
+//    }
 
     /**
      * Sets the value of the tipPosiljaoca property.
@@ -172,9 +176,9 @@ public class Poruka {
      *     {@link String }
      *     
      */
-    public void setTipPosiljaoca(String value) {
-        this.tipPosiljaoca = value;
-    }
+//    public void setTipPosiljaoca(String value) {
+//        this.tipPosiljaoca = value;
+//    }
 
     /**
      * Gets the value of the tipPrimaoca property.
@@ -184,9 +188,9 @@ public class Poruka {
      *     {@link String }
      *     
      */
-    public String getTipPrimaoca() {
-        return tipPrimaoca;
-    }
+//    public String getTipPrimaoca() {
+//        return tipPrimaoca;
+//    }
 
     /**
      * Sets the value of the tipPrimaoca property.
@@ -196,9 +200,9 @@ public class Poruka {
      *     {@link String }
      *     
      */
-    public void setTipPrimaoca(String value) {
-        this.tipPrimaoca = value;
-    }
+//    public void setTipPrimaoca(String value) {
+//        this.tipPrimaoca = value;
+//    }
 
     /**
      * Gets the value of the sadrzaj property.

@@ -1,15 +1,25 @@
 package tim23.agent.model;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class SobeDodatneUsluge {
 	
-	@OneToMany(mappedBy = "idSoba")
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+	
+	@ManyToOne
+	@JoinColumn(name="id_sobe")
 	private Soba soba;
 	
-	@OneToMany(mappedBy = "id")
+	@ManyToOne
+	@JoinColumn(name="id_usluge")
 	private DodatneUsluge dodatnaUsluga;
 
 	public Soba getSoba() {
