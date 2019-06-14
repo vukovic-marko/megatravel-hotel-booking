@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
     targetNamespace="http://www.ftn.uns.ac.rs/entiteti"
-    xmlns:ent="http://www.ftn.uns.ac.rs/entiteti">
-
+    xmlns:ent="http://www.ftn.uns.ac.rs/entiteti" xmlns:ns1="http://www.ftn.uns.ac.rs/korisnik">
     <xs:element name="Soba">
         <xs:complexType>
             <xs:sequence>
@@ -13,6 +12,12 @@
                 <xs:element name="Odobreno" type="xs:boolean"/>
                 <xs:element ref="ent:Adresa"/>
                 <xs:element name="Id_agenta" type="xs:long"/>
+                <xs:element ref="ent:Tip_smestaja"/>
+                <xs:element name="Opis_smestaja" type="xs:string"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ent:Dodatne_usluge"/>
+                <xs:element maxOccurs="unbounded" name="Slika" type="xs:string"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ent:Cena"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ent:Rezervacija"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -24,6 +29,128 @@
                 <xs:element name="Drzava" type="xs:string"/>
                 <xs:element name="Ulica_i_broj" type="xs:string"/>
             </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Tip_smestaja">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id_tipa" type="xs:int"/>
+                <xs:element name="Naziv" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Dodatne_usluge">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="xs:int"/>
+                <xs:element name="Naziv" type="xs:string"/>
+                <xs:element name="Cena" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Kategorija_smestaja">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="xs:int"/>
+                <xs:element name="Naziv" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Cena">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id_cene" type="xs:int"/>
+                <xs:element name="Pocetak_vazenja" type="xs:date"/>
+                <xs:element name="Kraj_vazenja" type="xs:date"/>
+                <xs:element name="Vrednost" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Rezervacija">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id_rezervacije" type="xs:long"/>
+                <xs:element name="Datum_dolaska" type="xs:date"/>
+                <xs:element name="Datum_odlaska" type="xs:date"/>
+                <xs:element minOccurs="0" name="Broj_osoba" type="xs:int"/>
+                <xs:element minOccurs="1" name="Id_sobe" type="xs:int"/>
+                <xs:element minOccurs="0" ref="ent:Krajnji_korisnik"/>
+                <xs:element name="Realizovana" type="xs:boolean"/>
+                <xs:element minOccurs="0" name="Ocena" type="xs:double"/>
+                <xs:element minOccurs="0" ref="ent:Komentar"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Poruka">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id_poruka" type="xs:int"/>
+                <xs:element name="Id_posiljaoca" type="xs:int"/>
+                <xs:element name="Id_primaoca" type="xs:int"/>
+                <xs:element name="Tip_posiljaoca" type="xs:string"/>
+                <xs:element name="Tip_primaoca" type="xs:string"/>
+                <xs:element name="Sadrzaj" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Ocena_smestaja">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id_ocene" type="xs:long"/>
+                <xs:element ref="ent:Krajnji_korisnik"/>
+                <xs:element name="Ocena" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Komentar">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id_komentara" type="xs:string"/>
+                <xs:element name="Sadrzaj" type="xs:string"/>
+                <xs:element name="Odobreno" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType abstract="true" name="TKorisnik">
+        <xs:sequence>
+            <xs:element name="Id_korisnika" type="xs:int"/>
+            <xs:element name="Ime" type="xs:string"/>
+            <xs:element name="Prezime" type="xs:string"/>
+            <xs:element name="Username" type="xs:string"/>
+            <xs:element name="Password" type="xs:string"/>
+            <xs:element name="Uloga" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Krajnji_korisnik">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ent:TKorisnik">
+                    <xs:sequence>
+                        <xs:element name="Blokiran" type="xs:boolean"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" ref="ent:Poruka"/>
+                        <xs:element name="Uklonjen" type="xs:boolean"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Agent">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ent:TKorisnik">
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" ref="ent:Soba"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" ref="ent:Poruka"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Administrator">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="ent:TKorisnik"> </xs:extension>
+            </xs:complexContent>
         </xs:complexType>
     </xs:element>
 </xs:schema>

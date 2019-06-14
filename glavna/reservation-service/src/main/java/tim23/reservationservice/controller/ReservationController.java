@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import tim23.reservationservice.model.entiteti.Soba;
+import tim23.reservationservice.model.Soba;
 
 @RestController
 @RequestMapping("/reservation")
