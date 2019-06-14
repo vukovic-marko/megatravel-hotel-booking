@@ -39,5 +39,6 @@ public class Administrator
     extends TKorisnik
 {
 
+	//komentar
 
 }
