@@ -8,6 +8,15 @@
 
 package tim23.agent.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -57,28 +66,45 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "komentar"
 })
 @XmlRootElement(name = "Rezervacija")
+@Entity
 public class Rezervacija {
 
     @XmlElement(name = "Id_rezervacije")
-    protected long idRezervacije;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer idRezervacije;
+    
     @XmlElement(name = "Datum_dolaska", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datumDolaska;
+    @Column
+    private Date datumDolaska;
+    
     @XmlElement(name = "Datum_odlaska", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar datumOdlaska;
+    @Column
+    private Date datumOdlaska;
+    
     @XmlElement(name = "Broj_osoba")
-    protected Integer brojOsoba;
+    @Column
+    private Integer brojOsoba;
+    
     @XmlElement(name = "Id_sobe")
-    protected int idSobe;
+    @ManyToOne
+    @JoinColumn(name="id_sobe")
+    private Soba soba;
+    
     @XmlElement(name = "Krajnji_korisnik")
-    protected KrajnjiKorisnik krajnjiKorisnik;
+    @ManyToOne
+    @JoinColumn(name="id_klijenta")
+    private KrajnjiKorisnik krajnjiKorisnik;
+    
     @XmlElement(name = "Realizovana")
-    protected boolean realizovana;
+    private boolean realizovana;
+    
     @XmlElement(name = "Ocena")
-    protected Double ocena;
-    @XmlElement(name = "Komentar")
-    protected Komentar komentar;
+    @Column
+    private Double ocena;
+    
 
     /**
      * Gets the value of the idRezervacije property.
@@ -92,7 +118,7 @@ public class Rezervacija {
      * Sets the value of the idRezervacije property.
      * 
      */
-    public void setIdRezervacije(long value) {
+    public void setIdRezervacije(Integer value) {
         this.idRezervacije = value;
     }
 
@@ -104,7 +130,7 @@ public class Rezervacija {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumDolaska() {
+    public Date getDatumDolaska() {
         return datumDolaska;
     }
 
@@ -116,7 +142,7 @@ public class Rezervacija {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatumDolaska(XMLGregorianCalendar value) {
+    public void setDatumDolaska(Date value) {
         this.datumDolaska = value;
     }
 
@@ -128,7 +154,7 @@ public class Rezervacija {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public XMLGregorianCalendar getDatumOdlaska() {
+    public Date getDatumOdlaska() {
         return datumOdlaska;
     }
 
@@ -140,7 +166,7 @@ public class Rezervacija {
      *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDatumOdlaska(XMLGregorianCalendar value) {
+    public void setDatumOdlaska(Date value) {
         this.datumOdlaska = value;
     }
 
@@ -172,16 +198,16 @@ public class Rezervacija {
      * Gets the value of the idSobe property.
      * 
      */
-    public int getIdSobe() {
-        return idSobe;
+    public Soba getIdSobe() {
+        return soba;
     }
 
     /**
      * Sets the value of the idSobe property.
      * 
      */
-    public void setIdSobe(int value) {
-        this.idSobe = value;
+    public void setIdSobe(Soba value) {
+        this.soba = value;
     }
 
     /**
@@ -246,30 +272,6 @@ public class Rezervacija {
      */
     public void setOcena(Double value) {
         this.ocena = value;
-    }
-
-    /**
-     * Gets the value of the komentar property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Komentar }
-     *     
-     */
-    public Komentar getKomentar() {
-        return komentar;
-    }
-
-    /**
-     * Sets the value of the komentar property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Komentar }
-     *     
-     */
-    public void setKomentar(Komentar value) {
-        this.komentar = value;
     }
 
 }

@@ -8,6 +8,11 @@
 
 package tim23.agent.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -41,18 +46,23 @@ import javax.xml.bind.annotation.XmlType;
     "naziv"
 })
 @XmlRootElement(name = "Tip_smestaja")
+@Entity
 public class TipSmestaja {
 
     @XmlElement(name = "Id_tipa")
-    protected int idTipa;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer idTipa;
+    
     @XmlElement(name = "Naziv", required = true)
+    @Column
     protected String naziv;
 
     /**
      * Gets the value of the idTipa property.
      * 
      */
-    public int getIdTipa() {
+    public Integer getIdTipa() {
         return idTipa;
     }
 
@@ -60,7 +70,7 @@ public class TipSmestaja {
      * Sets the value of the idTipa property.
      * 
      */
-    public void setIdTipa(int value) {
+    public void setIdTipa(Integer value) {
         this.idTipa = value;
     }
 

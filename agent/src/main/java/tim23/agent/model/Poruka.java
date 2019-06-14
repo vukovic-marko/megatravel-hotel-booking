@@ -8,6 +8,13 @@
 
 package tim23.agent.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -49,26 +56,46 @@ import javax.xml.bind.annotation.XmlType;
     "sadrzaj"
 })
 @XmlRootElement(name = "Poruka")
+@Entity
 public class Poruka {
 
     @XmlElement(name = "Id_poruka")
-    protected int idPoruka;
-    @XmlElement(name = "Id_posiljaoca")
-    protected int idPosiljaoca;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int idPoruka;
+    
+    @XmlElement(name = "Klijent_posiljalac")
+    @OneToMany(mappedBy = "idKorisnika")
+    private KrajnjiKorisnik klijentPosiljalac;
+    
+    @XmlElement(name = "Klijent_primalac")
+    @OneToMany(mappedBy = "idKorisnika")
+    private KrajnjiKorisnik klijentPrimalac;
+    
+    @XmlElement(name = "Agent_posiljalac")
+    @OneToMany(mappedBy = "idKorisnika")
+    private Agent agentPosiljac;
+    
+    @XmlElement(name = "Agent_primalac")
+    @OneToMany(mappedBy = "idKorisnika")
+    private Agent agentPrimalac;
+    
     @XmlElement(name = "Id_primaoca")
-    protected int idPrimaoca;
+    private Integer idPrimaoca;
     @XmlElement(name = "Tip_posiljaoca", required = true)
-    protected String tipPosiljaoca;
+    private String tipPosiljaoca;
     @XmlElement(name = "Tip_primaoca", required = true)
-    protected String tipPrimaoca;
+    private String tipPrimaoca;
+    
     @XmlElement(name = "Sadrzaj", required = true)
-    protected String sadrzaj;
+    @Column
+    private String sadrzaj;
 
     /**
      * Gets the value of the idPoruka property.
      * 
      */
-    public int getIdPoruka() {
+    public Integer getIdPoruka() {
         return idPoruka;
     }
 
@@ -76,43 +103,56 @@ public class Poruka {
      * Sets the value of the idPoruka property.
      * 
      */
-    public void setIdPoruka(int value) {
+    public void setIdPoruka(Integer value) {
         this.idPoruka = value;
     }
+    
+    
+    public KrajnjiKorisnik getKlijentPosiljalac() {
+		return klijentPosiljalac;
+	}
 
-    /**
-     * Gets the value of the idPosiljaoca property.
-     * 
-     */
-    public int getIdPosiljaoca() {
-        return idPosiljaoca;
-    }
+	public void setKlijentPosiljalac(KrajnjiKorisnik klijentPosiljalac) {
+		this.klijentPosiljalac = klijentPosiljalac;
+	}
 
-    /**
-     * Sets the value of the idPosiljaoca property.
-     * 
-     */
-    public void setIdPosiljaoca(int value) {
-        this.idPosiljaoca = value;
-    }
+	public KrajnjiKorisnik getKlijentPrimalac() {
+		return klijentPrimalac;
+	}
 
-    /**
-     * Gets the value of the idPrimaoca property.
-     * 
-     */
-    public int getIdPrimaoca() {
-        return idPrimaoca;
-    }
+	public void setKlijentPrimalac(KrajnjiKorisnik klijentPrimalac) {
+		this.klijentPrimalac = klijentPrimalac;
+	}
 
-    /**
-     * Sets the value of the idPrimaoca property.
-     * 
-     */
-    public void setIdPrimaoca(int value) {
-        this.idPrimaoca = value;
-    }
+	public Agent getAgentPosiljac() {
+		return agentPosiljac;
+	}
 
-    /**
+	public void setAgentPosiljac(Agent agentPosiljac) {
+		this.agentPosiljac = agentPosiljac;
+	}
+
+	public Agent getAgentPrimalac() {
+		return agentPrimalac;
+	}
+
+	public void setAgentPrimalac(Agent agentPrimalac) {
+		this.agentPrimalac = agentPrimalac;
+	}
+
+	public Integer getIdPrimaoca() {
+		return idPrimaoca;
+	}
+
+	public void setIdPrimaoca(Integer idPrimaoca) {
+		this.idPrimaoca = idPrimaoca;
+	}
+
+	public void setIdPoruka(int idPoruka) {
+		this.idPoruka = idPoruka;
+	}
+
+	/**
      * Gets the value of the tipPosiljaoca property.
      * 
      * @return

@@ -8,6 +8,11 @@
 
 package tim23.agent.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -45,16 +50,25 @@ import javax.xml.bind.annotation.XmlType;
     "ulicaIBroj"
 })
 @XmlRootElement(name = "Adresa")
+@Entity
 public class Adresa {
 
     @XmlElement(name = "Id", required = true)
-    protected Object id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer id;
+    
     @XmlElement(name = "Grad", required = true)
-    protected String grad;
+    @Column
+    private String grad;
+    
     @XmlElement(name = "Drzava", required = true)
-    protected String drzava;
+    @Column
+    private String drzava;
+    
     @XmlElement(name = "Ulica_i_broj", required = true)
-    protected String ulicaIBroj;
+    @Column
+    private String ulicaIBroj;
 
     /**
      * Gets the value of the id property.
@@ -76,7 +90,7 @@ public class Adresa {
      *     {@link Object }
      *     
      */
-    public void setId(Object value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 

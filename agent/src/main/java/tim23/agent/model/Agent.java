@@ -10,6 +10,9 @@ package tim23.agent.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,13 +46,17 @@ import javax.xml.bind.annotation.XmlType;
     "poruka"
 })
 @XmlRootElement(name = "Agent")
+@Entity
 public class Agent
     extends TKorisnik
 {
 
     @XmlElement(name = "Soba", required = true)
+    @OneToMany(mappedBy = "idAgenta")
     protected List<Soba> soba;
+    
     @XmlElement(name = "Poruka")
+    @OneToMany(mappedBy="")
     protected List<Poruka> poruka;
 
     /**

@@ -8,6 +8,10 @@
 
 package tim23.agent.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -47,6 +51,7 @@ public class OcenaSmestaja {
 
     @XmlElement(name = "Id_ocene")
     protected long idOcene;
+    
     @XmlElement(name = "Krajnji_korisnik", required = true)
     protected KrajnjiKorisnik krajnjiKorisnik;
     @XmlElement(name = "Ocena")

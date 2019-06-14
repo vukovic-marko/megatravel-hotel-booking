@@ -8,6 +8,12 @@
 
 package tim23.agent.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -53,20 +59,34 @@ import javax.xml.bind.annotation.XmlType;
     KrajnjiKorisnik.class,
     Agent.class
 })
+@Entity
+@Table(name = "TKorisnik")
 public abstract class TKorisnik {
 
     @XmlElement(name = "Id_korisnika")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected int idKorisnika;
+    
     @XmlElement(name = "Ime", required = true)
+    @Column(length=50,nullable=false)
     protected String ime;
+    
     @XmlElement(name = "Prezime", required = true)
+    @Column(length=100,nullable=false)
     protected String prezime;
+    
     @XmlElement(name = "Username", required = true)
+    @Column(nullable=false,name="email")
     protected String username;
+    
     @XmlElement(name = "Password", required = true)
+    @Column(nullable=false,name="lozinka")
     protected String password;
+    
     @XmlElement(name = "Uloga", required = true)
-    protected String uloga;
+    @Column(nullable=false)
+    protected Uloga uloga;
 
     /**
      * Gets the value of the idKorisnika property.
@@ -188,7 +208,7 @@ public abstract class TKorisnik {
      *     {@link String }
      *     
      */
-    public String getUloga() {
+    public Uloga getUloga() {
         return uloga;
     }
 
@@ -200,8 +220,7 @@ public abstract class TKorisnik {
      *     {@link String }
      *     
      */
-    public void setUloga(String value) {
+    public void setUloga(Uloga value) {
         this.uloga = value;
     }
-
 }

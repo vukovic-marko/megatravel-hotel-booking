@@ -8,6 +8,11 @@
 
 package tim23.agent.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,13 +48,20 @@ import javax.xml.bind.annotation.XmlType;
     "cena"
 })
 @XmlRootElement(name = "Dodatne_usluge")
+@Entity
 public class DodatneUsluge {
 
     @XmlElement(name = "Id")
-    protected int id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer id;
+    
     @XmlElement(name = "Naziv", required = true)
+    @Column
     protected String naziv;
+    
     @XmlElement(name = "Cena")
+    @Column
     protected double cena;
 
     /**

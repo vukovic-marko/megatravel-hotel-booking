@@ -8,10 +8,20 @@
 
 package tim23.agent.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -43,14 +53,31 @@ import javax.xml.bind.annotation.XmlType;
     "odobreno"
 })
 @XmlRootElement(name = "Komentar")
+@Entity
 public class Komentar {
 
     @XmlElement(name = "Id_komentara", required = true)
-    protected String idKomentara;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Integer idKomentara;
+    
     @XmlElement(name = "Sadrzaj", required = true)
+    @Column
     protected String sadrzaj;
+    
+    @XmlElement(name="Smestaj", required = true)
+    @OneToOne
+    @JoinColumn(name = "id_smestaja")
+    private Rezervacija rezervacija;
+    
+    @XmlElement(name = "Datum_komentara", required = true)
+    @XmlSchemaType(name = "date")
+    @Column
+    private Date datumKomentara;
+    
     @XmlElement(name = "Odobreno")
-    protected boolean odobreno;
+    @Column
+    private Boolean odobreno;
 
     /**
      * Gets the value of the idKomentara property.
@@ -60,7 +87,7 @@ public class Komentar {
      *     {@link String }
      *     
      */
-    public String getIdKomentara() {
+    public Integer getIdKomentara() {
         return idKomentara;
     }
 
@@ -72,7 +99,7 @@ public class Komentar {
      *     {@link String }
      *     
      */
-    public void setIdKomentara(String value) {
+    public void setIdKomentara(Integer value) {
         this.idKomentara = value;
     }
 
@@ -104,7 +131,7 @@ public class Komentar {
      * Gets the value of the odobreno property.
      * 
      */
-    public boolean isOdobreno() {
+    public Boolean isOdobreno() {
         return odobreno;
     }
 
@@ -112,7 +139,7 @@ public class Komentar {
      * Sets the value of the odobreno property.
      * 
      */
-    public void setOdobreno(boolean value) {
+    public void setOdobreno(Boolean value) {
         this.odobreno = value;
     }
 
