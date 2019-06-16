@@ -33,7 +33,7 @@ public class Administrator implements UserDetails {
 	
 	//@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "administrator_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+	@JoinTable(name = "administrator_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id_korisnika"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
 	private List<Authority> authorities;
 
 	public void setAuthorities(List<Authority> authorities) {
@@ -55,6 +55,7 @@ public class Administrator implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_korisnika")
 	private Integer id;
 
 	public Administrator() {

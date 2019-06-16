@@ -35,7 +35,7 @@ public class Agent implements UserDetails {
 //	private Long version;
 	//@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "agent_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+	@JoinTable(name = "agent_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id_korisnika"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
 	private List<Authority> authorities;
 
 	public void setAuthorities(List<Authority> authorities) {
@@ -57,7 +57,8 @@ public class Agent implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	@Column(name = "id_korisnika")
+	private Integer id;
 
 	public Agent() {
 	}
@@ -79,11 +80,11 @@ public class Agent implements UserDetails {
 		this.password = password;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
