@@ -31,8 +31,6 @@ public class Administrator implements UserDetails {
 	 */
 	private static final long serialVersionUID = -6454229984503796574L;
 	
-	@Version
-	private Long version;
 	//@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "administrator_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
@@ -48,16 +46,16 @@ public class Administrator implements UserDetails {
 		return this.authorities;
 	}
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "email")
 	private String username;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(nullable = false)
+	@Column(nullable = false, name = "lozinka")
 	private String password;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 
 	public Administrator() {
 	}
@@ -79,20 +77,12 @@ public class Administrator implements UserDetails {
 		this.password = password;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Long getVersion() {
-		return version;
-	}
-
-	public void setVersion(Long version) {
-		this.version = version;
 	}
 
 	@Override

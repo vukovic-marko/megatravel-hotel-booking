@@ -31,8 +31,8 @@ public class Agent implements UserDetails {
 	 */
 	private static final long serialVersionUID = -7040965295621480245L;
 	
-	@Version
-	private Long version;
+//	@Version
+//	private Long version;
 	//@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "agent_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
@@ -48,11 +48,11 @@ public class Agent implements UserDetails {
 		return this.authorities;
 	}
 
-	@Column(nullable = false)
+	@Column(nullable = false, name = "email")
 	private String username;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(nullable = false)
+	@Column(nullable = false, name = "lozinka")
 	private String password;
 
 	@Id
@@ -87,13 +87,13 @@ public class Agent implements UserDetails {
 		this.id = id;
 	}
 
-	public Long getVersion() {
-		return version;
-	}
-
-	public void setVersion(Long version) {
-		this.version = version;
-	}
+//	public Long getVersion() {
+//		return version;
+//	}
+//
+//	public void setVersion(Long version) {
+//		this.version = version;
+//	}
 
 	@Override
 	public boolean isAccountNonExpired() {

@@ -1,31 +1,44 @@
 package tim23.agent.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import hello.wsdl.GetSobaResponse;
 import hello.wsdl.Soba;
 import tim23.agent.SobaClient;
+import tim23.agent.config.JwtConfig;
 
 @RestController
+@RequestMapping("/agent")
 public class HotelController {
+
+	@Autowired
+	private JwtConfig tokenUtils;
 
 	@Autowired
 	private SobaClient quoteClient;
 	
-	@GetMapping("/test")
-	public Soba test() {
-		int soba = 4;
+//	@GetMapping("/test")
+//	public Soba test() {
+//		int soba = 4;
+//
+//		GetSobaResponse response = quoteClient.get(soba);
+//
+//		return response.getSoba();
+//	}
 
-		GetSobaResponse response = quoteClient.get(soba);
-		
-		return response.getSoba();
+	@GetMapping("/")
+	public String hello(HttpServletRequest request) {
+		String token = tokenUtils.getToken(request);
+		String username = tokenUtils.getUsernameFromToken(token);
+
+		// Agent a = agentRepository.findByUsername(username);
+		// ...
+
+		return username;
 	}
 	
 	@GetMapping("/room/{id}")
