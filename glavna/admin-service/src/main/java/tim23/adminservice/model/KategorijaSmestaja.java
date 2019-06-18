@@ -7,10 +7,7 @@
 
 
 package tim23.adminservice.model;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -50,6 +47,7 @@ public class KategorijaSmestaja {
 
     @XmlElement(name = "Id")
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column (name  = "id")
     protected Integer id;
     

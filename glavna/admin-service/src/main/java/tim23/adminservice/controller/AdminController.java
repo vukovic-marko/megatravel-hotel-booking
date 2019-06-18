@@ -5,13 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import tim23.adminservice.config.JwtConfig;
-import tim23.adminservice.model.Agent;
-import tim23.adminservice.model.Komentar;
-import tim23.adminservice.model.KrajnjiKorisnik;
+import tim23.adminservice.model.*;
 import tim23.adminservice.repository.AdministratorRepository;
-import tim23.adminservice.service.AgentService;
-import tim23.adminservice.service.KomentarService;
-import tim23.adminservice.service.KrajnjiKorisnikService;
+import tim23.adminservice.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -31,6 +27,12 @@ public class AdminController {
 
 	@Autowired
 	private KomentarService komentarService;
+
+	@Autowired
+	private TipSmestajaService tipSmestajaService;
+
+	@Autowired
+	private KategorijaSmestajaService kategorijaSmestajaService;
 
 	@PostMapping("/register")
 	public ResponseEntity<Agent> registerAgent(@RequestBody Agent agent, HttpServletRequest request) {
@@ -57,6 +59,8 @@ public class AdminController {
 		return krajnjiKorisnikService.setUklonjen(username, uklonjen);
 	}
 
+
+
 	@GetMapping("/komentar")
 	public ResponseEntity<List<Komentar>> getKomentari() {
 		return komentarService.getKomentari();
@@ -70,6 +74,45 @@ public class AdminController {
 	@PostMapping("/komentar/{id}")
 	public ResponseEntity<Komentar> objaviKomentar(@PathVariable Integer id) {
 		return komentarService.objaviKomentar(id);
+	}
+
+
+
+	@GetMapping("/tipSmestaja")
+	public ResponseEntity<List<TipSmestaja>> getTipoviSmestaja() {
+		return tipSmestajaService.getTipoviSmestaja();
+	}
+
+	@GetMapping("/tipSmestaja/{id}")
+	public ResponseEntity<TipSmestaja> getTipSmestaja(@PathVariable Integer id) {
+		return tipSmestajaService.getTipSmestaja(id);
+	}
+
+	@PostMapping("/tipSmestaja")
+	public ResponseEntity<TipSmestaja> dodajTipSmestaja(@RequestBody TipSmestaja tipSmestaja) {
+		return tipSmestajaService.dodajTipSmestaja(tipSmestaja);
+	}
+
+	@DeleteMapping("/tipSmestaja/{id}")
+	public ResponseEntity ukloniTipSmestaja(@PathVariable Integer id) {
+		return tipSmestajaService.ukloniTipSmestaja(id);
+	}
+
+
+
+	@GetMapping("/kategorijaSmestaja")
+	public ResponseEntity<List<KategorijaSmestaja>> getKategorijeSmestaja() {
+		return kategorijaSmestajaService.getKategotijeSmestaja();
+	}
+
+	@PostMapping("/kategorijaSmestaja")
+	public ResponseEntity<KategorijaSmestaja> dodajKategorijuSmestaja(@RequestBody KategorijaSmestaja kategorijaSmestaja) {
+		return kategorijaSmestajaService.dodajKategorijuSmestaja(kategorijaSmestaja);
+	}
+
+	@DeleteMapping("/kategorijaSmestaja/{id}")
+	public ResponseEntity ukloniKategorijuSmestaja(@PathVariable Integer id) {
+		return kategorijaSmestajaService.ukloniKategorijuSmestaja(id);
 	}
 
 	//----------------------------------------------
