@@ -58,3 +58,12 @@ function pretraziSmestajneJedinice(){
 	    }
 	});
 }
+
+function registrujSe(){
+	top.location.href = "registracija.html";
+}
+
+function ulogujSe(){
+	$('#modalLogovanje').modal();
+}
+
