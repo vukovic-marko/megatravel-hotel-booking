@@ -7,7 +7,6 @@
 
 
 package tim23.adminservice.model;
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -56,30 +56,33 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Cena")
 @Entity
+@Table(name = "cena")
 public class Cena {
 
     @XmlElement(name = "Id_cene")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column (name = "idcene")
     private Integer idCene;
     
     @XmlElement(name = "Pocetak_vazenja", required = true)
     @XmlSchemaType(name = "date")
-    @Column
+    @Column (name = "pocetakvazenja")
     private Date pocetakVazenja;
     
     @XmlElement(name = "Kraj_vazenja", required = true)
     @XmlSchemaType(name = "date")
-    @Column
+    @Column (name = "krajvazenja")
     private Date krajVazenja;
     
     @XmlElement(name = "Vrednost")
-    @Column
+    @Column (name = "vrednost")
     private Double vrednost;
     
     @ManyToOne
-    @JoinColumn(name = "id_sobe")
+    @JoinColumn(name = "idsobe")
     ///////////////////////////////////////////////////////////todo proveriti
+    
     private Soba soba;
 
     /**

@@ -7,12 +7,12 @@
 
 
 package tim23.hotelservice.model;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -47,15 +47,17 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Tip_smestaja")
 @Entity
+@Table (name = "tipsmestaja")
 public class TipSmestaja {
 
     @XmlElement(name = "Id_tipa")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column (name = "idtipa")
     private Integer idTipa;
     
     @XmlElement(name = "Naziv", required = true)
-    @Column
+    @Column (name = "naziv")
     protected String naziv;
 
     /**

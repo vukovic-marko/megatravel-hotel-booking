@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -55,20 +56,22 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Komentar")
 @Entity
+@Table(name = "komentar")
 public class Komentar {
 
     @XmlElement(name = "Id_komentara", required = true)
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column (name = "idkomentara")
     private Integer idKomentara;
     
     @XmlElement(name = "Sadrzaj", required = true)
-    @Column
+    @Column (name = "sadrzaj")
     private String sadrzaj;
     
     @XmlElement(name="Smestaj", required = true)
     @OneToOne
-    @JoinColumn(name = "id_smestaja")
+    @JoinColumn(name = "idsmestaja")
     private Rezervacija rezervacija;
     
 //    @XmlElement(name = "Datum_komentara", required = true)
@@ -85,7 +88,7 @@ public class Komentar {
 	}
 
 	@XmlElement(name = "Odobreno")
-    @Column
+    @Column (name = "odobreno")
     private Boolean odobreno;
 
     /**

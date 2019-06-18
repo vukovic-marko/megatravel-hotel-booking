@@ -7,12 +7,12 @@
 
 
 package tim23.adminservice.model;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -51,23 +51,25 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Adresa")
 @Entity
+@Table(name = "adresa")
 public class Adresa {
 
     @XmlElement(name = "Id", required = true)
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
     
     @XmlElement(name = "Grad", required = true)
-    @Column
+    @Column(name = "grad")
     private String grad;
     
     @XmlElement(name = "Drzava", required = true)
-    @Column
+    @Column(name="drzava")
     private String drzava;
     
     @XmlElement(name = "Ulica_i_broj", required = true)
-    @Column
+    @Column(name = "ulicaibroj")
     private String ulicaIBroj;
 
     /**

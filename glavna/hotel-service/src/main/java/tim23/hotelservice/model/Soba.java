@@ -7,7 +7,6 @@
 
 
 package tim23.hotelservice.model;
-
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -73,26 +73,29 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Soba")
 @Entity
+@Table (name = "soba")
 public class Soba {
 
     @XmlElement(name = "Id_soba")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column (name = "idsoba")
     private Integer idSoba;
     
     @XmlElement(name = "Broj_sobe")
-    @Column
+    @Column (name = "brojsobe")
     private Integer brojSobe;
     
     @XmlElement(name = "Broj_kreveta")
-    @Column
+    @Column (name = "brojkreveta")
     private Integer brojKreveta;
     
     @XmlElement(name = "Ocena")
-    @Column
+    @Column (name = "ocena")
     private Double ocena;
     
     @XmlElement(name = "Odobreno")
+    @Column (name = "odobreno")
     private Boolean odobreno;
     
     @XmlElement(name = "Adresa", required = true)
@@ -107,10 +110,11 @@ public class Soba {
     
     @XmlElement(name = "Tip_smestaja", required = true)
     @ManyToOne
-    @JoinColumn(name="tip_smestaja")
+    @JoinColumn(name="tipsmestaja")
     private TipSmestaja tipSmestaja;
     
     @XmlElement(name = "Opis_smestaja", required = true)
+    @Column (name = "opissmestaja")
     private String opisSmestaja;
     
 //    @XmlElement(name = "Rezervacija")
