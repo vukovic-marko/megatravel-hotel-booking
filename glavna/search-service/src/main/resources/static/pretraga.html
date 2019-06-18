@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<style>
+.div {
+	background-color: lightblue;
+	align: center;
+}
+
+.naslov {
+	text-align: center;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.fonts {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+body, html {
+	height: 100%;
+	margin: 0;
+}
+
+.bg {
+	background-image: url("booking2.jpg");
+	height: 100%;
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+</style>
+<head>
+<title></title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<link rel="stylesheet" href="bootstrap/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="js/pretraga.js"></script>
+</head>
+
+<body>
+	<div class="bg">
+		<div class="div">
+			<h2 class="naslov">Welcome to booking by Nina,Ivan,Marko and
+				Masa</h2>
+		</div>
+		<div class="row" style="align-self: center;" id="pretrazivanje">
+			<br /> <br />
+			<h3 class="naslov">Pretrazujte mesta koja zelite da posetite</h3>
+			<br></br>
+			<table width="200" align="center" id="tablePretrazivanje">
+				<tr>
+					<th class="fonts">Unesite zeljeni datum polaska</th>
+					<th class="fonts">Unesite zeljeni datum povratka</th>
+					<th class="fonts">Broj osoba</th>
+					<th class="fonts">Mesto</th>
+				</tr>
+				<tr>
+					<th><input id="datumPolaska" style="height: 30px;"> <script>
+						$('input').daterangepicker({
+							"singleDatePicker" : true,
+							"showDropdowns" : true,
+							"minDate" : 2014,
+						});
+					</script></th>
+					<th><input id="datumOdlaska" style="height: 30px;"> <script>
+						$('input').daterangepicker({
+							"singleDatePicker" : true,
+							"showDropdowns" : true,
+							"minDate" : 2014,
+						});
+					</script></th>
+					<th><input type="text" id="broj_osoba"
+						placeholder="Unesite broj osoba" style="height: 30px;"></th>
+					<th><input type="text" id="mesto" placeholder="Unesite mesto"
+						style="height: 30px;"></th>
+				</tr>
+				<tr>
+					<td colspan="4"><button type="button" class="btn btn-primary"
+							onclick="pretraziSmestajneJedinice()">Search</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
