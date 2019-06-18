@@ -5,16 +5,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import tim23.adminservice.config.JwtConfig;
-import tim23.adminservice.model.Administrator;
 import tim23.adminservice.model.Agent;
+import tim23.adminservice.model.Komentar;
 import tim23.adminservice.model.KrajnjiKorisnik;
 import tim23.adminservice.repository.AdministratorRepository;
-import tim23.adminservice.repository.AgentRepository;
 import tim23.adminservice.service.AgentService;
+import tim23.adminservice.service.KomentarService;
 import tim23.adminservice.service.KrajnjiKorisnikService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 import java.util.List;
 
 @RestController
@@ -29,6 +28,9 @@ public class AdminController {
 
 	@Autowired
 	private KrajnjiKorisnikService krajnjiKorisnikService;
+
+	@Autowired
+	private KomentarService komentarService;
 
 	@PostMapping("/register")
 	public ResponseEntity<Agent> registerAgent(@RequestBody Agent agent, HttpServletRequest request) {
@@ -53,6 +55,21 @@ public class AdminController {
 	@DeleteMapping("/korisnik/{username}/delete/{uklonjen}")
 	public ResponseEntity setUklonjen(@PathVariable String username, @PathVariable Boolean uklonjen) {
 		return krajnjiKorisnikService.setUklonjen(username, uklonjen);
+	}
+
+	@GetMapping("/komentar")
+	public ResponseEntity<List<Komentar>> getKomentari() {
+		return komentarService.getKomentari();
+	}
+
+	@GetMapping("/komentar/{id}")
+	public ResponseEntity<Komentar> getKomentar(@PathVariable Integer id) {
+		return komentarService.getKomentar(id);
+	}
+
+	@PostMapping("/komentar/{id}")
+	public ResponseEntity<Komentar> objaviKomentar(@PathVariable Integer id) {
+		return komentarService.objaviKomentar(id);
 	}
 
 	//----------------------------------------------
