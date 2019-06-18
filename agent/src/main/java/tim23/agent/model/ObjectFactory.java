@@ -139,5 +139,9 @@ public class ObjectFactory {
     public Administrator createAdministrator() {
         return new Administrator();
     }
+    
+    public Slika createSlika() {
+    	return new Slika();
+    }
 
 }

@@ -78,7 +78,7 @@ public class Adresa {
      *     {@link Object }
      *     
      */
-    public Object getId() {
+    public Integer getId() {
         return id;
     }
 

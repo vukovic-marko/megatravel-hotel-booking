@@ -7,17 +7,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "idSlike",
+    "urlSlike",
+    "idSobe"
+})
+@XmlRootElement(name = "Slika")
 @Entity
 public class Slika {
 
+    @XmlElement(name = "Id_poruke")
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer idSlike;
 	
+    @XmlElement(name = "Url_slike")
 	@Column
 	private String urlSlike;
 	
+    @XmlElement(name = "Id_sobe")
 	@ManyToOne
 	@JoinColumn(name="id_sobe")
 	private Soba idSobe;

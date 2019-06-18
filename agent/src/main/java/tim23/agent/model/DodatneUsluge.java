@@ -62,13 +62,13 @@ public class DodatneUsluge {
     
     @XmlElement(name = "Cena")
     @Column
-    protected double cena;
+    protected Double cena;
 
     /**
      * Gets the value of the id property.
      * 
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -76,7 +76,7 @@ public class DodatneUsluge {
      * Sets the value of the id property.
      * 
      */
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 
@@ -108,7 +108,7 @@ public class DodatneUsluge {
      * Gets the value of the cena property.
      * 
      */
-    public double getCena() {
+    public Double getCena() {
         return cena;
     }
 
@@ -116,7 +116,7 @@ public class DodatneUsluge {
      * Sets the value of the cena property.
      * 
      */
-    public void setCena(double value) {
+    public void setCena(Double value) {
         this.cena = value;
     }
 

@@ -79,13 +79,14 @@ public class Cena {
     
     @ManyToOne
     @JoinColumn(name = "id_sobe")
+    ///////////////////////////////////////////////////////////todo proveriti
     private Soba soba;
 
     /**
      * Gets the value of the idCene property.
      * 
      */
-    public int getIdCene() {
+    public Integer getIdCene() {
         return idCene;
     }
 
@@ -93,7 +94,7 @@ public class Cena {
      * Sets the value of the idCene property.
      * 
      */
-    public void setIdCene(int value) {
+    public void setIdCene(Integer value) {
         this.idCene = value;
     }
 
@@ -149,7 +150,7 @@ public class Cena {
      * Gets the value of the vrednost property.
      * 
      */
-    public double getVrednost() {
+    public Double getVrednost() {
         return vrednost;
     }
 
@@ -157,7 +158,7 @@ public class Cena {
      * Sets the value of the vrednost property.
      * 
      */
-    public void setVrednost(double value) {
+    public void setVrednost(Double value) {
         this.vrednost = value;
     }
 

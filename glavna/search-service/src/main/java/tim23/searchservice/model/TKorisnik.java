@@ -90,7 +90,7 @@ public abstract class TKorisnik {
      * Gets the value of the idKorisnika property.
      * 
      */
-    public int getIdKorisnika() {
+    public Integer getIdKorisnika() {
         return idKorisnika;
     }
 
@@ -98,7 +98,7 @@ public abstract class TKorisnik {
      * Sets the value of the idKorisnika property.
      * 
      */
-    public void setIdKorisnika(int value) {
+    public void setIdKorisnika(Integer value) {
         this.idKorisnika = value;
     }
 
