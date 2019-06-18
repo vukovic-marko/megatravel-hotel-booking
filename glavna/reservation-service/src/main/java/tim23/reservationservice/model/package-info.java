@@ -6,4 +6,5 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.ftn.uns.ac.rs/entiteti", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package tim23.reservationservice.model;
+ package tim23.reservationservice.model;
+

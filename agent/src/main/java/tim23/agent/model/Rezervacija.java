@@ -5,7 +5,6 @@
 // Generated on: 2019.06.13 at 08:16:54 PM CEST 
 //
 
-
 package tim23.agent.model;
 
 import java.util.Date;
@@ -17,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -66,43 +66,45 @@ import javax.xml.datatype.XMLGregorianCalendar;
 })
 @XmlRootElement(name = "Rezervacija")
 @Entity
+@Table (name = "rezervacija")
 public class Rezervacija {
 
     @XmlElement(name = "Id_rezervacije")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column (name = "idrezervacije")
     private Integer idRezervacije;
     
     @XmlElement(name = "Datum_dolaska", required = true)
     @XmlSchemaType(name = "date")
-    @Column
+    @Column (name = "datumdolaska")
     private Date datumDolaska;
     
     @XmlElement(name = "Datum_odlaska", required = true)
     @XmlSchemaType(name = "date")
-    @Column
+    @Column (name = "datumodlaska")
     private Date datumOdlaska;
     
     @XmlElement(name = "Broj_osoba", required = true)
-    @Column
+    @Column (name = "brojosoba")
     private Integer brojOsoba;
     
     @XmlElement(name = "Id_sobe", required = true)
     @ManyToOne
-    @JoinColumn(name="id_sobe")
+    @JoinColumn(name= "idsoba")
     private Soba soba;
     
     @XmlElement(name = "Krajnji_korisnik", required = true)
     @ManyToOne
-    @JoinColumn(name="id_klijenta")
+    @JoinColumn(name="idklijenta")
     private KrajnjiKorisnik krajnjiKorisnik;
     
     @XmlElement(name = "Realizovana", required = true)
-    @Column
+    @Column (name = "realizovana")
     private Boolean realizovana;
     
     @XmlElement(name = "Ocena")
-    @Column
+    @Column (name = "ocena")
     private Double ocena;
 
 

@@ -7,12 +7,12 @@
 
 
 package tim23.adminservice.model;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -49,19 +49,21 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Dodatne_usluge")
 @Entity
+@Table(name = "dodatneusluge")
 public class DodatneUsluge {
 
     @XmlElement(name = "Id")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column (name = "id")
     private Integer id;
     
     @XmlElement(name = "Naziv", required = true)
-    @Column
+    @Column (name = "naziv")
     protected String naziv;
     
     @XmlElement(name = "Cena")
-    @Column
+    @Column (name="cena")
     protected Double cena;
 
     /**

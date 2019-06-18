@@ -7,10 +7,10 @@
 
 
 package tim23.adminservice.model;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -45,14 +45,16 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Kategorija_smestaja")
 @Entity
+@Table(name ="kategorijasmestaja")
 public class KategorijaSmestaja {
 
     @XmlElement(name = "Id")
     @Id
+    @Column (name  = "id")
     protected Integer id;
     
     @XmlElement(name = "Naziv", required = true)
-    @Column
+    @Column (name = "naziv")
     protected String naziv;
 
     /**

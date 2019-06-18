@@ -12,10 +12,8 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-
         <mapping class="tim23.searchservice.model.Soba" />
         <mapping class="tim23.searchservice.model.SobeDodatneUsluge" />
-        
         <mapping class="tim23.searchservice.model.DodatneUsluge" />
         <mapping class="tim23.searchservice.model.Adresa" />
         <mapping class="tim23.searchservice.model.TipSmestaja" />

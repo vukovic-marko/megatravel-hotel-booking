@@ -7,11 +7,12 @@
 
 
 package tim23.agent.model;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -47,15 +48,19 @@ import javax.xml.bind.annotation.XmlType;
     "ocena"
 })
 @XmlRootElement(name = "Ocena_smestaja")
+@Table (name = "ocenasmestaja")
 public class OcenaSmestaja {
 
     @XmlElement(name = "Id_ocene")
+    @Column (name = "idocene")
     protected Integer idOcene;
     
     @XmlElement(name = "Krajnji_korisnik", required = true)
+    @Column (name = "krajnjikorisnik")
     protected KrajnjiKorisnik krajnjiKorisnik;
     
     @XmlElement(name = "Ocena")
+    @Column (name = "ocena")
     protected Double ocena;
 
     /**
