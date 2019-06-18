@@ -50,7 +50,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "idKomentara",
     "sadrzaj",
-    "odobreno"
+    "rezervacija",
+    "odobreno" 
 })
 @XmlRootElement(name = "Komentar")
 @Entity
@@ -70,12 +71,20 @@ public class Komentar {
     @JoinColumn(name = "id_smestaja")
     private Rezervacija rezervacija;
     
-    @XmlElement(name = "Datum_komentara", required = true)
-    @XmlSchemaType(name = "date")
-    @Column
-    private Date datumKomentara;
+//    @XmlElement(name = "Datum_komentara", required = true)
+//    @XmlSchemaType(name = "date")
+//    @Column
+//    private Date datumKomentara;
     
-    @XmlElement(name = "Odobreno")
+    public Rezervacija getRezervacija() {
+		return rezervacija;
+	}
+
+	public void setRezervacija(Rezervacija rezervacija) {
+		this.rezervacija = rezervacija;
+	}
+
+	@XmlElement(name = "Odobreno")
     @Column
     private Boolean odobreno;
 

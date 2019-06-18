@@ -68,8 +68,8 @@ import javax.xml.bind.annotation.XmlType;
     "opisSmestaja",
     "dodatneUsluge",
     "slika",
-    "cena",
-    "rezervacija"
+    "cena"//,
+//    "rezervacija"
 })
 @XmlRootElement(name = "Soba")
 @Entity
@@ -168,7 +168,7 @@ public class Soba {
      * Gets the value of the ocena property.
      * 
      */
-    public double getOcena() {
+    public Double getOcena() {
         return ocena;
     }
 
@@ -184,7 +184,7 @@ public class Soba {
      * Gets the value of the odobreno property.
      * 
      */
-    public boolean isOdobreno() {
+    public Boolean isOdobreno() {
         return odobreno;
     }
 

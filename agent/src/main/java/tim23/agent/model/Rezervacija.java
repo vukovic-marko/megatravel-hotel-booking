@@ -62,8 +62,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "idSobe",
     "krajnjiKorisnik",
     "realizovana",
-    "ocena",
-    "komentar"
+    "ocena"
 })
 @XmlRootElement(name = "Rezervacija")
 @Entity
@@ -84,33 +83,34 @@ public class Rezervacija {
     @Column
     private Date datumOdlaska;
     
-    @XmlElement(name = "Broj_osoba")
+    @XmlElement(name = "Broj_osoba", required = true)
     @Column
     private Integer brojOsoba;
     
-    @XmlElement(name = "Id_sobe")
+    @XmlElement(name = "Id_sobe", required = true)
     @ManyToOne
     @JoinColumn(name="id_sobe")
     private Soba soba;
     
-    @XmlElement(name = "Krajnji_korisnik")
+    @XmlElement(name = "Krajnji_korisnik", required = true)
     @ManyToOne
     @JoinColumn(name="id_klijenta")
     private KrajnjiKorisnik krajnjiKorisnik;
     
-    @XmlElement(name = "Realizovana")
-    private boolean realizovana;
+    @XmlElement(name = "Realizovana", required = true)
+    @Column
+    private Boolean realizovana;
     
     @XmlElement(name = "Ocena")
     @Column
     private Double ocena;
-    
 
-    /**
+
+	/**
      * Gets the value of the idRezervacije property.
      * 
      */
-    public long getIdRezervacije() {
+    public Integer getIdRezervacije() {
         return idRezervacije;
     }
 
@@ -238,7 +238,7 @@ public class Rezervacija {
      * Gets the value of the realizovana property.
      * 
      */
-    public boolean isRealizovana() {
+    public Boolean isRealizovana() {
         return realizovana;
     }
 
@@ -246,7 +246,7 @@ public class Rezervacija {
      * Sets the value of the realizovana property.
      * 
      */
-    public void setRealizovana(boolean value) {
+    public void setRealizovana(Boolean value) {
         this.realizovana = value;
     }
 

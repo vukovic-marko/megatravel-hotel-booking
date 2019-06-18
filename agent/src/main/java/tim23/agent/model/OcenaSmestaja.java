@@ -50,18 +50,19 @@ import javax.xml.bind.annotation.XmlType;
 public class OcenaSmestaja {
 
     @XmlElement(name = "Id_ocene")
-    protected long idOcene;
+    protected Integer idOcene;
     
     @XmlElement(name = "Krajnji_korisnik", required = true)
     protected KrajnjiKorisnik krajnjiKorisnik;
+    
     @XmlElement(name = "Ocena")
-    protected double ocena;
+    protected Double ocena;
 
     /**
      * Gets the value of the idOcene property.
      * 
      */
-    public long getIdOcene() {
+    public Integer getIdOcene() {
         return idOcene;
     }
 
@@ -69,7 +70,7 @@ public class OcenaSmestaja {
      * Sets the value of the idOcene property.
      * 
      */
-    public void setIdOcene(long value) {
+    public void setIdOcene(Integer value) {
         this.idOcene = value;
     }
 
@@ -101,7 +102,7 @@ public class OcenaSmestaja {
      * Gets the value of the ocena property.
      * 
      */
-    public double getOcena() {
+    public Double getOcena() {
         return ocena;
     }
 
@@ -109,7 +110,7 @@ public class OcenaSmestaja {
      * Sets the value of the ocena property.
      * 
      */
-    public void setOcena(double value) {
+    public void setOcena(Double value) {
         this.ocena = value;
     }
 

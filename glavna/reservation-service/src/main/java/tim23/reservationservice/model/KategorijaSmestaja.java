@@ -49,7 +49,7 @@ public class KategorijaSmestaja {
 
     @XmlElement(name = "Id")
     @Id
-    protected int id;
+    protected Integer id;
     
     @XmlElement(name = "Naziv", required = true)
     @Column
@@ -59,7 +59,7 @@ public class KategorijaSmestaja {
      * Gets the value of the id property.
      * 
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -67,7 +67,7 @@ public class KategorijaSmestaja {
      * Sets the value of the id property.
      * 
      */
-    public void setId(int value) {
+    public void setId(Integer value) {
         this.id = value;
     }
 

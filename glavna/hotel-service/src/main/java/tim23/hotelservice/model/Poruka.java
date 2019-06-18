@@ -62,7 +62,7 @@ public class Poruka {
     @XmlElement(name = "Id_poruka")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idPoruka;
+    private Integer idPoruka;
     
     @XmlElement(name = "Klijent_posiljalac")
     @ManyToOne
@@ -151,10 +151,10 @@ public class Poruka {
 //	public void setIdPrimaoca(Integer idPrimaoca) {
 //		this.idPrimaoca = idPrimaoca;
 //	}
-
-	public void setIdPoruka(int idPoruka) {
-		this.idPoruka = idPoruka;
-	}
+//
+//	public void setIdPoruka(Integer idPoruka) {
+//		this.idPoruka = idPoruka;
+//	}
 
 	/**
      * Gets the value of the tipPosiljaoca property.

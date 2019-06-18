@@ -8,11 +8,8 @@
 
 package tim23.hotelservice.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -44,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "blokiran",
-    "poruka",
+  //  "poruka",
     "uklonjen"
 })
 @XmlRootElement(name = "Krajnji_korisnik")
@@ -73,7 +70,7 @@ public class KrajnjiKorisnik
      * Gets the value of the blokiran property.
      * 
      */
-    public boolean isBlokiran() {
+    public Boolean isBlokiran() {
         return blokiran;
     }
 
@@ -81,7 +78,7 @@ public class KrajnjiKorisnik
      * Sets the value of the blokiran property.
      * 
      */
-    public void setBlokiran(boolean value) {
+    public void setBlokiran(Boolean value) {
         this.blokiran = value;
     }
 
@@ -116,13 +113,6 @@ public class KrajnjiKorisnik
         return uklonjen;
     }
 
-    public Boolean getBlokiran() {
-		return blokiran;
-	}
-
-	public void setBlokiran(Boolean blokiran) {
-		this.blokiran = blokiran;
-	}
 
 //	public List<Poruka> getPrimljenePoruke() {
 //		return primljenePoruke;
@@ -139,10 +129,10 @@ public class KrajnjiKorisnik
 //	public void setPoslatePoruke(List<Poruka> poslatePoruke) {
 //		this.poslatePoruke = poslatePoruke;
 //	}
-
-	public Boolean getUklonjen() {
-		return uklonjen;
-	}
+//
+//	public Boolean getUklonjen() {
+//		return uklonjen;
+//	}
 
 	/**
      * Sets the value of the uklonjen property.
