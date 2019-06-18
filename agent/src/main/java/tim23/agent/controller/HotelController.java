@@ -6,10 +6,12 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import hello.wsdl.GetSobaResponse;
-import hello.wsdl.Soba;
+import tim23.agent.AgentClient;
 import tim23.agent.SobaClient;
 import tim23.agent.config.JwtConfig;
+import tim23.agent.model.Agent;
+import tim23.agent.model.Soba;
+import tim23.agent.model.poruke.GetAgentResponse;
 
 @RestController
 @RequestMapping("/agent")
@@ -18,8 +20,11 @@ public class HotelController {
 	@Autowired
 	private JwtConfig tokenUtils;
 
+//	@Autowired
+//	private SobaClient quoteClient;
+	
 	@Autowired
-	private SobaClient quoteClient;
+	private AgentClient agentClient;
 	
 //	@GetMapping("/test")
 //	public Soba test() {
@@ -31,14 +36,16 @@ public class HotelController {
 //	}
 
 	@GetMapping("/")
-	public String hello(HttpServletRequest request) {
+	public Agent hello(HttpServletRequest request) {
 		String token = tokenUtils.getToken(request);
 		String username = tokenUtils.getUsernameFromToken(token);
 
+		GetAgentResponse response = agentClient.get(username);
+		
 		// Agent a = agentRepository.findByUsername(username);
 		// ...
 
-		return username;
+		return response.getAgent();
 	}
 	
 	@GetMapping("/room/{id}")
