@@ -35,8 +35,8 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="Id_soba" type="{http://www.w3.org/2001/XMLSchema}long"/>
- *         &lt;element name="Broj_sobe" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="Broj_kreveta" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="Broj_sobe" type="{http://www.w3.org/2001/XMLSchema}Integer"/>
+ *         &lt;element name="Broj_kreveta" type="{http://www.w3.org/2001/XMLSchema}Integer"/>
  *         &lt;element name="Ocena" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="Odobreno" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element ref="{http://www.ftn.uns.ac.rs/entiteti}Adresa"/>
@@ -120,7 +120,7 @@ public class Soba {
      * Gets the value of the idSoba property.
      * 
      */
-    public long getIdSoba() {
+    public Integer getIdSoba() {
         return idSoba;
     }
 
@@ -136,7 +136,7 @@ public class Soba {
      * Gets the value of the brojSobe property.
      * 
      */
-    public Integer getBrojSobe() {
+    public Integer BrojSobe() {
         return brojSobe;
     }
 
@@ -144,7 +144,7 @@ public class Soba {
      * Sets the value of the brojSobe property.
      * 
      */
-    public void setBrojSobe(int value) {
+    public void setBrojSobe(Integer value) {
         this.brojSobe = value;
     }
 
@@ -152,7 +152,7 @@ public class Soba {
      * Gets the value of the brojKreveta property.
      * 
      */
-    public int getBrojKreveta() {
+    public Integer getBrojKreveta() {
         return brojKreveta;
     }
 
@@ -160,7 +160,7 @@ public class Soba {
      * Sets the value of the brojKreveta property.
      * 
      */
-    public void setBrojKreveta(int value) {
+    public void setBrojKreveta(Integer value) {
         this.brojKreveta = value;
     }
 
