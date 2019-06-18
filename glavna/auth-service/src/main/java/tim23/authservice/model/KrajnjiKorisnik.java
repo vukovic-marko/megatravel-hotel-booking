@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
-@Table(name = "krajnji_korisnik")
+@Table(name = "krajnjikorisnik")
 public class KrajnjiKorisnik implements UserDetails {
 
 	/**
@@ -33,7 +33,7 @@ public class KrajnjiKorisnik implements UserDetails {
 	
 	//@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "krajnji_korisnik_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id_korisnika"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+	@JoinTable(name = "krajnjikorisnik_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "idkorisnika"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
 	private List<Authority> authorities;
 
 	public void setAuthorities(List<Authority> authorities) {
@@ -46,16 +46,16 @@ public class KrajnjiKorisnik implements UserDetails {
 		return this.authorities;
 	}
 
-	@Column(nullable = false, name = "email")
+	@Column(nullable = false, name = "username")
 	private String username;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@Column(nullable = false, name = "lozinka")
+	@Column(nullable = false, name = "password")
 	private String password;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_korisnika")
+	@Column(name = "idkorisnika")
 	private Integer id;
 
 	public KrajnjiKorisnik() {
