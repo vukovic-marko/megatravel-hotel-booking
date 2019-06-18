@@ -64,22 +64,23 @@ public abstract class TKorisnik {
     @XmlElement(name = "Id_korisnika")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column (name = "idkorisnika")
     protected Integer idKorisnika;
     
     @XmlElement(name = "Ime", required = true)
-    @Column(length=50,nullable=false)
+    @Column(length=50,nullable=false, name = "ime")
     protected String ime;
     
     @XmlElement(name = "Prezime", required = true)
-    @Column(length=100,nullable=false)
+    @Column(length=100,nullable=false, name = "prezime")
     protected String prezime;
     
     @XmlElement(name = "Username", required = true)
-    @Column(nullable=false,name="email")
+    @Column(nullable=false,name = "username")
     protected String username;
     
     @XmlElement(name = "Password", required = true)
-    @Column(nullable=false,name="lozinka")
+    @Column(nullable=false,name="password")
     protected String password;
     
     @XmlElement(name = "Uloga", required = true)
