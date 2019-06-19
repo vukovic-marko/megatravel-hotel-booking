@@ -16,6 +16,7 @@ import tim23.searchservice.SearchService;
 import tim23.searchservice.model.DodatneUsluge;
 import tim23.searchservice.model.Soba;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +32,12 @@ private ArrayList<DodatneUsluge> du = new ArrayList<>();
     	return "Hello";
     }
  
-   @GetMapping("/{q},{q2},{q3}")
-    public String search(@PathVariable String q,@PathVariable String q2, @PathVariable String q3) {
-      List<Soba> s = searchservice.fuzzySearch(q,q2,q3);
+   @GetMapping("/{brojkreveta},{drzava},{grad},{uib},{dd},{dod}")
+    public String search(@PathVariable String brojkreveta,@PathVariable String drzava, @PathVariable String grad,@PathVariable String uib,@PathVariable Date dd,@PathVariable Date dod) {
+      List<Soba> s = searchservice.fuzzySearch(brojkreveta,drzava,grad,uib,dd,dod,null,null);
      
-        return "Dodatnih usluga ima: "+s.size();
+     return "Nasao "+s.size();        
     }
+
 
 }
