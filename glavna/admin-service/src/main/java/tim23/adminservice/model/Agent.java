@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Agent
     extends TKorisnik
 {
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "agent_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "idkorisnika"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
     private List<Authority> authorities;
 

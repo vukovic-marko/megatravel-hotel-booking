@@ -8,14 +8,14 @@
 
 package tim23.adminservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -43,7 +43,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "blokiran",
   //  "poruka",
-    "uklonjen"
+    "uklonjen",
+    "authorities"
 })
 @XmlRootElement(name = "Krajnji_korisnik")
 @Entity
@@ -67,6 +68,19 @@ public class KrajnjiKorisnik
     @XmlElement(name = "Uklonjen")
     @Column (name = "uklonjen")
     protected Boolean uklonjen;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "krajnjikorisnik_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "idkorisnika"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public Collection<Authority> getAuthorities() {
+        return this.authorities;
+    }
+
 
     /**
      * Gets the value of the blokiran property.
