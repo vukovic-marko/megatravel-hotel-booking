@@ -2,6 +2,7 @@ package tim23.adminservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import tim23.adminservice.config.JwtConfig;
@@ -10,6 +11,7 @@ import tim23.adminservice.repository.AdministratorRepository;
 import tim23.adminservice.service.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController

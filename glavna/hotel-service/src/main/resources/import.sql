@@ -1,6 +1,6 @@
 delete from administrator_authority where (user_id = 1);
 delete from agent_authority where (user_id = 1);
-delete from krajnji_korisnik_authority where (user_id = 1);
+delete from krajnjikorisnik_authority where (user_id = 1);
 
 delete from authority where (id = 1);
 delete from authority where (id = 2);
