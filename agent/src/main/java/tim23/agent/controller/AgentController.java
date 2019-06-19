@@ -28,7 +28,7 @@ public class AgentController {
 		Set<String> set=new HashSet<String>();
 		for(TipSmestaja ts:lista) {
 			set.add(ts.getNaziv());
-			System.out.println(ts.getNaziv());
+			//System.out.println(ts.getNaziv());
 		}
 		return new ResponseEntity<>(set,HttpStatus.OK);
 		//return set;

@@ -18,10 +18,10 @@ public class AgentService {
 	public AdresaRepository ar;
 	public List<TipSmestaja> findAllTypesOfRooms() {
 		List<TipSmestaja> lista =tsr.findAll();
-		System.out.println(lista.size());
-		for(TipSmestaja ts:lista) {
-			System.out.println(ts.getNaziv());
-		}
+//		System.out.println(lista.size());
+//		for(TipSmestaja ts:lista) {
+//			System.out.println(ts.getNaziv());
+//		}
 		return tsr.findAll();
 	}
 
