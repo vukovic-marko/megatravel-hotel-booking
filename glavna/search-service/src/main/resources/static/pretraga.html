@@ -23,22 +23,52 @@ body, html {
 .bg {
 	background-image: url("booking2.jpg");
 	height: 100%;
+	
 	/* Center and scale the image nicely */
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+.multiselect {
+	width: 200px;
+}
+
+.selectBox {
+	position: relative;
+}
+
+.selectBox select {
+	width: 100%;
+	font-weight: bold;
+}
+
+.overSelect {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+#checkboxes {
+	display: none;
+	border: 1px #dadada solid;
+	background-color: white;
+}
+
+#checkboxes label {
+	display: block;
+	background-color: white;
+}
+
+#checkboxes label:hover {
+	background-color: #1e90ff;
+}
 </style>
 <head>
 <title></title>
 
-<!-- <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- -->
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -51,7 +81,14 @@ body, html {
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="text/javascript" src="js/pretraga.js"></script>
- <script type="text/javascript" src="bootstrap/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="bootstrap/bootstrap/js/bootstrap.js"></script>
+<script src="toastr/toastr.min.js"></script>
+<link href="toastr/toastr.min.css" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+
 </head>
 
 <body>
@@ -74,24 +111,36 @@ body, html {
 					<th class="fonts">Mesto</th>
 				</tr>
 				<tr>
-					<th><input id="datumPolaska" style="height: 30px;"> <script>
-						$('input').daterangepicker({
-							"singleDatePicker" : true,
-							"showDropdowns" : true,
-							"minDate" : 2014,
-						});
-					</script></th>
-					<th><input id="datumOdlaska" style="height: 30px;"> <script>
-						$('input').daterangepicker({
-							"singleDatePicker" : true,
-							"showDropdowns" : true,
-							"minDate" : 2014,
-						});
-					</script></th>
+					<th><div class="input-group date">
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span><input
+								id="date_added" type="text" class="form-control"
+								style="height: 30px; width: 100px;"">
+						</div></th>
+					<th><div class="input-group date">
+							<span class="input-group-addon"><i class="fa fa-calendar"></i></span><input
+								id="date_modified" type="text" class="form-control"
+								style="height: 30px; width: 100px;">
+						</div></th>
 					<th><input type="text" id="broj_osoba"
-						placeholder="Unesite broj osoba" style="height: 30px;"></th>
+						placeholder="Unesite broj osoba" style="height: 30px;" required></th>
 					<th><input type="text" id="mesto" placeholder="Unesite mesto"
-						style="height: 30px;"></th>
+						style="height: 30px;" required></th>
+				</tr>
+				<tr>
+				<td class="fonts">Dodatne usluge</td>
+				<td>
+					<form>
+						<div class="multiselect" id="glavniDiv">
+							<div class="selectBox" onclick="prikaziUsluge()">
+								<select>
+									<option>Izaberi dodatne usluge</option>
+								</select>
+								<div class="overSelect"></div>
+							</div>
+
+						</div>
+					</form>
+					<td>
 				</tr>
 				<tr>
 					<td colspan="4"><button type="button" class="btn btn-primary"

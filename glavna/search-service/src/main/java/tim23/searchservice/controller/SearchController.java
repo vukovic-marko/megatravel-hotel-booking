@@ -1,6 +1,11 @@
 package tim23.searchservice.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import tim23.searchservice.config.JwtConfig;
+import tim23.searchservice.dto.DodatneUslugeDTO;
 import tim23.searchservice.dto.PonudaDTO;
-
-import javax.servlet.http.HttpServletRequest;
+import tim23.searchservice.model.DodatneUsluge;
+import tim23.searchservice.service.DodatneUslugeService;
 
 @RestController
 @RequestMapping("/search")
@@ -19,6 +25,8 @@ public class SearchController {
 
 	@Autowired
 	private JwtConfig tokenUtils;
+	@Autowired
+	private DodatneUslugeService dodatneUslugeService;
 
 	@GetMapping("/")
 	public String hello(HttpServletRequest request) {
@@ -29,6 +37,22 @@ public class SearchController {
 		// ...
 
 		return username;
+	}
+	
+	@RequestMapping(
+			value = "/getAllDodatneUsluge",
+			method = RequestMethod.GET
+	)
+	public ResponseEntity<?> getDodatneUsluge() {
+		ArrayList<DodatneUslugeDTO> uslugeZaFront = new ArrayList<DodatneUslugeDTO>();
+		ArrayList<DodatneUsluge> usluge = dodatneUslugeService.getAll();
+		for(int i=0;i<usluge.size();i++) {
+			DodatneUslugeDTO dodUsl = new DodatneUslugeDTO();
+			dodUsl.setId(usluge.get(i).getId());
+			dodUsl.setNaziv(usluge.get(i).getNaziv());
+			uslugeZaFront.add(dodUsl);
+		}
+		return new ResponseEntity<>(uslugeZaFront,HttpStatus.OK);
 	}
 	
 	@RequestMapping(
