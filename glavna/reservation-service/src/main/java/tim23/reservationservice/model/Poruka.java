@@ -8,6 +8,7 @@
 
 package tim23.reservationservice.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -57,31 +59,33 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Poruka")
 @Entity
+@Table (name = "poruka")
 public class Poruka {
 
     @XmlElement(name = "Id_poruka")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column (name = "idporuka")
     private Integer idPoruka;
     
     @XmlElement(name = "Klijent_posiljalac")
     @ManyToOne
-    @JoinColumn(name="klijent_posiljac")
+    @JoinColumn(name="klijentposiljac")
     private KrajnjiKorisnik klijentPosiljalac;
     
     @XmlElement(name = "Klijent_primalac")
     @ManyToOne
-    @JoinColumn(name="klijent_primalac")
+    @JoinColumn(name="klijentprimalac")
     private KrajnjiKorisnik klijentPrimalac;
     
     @XmlElement(name = "Agent_posiljalac")
     @ManyToOne
-    @JoinColumn(name="agent_posiljac")
+    @JoinColumn(name="agentposiljac")
     private Agent agentPosiljac;
     
     @XmlElement(name = "Agent_primalac")
     @ManyToOne
-    @JoinColumn(name="agent_primalac")
+    @JoinColumn(name="agentprimalac")
     private Agent agentPrimalac;
     
 //    @XmlElement(name = "Id_primaoca")
@@ -92,7 +96,7 @@ public class Poruka {
 //    private String tipPrimaoca;
     
     @XmlElement(name = "Sadrzaj", required = true)
-    @Column
+    @Column (name = "sadrzaj")
     private String sadrzaj;
 
     /**

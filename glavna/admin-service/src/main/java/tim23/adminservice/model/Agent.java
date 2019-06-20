@@ -7,12 +7,11 @@
 
 
 package tim23.adminservice.model;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -41,12 +40,26 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
+@XmlType(name = "", propOrder = {
+        "authorities"
+})
 @XmlRootElement(name = "Agent")
 @Entity
+@Table(name = "agent")
 public class Agent
     extends TKorisnik
 {
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "agent_authority", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "idkorisnika"), inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public Collection<Authority> getAuthorities() {
+        return this.authorities;
+    }
 
 //    @XmlElement(name = "Soba", required = true)
 //    @OneToMany(mappedBy = "idAgenta")

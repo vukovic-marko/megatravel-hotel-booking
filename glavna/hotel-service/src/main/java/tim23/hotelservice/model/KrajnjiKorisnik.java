@@ -10,6 +10,7 @@ package tim23.hotelservice.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -46,12 +47,13 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Krajnji_korisnik")
 @Entity
+@Table (name = "krajnjikorisnik")
 public class KrajnjiKorisnik
     extends TKorisnik
 {
 
     @XmlElement(name = "Blokiran")
-    @Column
+    @Column (name = "blokiran")
     protected Boolean blokiran;
     
 //    @XmlElement(name = "Primljene_poruke")
@@ -63,7 +65,7 @@ public class KrajnjiKorisnik
 //    private List<Poruka> poslatePoruke;
     
     @XmlElement(name = "Uklonjen")
-    @Column
+    @Column (name = "uklonjen")
     protected Boolean uklonjen;
 
     /**

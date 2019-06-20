@@ -1,11 +1,13 @@
 package tim23.agent.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -18,12 +20,14 @@ import javax.xml.bind.annotation.XmlType;
     "dodatnaUsluga"
 })
 @Entity
+@Table (name = "sobedodatneusluge")
 public class SobeDodatneUsluge {
 	
     @XmlElement(name = "Id")
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+	@Column (name = "id")
+    private Integer id;
 
 	@XmlElement(name = "Id_sobe")
 	@ManyToOne
@@ -32,7 +36,7 @@ public class SobeDodatneUsluge {
 	
     @XmlElement(name = "Id_usluge")
 	@ManyToOne
-	@JoinColumn(name="id_usluge")
+	@JoinColumn(name="id_dodatneusluge")
 	private DodatneUsluge dodatnaUsluga;
     
     public Integer getId() {

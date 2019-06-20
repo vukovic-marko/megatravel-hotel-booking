@@ -9,6 +9,7 @@
 package tim23.hotelservice.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "")
 @XmlRootElement(name = "Administrator")
 @Entity
+@Table(name = "Administrator")
 public class Administrator
     extends TKorisnik
 {

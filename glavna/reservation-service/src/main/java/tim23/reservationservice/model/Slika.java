@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,20 +22,22 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlRootElement(name = "Slika")
 @Entity
+@Table (name = "slika")
 public class Slika {
 
     @XmlElement(name = "Id_poruke")
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+    @Column (name = "idslike")
 	private Integer idSlike;
 	
     @XmlElement(name = "Url_slike")
-	@Column
+	@Column (name = "urlslike")
 	private String urlSlike;
 	
     @XmlElement(name = "Id_sobe")
 	@ManyToOne
-	@JoinColumn(name="id_sobe")
+	@JoinColumn(name="idsobe")
 	private Soba idSobe;
 	
 	public Slika() {

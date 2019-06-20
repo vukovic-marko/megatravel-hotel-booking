@@ -7,7 +7,6 @@
 
 
 package tim23.adminservice.model;
-
 import javax.xml.bind.annotation.XmlRegistry;
 
 

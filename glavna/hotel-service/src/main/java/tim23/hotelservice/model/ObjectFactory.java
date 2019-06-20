@@ -7,7 +7,6 @@
 
 
 package tim23.hotelservice.model;
-
 import javax.xml.bind.annotation.XmlRegistry;
 
 
