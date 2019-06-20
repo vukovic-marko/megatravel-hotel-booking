@@ -17,7 +17,7 @@ public class AgentService {
 	@Autowired
 	public AdresaRepository ar;
 	public List<TipSmestaja> findAllTypesOfRooms() {
-		List<TipSmestaja> lista =tsr.findAll();
+	//	List<TipSmestaja> lista =tsr.findAll();
 //		System.out.println(lista.size());
 //		for(TipSmestaja ts:lista) {
 //			System.out.println(ts.getNaziv());
@@ -27,5 +27,13 @@ public class AgentService {
 
 	public List<Adresa> findAllAddresses() {
 		return ar.findAll();
+	}
+	
+	public Adresa findAddressById(Integer id) {
+		return ar.getById(id);
+	}
+	
+	public TipSmestaja findTypeRoomByNaziv(String naziv) {
+		return tsr.findByNaziv(naziv);
 	}
 }

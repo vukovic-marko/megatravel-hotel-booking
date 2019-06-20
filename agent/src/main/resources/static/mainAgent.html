@@ -103,10 +103,11 @@ body, html {
 			     
 			    <p>
 				<label class="w3-text-brown"><b>Address</b></label>
-				<button class="w3-btn w3-brown" onclick="return getAdrese()">Choose</button>
+				<button class="w3-btn w3-brown" type="button" onclick="return getAdrese()">Choose</button>
 			    </p>
 			    <div class="odmakni">
-			    <input class="w3-input w3-border w3-sand" id="inpAdr" style="width: 300px; length: 5px;" readonly="readonly"/>
+			    <input id="inpAdr" style="width: 300px; length: 5px; " readonly="readonly"/>
+			     <input id="idAdr" style="width: 30px; length: 5px; " readonly="readonly" hidden="hidden"/>
 			    </div>
 			    
 			    <p> <button class="w3-btn w3-brown" >Add</button></p>

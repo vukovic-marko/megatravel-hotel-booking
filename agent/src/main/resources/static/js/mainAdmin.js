@@ -19,7 +19,64 @@ function addRoom(){
 }
 
 function sakriModal(){
-	$('#modalSoba').modal('hide');
+	var adresa =document.getElementById('inpAdr').value;
+	var idAdr=document.getElementById('idAdr').value;
+	var nazTipa=document.getElementById('tipSobe').value;
+	if(adresa=="" || adresa==null){
+		document.getElementById('inpAdr').style.borderColor ="red";
+		/////////////////////////////////////////////////////stavi neki lepi alert
+	}else{ 
+		$('#modalSoba').modal('hide');
+		var brSobe=document.getElementById('brSobe').value;
+		var brKreveta=document.getElementById('brKreveta').value;
+		var opis=document.getElementById('opis').value;
+		var tipSmestaja=null;
+		var adr=null;
+		//alert(brSobe+" "+brKreveta+" "+opis+" "+idAdr+" "+nazTipa)
+		$.ajax({
+			async: false,
+			url: "http://localhost:8081/agent/adresaId/"+idAdr,
+	        type: "GET",
+			contentType: "application/json",
+	        dataType: "json",
+		    success: function (data) {
+		    	adr=data;
+		    }
+		});
+		
+		$.ajax({
+			async: false,
+			url: "http://localhost:8081/agent/typeRoomNaziv/"+nazTipa,
+		    type: "GET",
+		    dataType: "json",
+		    contentType: "application/json",
+		    success: function (data) {
+		    	tipSmestaja=data;
+		    }
+		});
+
+		var soba = JSON.stringify({
+			"broj_sobe": brSobe,
+			"broj_kreveta" : brKreveta,
+			"opis" : opis,
+			"adresa" : adr,
+			"tipSmestaja" : tipSmestaja,
+		});
+		
+		$.ajax({
+			async: false,
+			url: "http://localhost:8081/agent/addRoom",
+	        type: "POST",
+	        contentType: "application/json",
+	        data: soba,
+	        success: function (data) {
+	
+	        },
+	        error: function (jqxhr, textStatus, errorThrown) {
+	            
+	        }
+		});
+	}
 	////////////////////////////////salji dtosobu
 }
 
@@ -118,19 +175,8 @@ function izabranaAdresa(slanje){
 	  }
 	 // alert(drzava+grad+ulicaibroj+" / "+id);
 	  document.getElementById('inpAdr').value=ulicaibroj+" "+grad+" "+drzava;
+	  document.getElementById('idAdr').value=id;
 
-}
-
-function proba(){
-	$.ajax({
-		async: false,
-		url: "http://localhost:8081/agent/a",
-	    type: "GET",
-	    success: function () {
-	    	alert('A');
-	    }
-
-	});
 }
 
 function numbersonly(myfield, e)
