@@ -23,6 +23,7 @@ import tim23.searchservice.dto.DodatneUslugeDTO;
 import tim23.searchservice.dto.PonudaDTO;
 import tim23.searchservice.model.DodatneUsluge;
 import tim23.searchservice.model.Soba;
+import tim23.searchservice.repository.KrajnjiKorisnikRepository;
 import tim23.searchservice.service.DodatneUslugeService;
 import tim23.searchservice.*;
 @RestController
@@ -92,5 +93,13 @@ public class SearchController {
 	    	 return ispis ;
 	   }
 
-	
+	   
+	   @Autowired
+	   private KrajnjiKorisnikRepository krajnjiKorisnikRepository;
+	   
+	   @GetMapping("/uloga")
+	   public boolean proveriUlogu(HttpServletRequest request) {
+		   String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
+		   return krajnjiKorisnikRepository.existsByUsername(username);
+	   }
 }

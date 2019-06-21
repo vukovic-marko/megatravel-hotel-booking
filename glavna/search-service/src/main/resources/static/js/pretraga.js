@@ -1,6 +1,11 @@
 var listaUsluga = [];
 var expanded = false;
 $(document).ready(function() {
+	
+	// funkcija kojom se prikazuje odgovarajuci sadrzaj za korisnika
+	// u zavisnosti od toga da li je ulogovan ili ne
+	podesiStranicu();
+	
 	var fromTimeInput = $('#date_added');
 	var toTimeInput = $('#date_modified');
 	var fromTime = fromTimeInput.val();
@@ -36,6 +41,32 @@ $(document).ready(function() {
 				listaUsluga = data;
 		}
 	});
+	
+	
+	// logovanje
+	$('#logovanje').click(function () {
+		var user = {};
+		user.username = $('#emailKorisnika').val();
+		user.password = $('#lozinkaKorisnika').val();
+		console.log(user);
+		
+		$.ajax({
+			url: 'http://localhost:8762/auth',
+			type: 'post',
+			contentType : 'application/json',
+			data: JSON.stringify(user),
+			success: function (data,status,xhr) {
+				var token = xhr.getResponseHeader("Authorization");
+				localStorage.setItem('token', token);
+				window.location.replace('');
+			},
+			statusCode : {
+				401 : function() {
+					alert('Ne postoji nalog sa unetim podacima!');
+				}
+			}
+		})
+	})
 })
 
 function prikaziUsluge() {
@@ -167,4 +198,49 @@ function registrujSe() {
 
 function ulogujSe() {
 	$('#modalLogovanje').modal();
+}
+
+function podesiStranicu() {
+	$('.loggedout').hide();
+	$('.loggedin').hide();
+	
+	if (localStorage.getItem('token') != null) {
+		// ulogovan
+		
+		$.ajax({
+			url: 'http://localhost:8762/search-service/search/uloga',
+			type: 'get',
+			beforeSend: function(request) {
+			    request.setRequestHeader("Authorization", localStorage.getItem('token'));
+			},
+			success: function (data) {
+				if (data) {
+					// ulogovan je korisnik sa ulogom 'KRAJNJI'
+					
+					$('.loggedin').show();
+					
+				} else {
+					// ulogovan je korisnik sa ulogom 'AGENT' ili 'ADMIN'
+					
+					alert('Ovo je aplikacija namenjena krajnjim korisnicima!');
+					
+					localStorage.removeItem('token');
+					
+					$('.loggedout').show();
+				}
+			}
+		})
+		
+	} else {
+		// izlogovan
+		
+		$('.loggedin').hide();
+		$('.loggedout').show();
+	}
+}
+
+// logout
+function izlogujSe() {
+	localStorage.removeItem('token');
+	window.location.replace('');
 }
