@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import tim23.searchservice.model.Soba;
 
 public interface SearchRepository extends JpaRepository<Soba, Integer>{
-	/*
-	public List<Soba> findByBrojKrevetaAndBrojSobe(int brojK,int brojS);
-*/
+	
+	public Soba getByidSoba(int bs);
+
 }
