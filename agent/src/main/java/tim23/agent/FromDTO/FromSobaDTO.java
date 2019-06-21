@@ -7,15 +7,15 @@ import tim23.agent.model.Soba;
 import tim23.agent.model.TipSmestaja;
 
 public class FromSobaDTO {
-	public Integer broj_kreveta;
-	public Integer broj_sobe;
-	public String opis;
-	public Adresa adresa;
-	public Agent agent;
-	public TipSmestaja tipSmestaja;
-	public Integer idSobe;
-	public Double ocena;
-	public Boolean odobreno;
+	private Integer broj_kreveta;
+	private Integer broj_sobe;
+	private String opis;
+	private Adresa adresa;
+	private Agent agent;
+	private TipSmestaja tipSmestaja;
+	private Integer idSobe;
+	private Double ocena;
+	private Boolean odobreno;
 	
 	public Soba convert() {
 		Soba soba=new Soba();
@@ -33,13 +33,13 @@ public class FromSobaDTO {
 	
 	public FromSobaDTO(SobaDTO soba) {
 		super();
-		this.idSobe=soba.idSobe;
-		this.broj_kreveta=soba.broj_kreveta;
-		this.broj_sobe=soba.broj_sobe;
-		this.opis=soba.opis;
-		this.adresa=soba.adresa;
-		this.agent=soba.agent;
-		this.tipSmestaja=soba.tipSmestaja;
+		this.idSobe=soba.getIdSobe();
+		this.broj_kreveta=soba.getBroj_kreveta();
+		this.broj_sobe=soba.getBroj_sobe();
+		this.opis=soba.getOpis();
+		this.adresa=soba.getAdresa();
+		this.agent=soba.getAgent();
+		this.tipSmestaja=soba.getTipSmestaja();
 	}
 	
 	public Integer getBroj_kreveta() {

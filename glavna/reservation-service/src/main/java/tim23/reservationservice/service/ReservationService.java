@@ -22,9 +22,9 @@ public class ReservationService {
 	public List<Rezervacija> returnReservationByRoomId(Integer id) {
 
 		List<Rezervacija> lista=rr.findBySobaIdSoba(id);
-		for(Rezervacija lr: lista) {
-			//System.out.println(lr.getIdRezervacije());
-		}
+//		for(Rezervacija lr: lista) {
+//			System.out.println(lr.getIdRezervacije());
+//		}
 		return lista;
 	}
 	

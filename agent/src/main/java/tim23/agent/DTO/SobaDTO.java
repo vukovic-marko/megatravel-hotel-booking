@@ -5,13 +5,13 @@ import tim23.agent.model.Agent;
 import tim23.agent.model.TipSmestaja;
 
 public class SobaDTO {
-	public Integer idSobe;
-	public Integer broj_kreveta;
-	public Integer broj_sobe;
-	public String opis;
-	public Adresa adresa;
-	public Agent agent;
-	public TipSmestaja tipSmestaja;
+	private Integer idSobe;
+	private Integer broj_kreveta;
+	private Integer broj_sobe;
+	private String opis;
+	private Adresa adresa;
+	private Agent agent;
+	private TipSmestaja tipSmestaja;
 	
 	public Integer getIdSobe() {
 		return idSobe;
