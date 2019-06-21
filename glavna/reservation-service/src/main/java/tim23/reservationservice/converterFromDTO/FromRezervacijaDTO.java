@@ -26,7 +26,7 @@ public class FromRezervacijaDTO {
     	rez.setBrojOsoba(brojOsoba);
     	rez.setIdSobe(soba);
     	rez.setKrajnjiKorisnik(krajnjiKorisnik);
-    	rez.setRealizovana(realizovana);
+    	rez.setRealizovana(false);
     	rez.setOcena(0d);
     	return rez;
     }
