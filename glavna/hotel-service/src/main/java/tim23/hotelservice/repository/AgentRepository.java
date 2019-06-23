@@ -8,4 +8,5 @@ import tim23.hotelservice.model.Agent;
 @Repository
 public interface AgentRepository extends JpaRepository<Agent, Integer> {
 	Agent findByUsername(String username);
+	boolean existsByUsername(String username);
 }
