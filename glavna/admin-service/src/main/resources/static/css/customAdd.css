@@ -1,0 +1,170 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; }
+
+h1 {
+  font-size: 4rem;
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  letter-spacing: 3px; }
+
+.btn {
+  
+  left: 50%;
+  top: 40%;
+  
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%); }
+
+.split {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  overflow: hidden; }
+  .split.left {
+    left: 0;
+    background: url("../rsz_architect-businesswoman-composition-313691.jpg") center center no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover; }
+    .split.left:before {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+     }
+  .split.right {
+    right: 0;
+    background: url("../rsz_bedroom-door-entrance-271639.jpg") center center no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover; }
+    .split.right:before {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+     }
+  .split.left, .split.left:before, .split.right, .split.right:before {
+    -webkit-transition: 1000ms all ease-in-out;
+    -o-transition: 1000ms all ease-in-out;
+    transition: 1000ms all ease-in-out; }
+
+.container-custom {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  }
+
+.hover-left .left {
+  width: 75%; }
+
+.hover-left .right {
+  width: 25%; }
+  .hover-left .right:before {
+    z-index: 2; }
+
+.hover-right .right {
+  width: 75%; }
+
+.hover-right .left {
+  width: 25%; }
+  .hover-right .left:before {
+    z-index: 2; }
+
+@media (max-width: 800px) {
+  h1 {
+    font-size: 2rem; }
+  .btn {
+    width: 14rem; } }
+
+@media (max-height: 780px) {
+  .btn {
+    top: 60%; } }
+    
+    
+
+
+.container{
+	display:flex;
+	flex-direction:row;
+	justify-content:center;
+	align-items:center;
+}
+.form-control{
+	border:none;
+	border-bottom:3px solid dodgerblue;
+	background:black;
+	color:white;
+	border-radius:0px;
+}
+
+.row{
+	width:60%;
+	margin-top:50px;
+	border: 3px solid orange;
+	border-radius:14px;
+	height:auto;
+}
+
+form h2{
+	color:white;
+}
+
+.checkbox span{
+	color:white;
+}
+
+.checkbox{
+	float:left;
+}
+
+button{
+	float:right;
+	width:120px;
+}
+
+@media(max-width:768px){
+	body{
+		font-size:10px;
+	}
+	
+	h2{
+		font-size:15px;
+	}
+	
+	input[type=text]{
+		font-size:13px;
+	}
+	
+	input[type=password]{
+		font-size:13px;
+	}
+	
+	input[type=email]{
+		font-size:13px;
+	}
+	
+	button{
+		width:80px;
+		height:30px;
+		float:right;
+		font-size:10px;
+		margin-bottom:10px;
+	}
+	
+	.checkbox{
+		display:inline;
+	}
+	
+}
+    
+    

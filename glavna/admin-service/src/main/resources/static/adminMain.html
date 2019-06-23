@@ -1,26 +1,37 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<script src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="bootstrap/bootstrap/js/bootstrap.min.js" ></script>
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/bootstrap/css/bootstrap.min.css" >
+<link rel="stylesheet" href="css/customAdd.css">
+<script type="text/javascript" src="js/mainA.js"></script>
+
+
 <title>Admin Page</title>
 
-<link href = "bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="bootstrap/bootstrap/js/bootstrap.min.js"></script>
+
 
 </head>
 <body>
 <div class="bg">
 
-  <nav class="navbar navbar-inverse" id="navBar">
+ <nav class="navbar navbar-inverse" id="navBar">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Welcome to MINM</a>
     </div>
     <ul class="nav navbar-nav" >
-      <li><a href="#" onclick="return proba()">My Profile</a></li>
-      <li><a href="#" class="b" onclick="return addRoom()">Add Room</a></li>
+<li><a href="users.html">Users</a></li>    
+    </ul>
+    <ul class="nav navbar-nav" >
+<li><button style="margin-top: 9px ;background-color: black;margin-left: 100px" type="button" class="btn btn-primary">
+  Comments <span class="badge badge-light">4</span>
+</button></li>    
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
@@ -28,50 +39,65 @@
   </div>
 </nav> 
 
+</div>
 
-<div class="modal fade" id="modalSoba" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" >
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      <div class="modal-header">    
-		 <div class="w3-card-4">
-		  <div class="w3-container w3-brown">
-		    <h2>New Room</h2>
-		  </div>
-		</div>
-		</div>
-		<div class="modal-body">
-			   <form class="w3-container" onsubmit="return sakriModal()">
-			    <p>      
-			    <label class="w3-text-brown"><b>Room number *</b></label>
-			    <input class="w3-input w3-border w3-sand" id="brSobe" type="number" onkeypress="return numbersonly(this, event)" required="required" autofocus="autofocus"></p>
-			    <p>      
-			    <label class="w3-text-brown"><b>Number of beds *</b></label>
-			    <input class="w3-input w3-border w3-sand" id="brKreveta" type="number" onkeypress="return numbersonly(this, event)" required="required"></p>
-			     <p>      
-			    <label class="w3-text-brown"><b>Description of room</b></label>
-			    <textarea class="w3-input w3-border w3-sand" id="opis" rows="2" ></textarea></p>
-				 <p> 
-				<label class="w3-text-brown"><b>Type of room</b></label>
-				<select id="tipSobe"></select>
-			    </p>
-			     
-			    <p>
-				<label class="w3-text-brown"><b>Address</b></label>
-				<button class="w3-btn w3-brown" onclick="return getAdrese()">Choose</button>
-			    </p>
-			    <div class="odmakni">
-			    <input class="w3-input w3-border w3-sand" id="inpAdr" style="width: 300px; length: 5px;" readonly="readonly"/>
-			    </div>
-			    
-			    <p> <button class="w3-btn w3-brown" >Add</button></p>
-			  </form>
-		</div>
+ 
+<div class="container-custom">
+  <div class="split left">
+    <h1 class="font-weight-bold">AGENT</h1>
+<a class="btn btn-primary" href="agent.html" style="position: absolute;" >ADD AGENT</a>
     </div>
+  <div class="split right">
+    <h1 class="font-weight-bold " style="color: blue">ACOMMODATION</h1>
+<a class="btn btn-primary" href="tipSmestaja.html" style="position: absolute;" >ADD TYPE</a>
+<a class="btn btn-primary" href="kategorija.html" style="position: absolute; margin-left: 137px" >ADD CATEGORY</a>
+    
   </div>
 </div>
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+</div>
+
+<div class="container" id="catAdd" style="background:buttonshadow;   width: 100%">
+  <div class="row" style="width: 100%">
+  <form  class="col-xs-12 col-sm-12 col-md-12">
+  <h2>Add new acommodation type</h2>
+  <div class="form-group">
+    
+<input style="font-size: 45px;color: white" type="radio" name="cat" value="one"> One Star<hr>
+<input style="font-size: 15px;color: white" type="radio" name="cat" value="two"> Two Stars<hr>
+<input style="font-size: 15px;color: white" type="radio" name="cat" value="three">Three stars <hr>
+<input style="font-size: 15px;color: white" type="radio" name="cat" value="four"> Four stars<hr>
+<input style="font-size: 15px;color: white" type="radio" name="cat" value="five"> Five stars<hr>
+<input style="font-size: 15px;color: white" type="radio" name="cat" value="no">Uncategoriezed<hr>
+
+
+    <button style="margin-top: 10px;margin-right: 10;margin-bottom: 10px"  class="btn btn-success">Submit </button>
+    </div>
+	
+	
+    
+   
+  </form>
+  </div>
+
+
+</div>
+
+ 
+ 
+ 
+
 
 
 <div class="modal fade" id="modalAdrese" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,7 +120,7 @@
   </div>
 </div>
 		
-	</div>
+
 
 </body>
 </html>

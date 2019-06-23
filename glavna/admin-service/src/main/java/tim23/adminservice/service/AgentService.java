@@ -41,4 +41,8 @@ public class AgentService {
 
         return ResponseEntity.badRequest().build();
     }
+    public Boolean exists(String username) {
+    	return agentRepository.existsByUsername(username);
+    }
+    
 }

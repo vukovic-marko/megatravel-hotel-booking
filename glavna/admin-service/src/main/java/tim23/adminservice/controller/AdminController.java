@@ -40,6 +40,14 @@ public class AdminController {
 	public ResponseEntity<Agent> registerAgent(@RequestBody Agent agent, HttpServletRequest request) {
 		return agentService.registerAgent(agent);
 	}
+	
+	
+	@GetMapping("/register/{username}")
+		public Boolean postoji(@PathVariable String username) {
+		return agentService.exists(username);
+		}
+	
+	
 
 	@GetMapping("/korisnik")
 	public ResponseEntity<List<KrajnjiKorisnik>> getKrajnjiKorisnici() {
