@@ -1,3 +1,81 @@
+function proba(){
+	$('#modalSlike').modal();
+//alert('a');
+}
+function probas(){
+	//$('#modalSlike').modal();
+alert('a');
+}
+
+function dodajSliku(){
+	 $('#file-input').trigger('click');
+}
+var i=0;
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        var divT = $('#slike');
+        //divT.style="display: inline;";
+    	var div = document.createElement("div");
+    	div.style=" border: 2px solid brown; width: 200px; height:305px;margin: 15px; display: block; margin-left: auto; margin-right: auto";
+    	//div.style="background:red;   vertical-align: middle; ";
+
+    	var image = document.createElement("img");
+    	var btn = document.createElement('input');
+    	btn.setAttribute('type','button');
+    	var idb="bt"+i;
+     	btn.setAttribute("id",idb);
+     	btn.className="w3-btn w3-brown";
+     	btn.style=" margin: 15px; display: block; margin-left: auto; margin-right: auto";
+    	btn.setAttribute('value','Dissmiss');
+    	var ids="sl"+i;
+     	image.setAttribute("id",ids);
+     	image.style=" margin: 15px; display: block; margin-left: auto; margin-right: auto ";
+        reader.onload = function (e) {
+         //   alert(e.target.result);
+
+            $('#'+ids)
+                .attr('src', e.target.result)
+                .width(150)
+                .height(200);
+        };
+        div.append(image);
+        div.append(btn);
+        var idd="div"+i;
+     	div.setAttribute("id",idd);
+
+      
+        divT.append(div);
+
+        $('#'+idb).on('click',function() { 
+            $('#'+idd).remove();
+            });
+
+        i=i+1;
+        reader.readAsDataURL(input.files[0]);
+
+		var slika = JSON.stringify({
+			"idslike": 1,
+			"urlSlike" : reader.readAsDataURL(input.files[0]),
+			"idSobe" : null,
+		});
+        
+    	$.ajax({
+    		async: false,
+    		url: "http://localhost:8081/agent/makingImage",
+	        type: "POST",
+	        contentType: "application/json",
+	        data: slika,
+    	    success: function (data) {
+    	    	//alert('AAA');
+    	    }
+    	});
+    }
+}
+
+
+
 function addRoom(){
 	$('#modalSoba').modal();
 	$.ajax({
@@ -16,6 +94,142 @@ function addRoom(){
 	    	}
 	    }
 	});
+}
+
+function reservations(){
+	$('#modalRez').modal();
+	var divT = $('#reze');
+	divT.empty();
+	var tabela=document.createElement("table");
+	var red0=document.createElement("tr");
+	var z1=document.createElement("th");
+	var z2=document.createElement("th");
+	var z3=document.createElement("th");
+	var z4=document.createElement("th");
+	var z5=document.createElement("th");
+	var z6=document.createElement("th");
+	var z7=document.createElement("th");
+
+	z1.style=" border: 2px solid brown;padding:10px; ";
+	z2.style=" border: 2px solid brown; padding:5px;";
+	z3.style=" border: 2px solid brown;padding:5px; ";
+	z4.style=" border: 2px solid brown;padding:5px; ";
+	z5.style=" border: 2px solid brown;padding:5px; ";
+	z6.style=" border: 2px solid brown;padding:5px; ";
+	z7.style=" border: 2px solid brown;padding:5px; ";
+	z1.innerHTML="Arrival date";
+	z2.innerHTML="Departure date";
+	z3.innerHTML="Number of persons";
+	z4.innerHTML="Client username";
+	z5.innerHTML="Grade";
+	z6.innerHTML="Room id";
+	z7.innerHTML="Realized";
+	//z5.innerHTML="Ocena";
+
+	red0.append(z1);
+	red0.append(z2);
+	red0.append(z3);
+	red0.append(z4);
+	red0.append(z5);
+	red0.append(z6);
+	red0.append(z7);
+	tabela.append(red0);
+	var username="nina";
+	$.ajax({
+		async: false,
+		url: "http://localhost:8081/agent/mojeRez/"+username,////////
+	    type: "GET",
+	    success: function (v) {
+	    	if(v.length>0){
+	    	for(var i=0;i<v.length;i++){
+	    		var red1=document.createElement("tr");
+				var sad1=document.createElement("td");
+				var sad2=document.createElement("td");
+				var sad3=document.createElement("td");
+				var sad4=document.createElement("td");
+				var sad5=document.createElement("td");
+				var sad6=document.createElement("td");
+
+				var sad7=document.createElement("td");
+				
+				sad1.style=" border: 2px solid green ";
+				sad2.style=" border: 2px solid green ";
+				sad3.style=" border: 2px solid green ";
+				sad4.style=" border: 2px solid green ";
+				sad5.style=" border: 2px solid green ";
+				sad6.style=" border: 2px solid green ";
+				sad7.style=" border: 2px solid green ";
+				//alert()
+			     var myDate = v[i].datumDolaska;
+			     var now = moment(myDate).format('l');
+				sad1.innerHTML= now;
+				myDate = v[i].datumOdlaska;
+				now = moment(myDate).format('l');
+				sad2.innerHTML=now;
+				sad3.innerHTML=v[i].brojOsoba;
+				//sad4.innerHTML=v[i].krajnjiKorisnik.username; //username
+				if(v[i].ocena!=0){
+				sad5.innerHTML=v[i].ocena;
+				}
+				
+				red1.append(sad1);
+				red1.append(sad2);
+				red1.append(sad3);
+				red1.append(sad4);
+				red1.append(sad5);
+				red1.append(sad6);
+//				
+//				$.ajax({
+//					async: false,
+//					url: "http://localhost:8081/agent/nadjiSobu",
+//				    type: "GET",
+//				    data: v[i].soba,
+//				    success: function (data) {
+//				    	sad6.innerHTML=data;
+//				    	}
+//				    });
+				
+				//sad6.innerHTML=v[i].soba.idSoba; //idsobe
+				var today = new Date();
+				var dd = today.getDate();
+
+				var mm = today.getMonth()+1; 
+				var yyyy = today.getFullYear();
+				today = mm+'/'+dd+'/'+yyyy;
+				if(now==today && (v[i].realizovana==false || v[i].realizovana=="" || v[i].realizovana==null)){
+					var preuzmi = document.createElement("INPUT");
+					preuzmi.setAttribute("type", "button");
+					preuzmi.value="Realize";
+					preuzmi.className="w3-btn w3-brown";
+					preuzmi.setAttribute("onclick", "realizuj('"+v[i].idRezervacije+"')");
+					preuzmi.style="padding:10px; margin:10px;";
+					sad7.append(preuzmi);
+
+				}else{
+					sad7.innerHTML=v[i].realizovana;
+				}
+				red1.append(sad7);
+
+
+				tabela.append(red1);
+
+	    	}
+	    }
+	}
+	});
+	divT.append(tabela);
+
+}
+
+function realizuj(id){
+	$.ajax({
+		async: false,
+		url: "http://localhost:8081/agent/realizacija/"+id,
+	    type: "POST",
+	    success: function (data) {
+	    	reservations();
+	    }
+	    });
 }
 
 function sakriModal(){
@@ -71,13 +285,13 @@ function sakriModal(){
 	        data: soba,
 	        success: function (data) {
 	
-	        },
-	        error: function (jqxhr, textStatus, errorThrown) {
-	            
-	        }
+	        }//,
+//	        error: function (jqxhr, textStatus, errorThrown) {
+//	            
+//	        }
 		});
 	}
-	////////////////////////////////salji dtosobu
+	
 }
 
 function getAdrese(){
