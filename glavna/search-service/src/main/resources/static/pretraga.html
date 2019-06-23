@@ -56,15 +56,17 @@ body, html {
 	border: 1px #dadada solid;
 	background-color: white;
 }
-
-#checkboxes label {
-	display: block;
+#checkboxes2 {
+	display: none;
+	border: 1px #dadada solid;
+	background-color: white;
+}
+#checkboxes3 {
+	display: none;
+	border: 1px #dadada solid;
 	background-color: white;
 }
 
-#checkboxes label:hover {
-	background-color: #1e90ff;
-}
 </style>
 <head>
 <title></title>
@@ -131,7 +133,7 @@ body, html {
 				<td class="fonts">Dodatne usluge</td>
 				<td>
 					<form>
-						<div class="multiselect" id="glavniDiv">
+						<div class = "multiselect" id="glavniDiv">
 							<div class="selectBox" onclick="prikaziUsluge()">
 								<select>
 									<option>Izaberi dodatne usluge</option>
@@ -141,7 +143,39 @@ body, html {
 
 						</div>
 					</form>
-					<td>
+					</td>
+				</tr>
+				<tr>
+				<td class="fonts">Tip smestaja</td>
+				<td>
+					<form>
+						<div id="glavniDivZaTipSmestaja">
+							<div class="selectBox" onclick="prikaziTipoveSmestaja()">
+								<select>
+									<option>Izaberi tip smestaja</option>
+								</select>
+								<div class="overSelect"></div>
+							</div>
+
+						</div>
+					</form>
+					</td>
+				</tr>
+				<tr>
+				<td class="fonts">Kategorija smestaja</td>
+				<td>
+					<form>
+						<div id="glavniDivZaKategorijuSmestaja">
+							<div class="selectBox" onclick="prikaziKategorijeSmestaja()">
+								<select>
+									<option>Izaberi kategoriju smestaja</option>
+								</select>
+								<div class="overSelect"></div>
+							</div>
+
+						</div>
+					</form>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="4"><button type="button" class="btn btn-primary"

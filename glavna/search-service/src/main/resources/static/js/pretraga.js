@@ -1,5 +1,9 @@
 var listaUsluga = [];
+var listaTipovaSmestaja = [];
+var listaKategorija = [];
 var expanded = false;
+var expanded2 = false;
+var expanded3 = false;
 $(document).ready(function() {
 	
 	// funkcija kojom se prikazuje odgovarajuci sadrzaj za korisnika
@@ -42,6 +46,25 @@ $(document).ready(function() {
 		}
 	});
 	
+	$.ajax({
+		async : false,
+		url : "http://localhost:8762/search-service/search/getAllTipoviSmestaja",
+		type : "GET",
+		dataType : "json",
+		success : function(data) {
+			listaTipovaSmestaja = data;
+		}
+	});
+	
+	$.ajax({
+		async : false,
+		url : "http://localhost:8762/search-service/search/getAllKategorije",
+		type : "GET",
+		dataType : "json",
+		success : function(data) {
+			listaKategorija = data;
+		}
+	});
 	
 	// logovanje
 	$('#logovanje').click(function () {
@@ -69,21 +92,50 @@ $(document).ready(function() {
 	})
 })
 
-function prikaziUsluge() {
+function prikaziTipoveSmestaja() {
 	var boxes = document.createElement('div');
-	var glavniDiv = document.getElementById('glavniDiv');
-	glavniDiv.setAttribute('class','checkboxes');
-	boxes.setAttribute('id','checkboxes');
-	for (i = 0; i < listaUsluga.length; i++) {
+	var glavniDiv = document.getElementById('glavniDivZaTipSmestaja');
+	boxes.setAttribute('id','checkboxes2');
+	for (i = 0; i < listaTipovaSmestaja.length; i++) {
 		var labelaNaziv = document.createElement('label');
 		var input = document.createElement('input');
 		input.setAttribute('type','checkbox');
-		input.setAttribute('id',listaUsluga[i].id);
-		input.setAttribute('name','usluga');
-		labelaNaziv.innerHTML = listaUsluga[i].naziv;
-		input.setAttribute('value',listaUsluga[i].naziv);
+		input.setAttribute('id',listaTipovaSmestaja[i].id);
+		input.setAttribute('name','tipovi');
+		labelaNaziv.innerHTML = listaTipovaSmestaja[i].naziv;
+		input.setAttribute('value',listaTipovaSmestaja[i].naziv);
 		boxes.append(input);
 		boxes.append(labelaNaziv);	
+		var br = document.createElement('br');
+		boxes.append(br);
+	}
+	glavniDiv.append(boxes);
+	var checkboxes = document.getElementById("checkboxes2");
+	  if (!expanded2) {
+	    checkboxes.style.display = "block";
+	    expanded2 = true;
+	  } else {
+	    checkboxes.style.display = "none";
+	    expanded2 = false;
+	  }
+}
+
+function prikaziUsluge(){
+	var boxes = document.createElement('div');
+	var glavniDiv = document.getElementById('glavniDiv');
+	boxes.setAttribute('id','checkboxes');
+	for (i = 0; i < listaUsluga.length; i++) {
+		var input = document.createElement('input');
+		input.setAttribute('type','checkbox');
+		input.setAttribute('id',listaUsluga[i].id);
+		var labelaNaziv = document.createElement('label');
+		labelaNaziv.innerHTML = listaUsluga[i].naziv;
+		input.setAttribute('name','usluga');
+		input.setAttribute('value',listaUsluga[i].naziv);
+		boxes.append(input);
+		boxes.append(labelaNaziv);
+		var br = document.createElement('br');
+		boxes.append(br);
 	}
 	glavniDiv.append(boxes);
 	var checkboxes = document.getElementById("checkboxes");
@@ -93,6 +145,34 @@ function prikaziUsluge() {
 	  } else {
 	    checkboxes.style.display = "none";
 	    expanded = false;
+	  }
+}
+
+function prikaziKategorijeSmestaja(){
+	var boxes = document.createElement('div');
+	var glavniDiv = document.getElementById('glavniDivZaKategorijuSmestaja');
+	boxes.setAttribute('id','checkboxes3');
+	for (i = 0; i < listaKategorija.length; i++) {
+		var input = document.createElement('input');
+		input.setAttribute('type','checkbox');
+		input.setAttribute('id',listaKategorija[i].id);
+		var labelaNaziv = document.createElement('label');
+		labelaNaziv.innerHTML = listaKategorija[i].naziv;
+		input.setAttribute('name','kategorija');
+		input.setAttribute('value',listaKategorija[i].naziv);
+		boxes.append(input);
+		boxes.append(labelaNaziv);
+		var br = document.createElement('br');
+		boxes.append(br);
+	}
+	glavniDiv.append(boxes);
+	var checkboxes = document.getElementById("checkboxes3");
+	  if (!expanded3) {
+	    checkboxes.style.display = "block";
+	    expanded3 = true;
+	  } else {
+	    checkboxes.style.display = "none";
+	    expanded3 = false;
 	  }
 }
 
@@ -116,59 +196,48 @@ function pretraziSmestajneJedinice() {
     $.each($("input[name='usluga']:checked"), function(){            
     	dodatneUsluge.push($(this).val());
     });
-
-	/*var danDolaska = startDate.getDate();
-	var mesecDolaska = startDate.getMonth() + 1;
-	var godinaDolaska = startDate.getFullYear();
-	var datumDolaskaZaFront = "";
-	if (mesecDolaska < 10 && danDolaska < 10) {
-		datumDolaskaZaFront += godinaDolaska + "/0" + mesecDolaska + "/0"
-				+ danDolaska;
-	} else if (mesecDolaska < 10 && danDolaska >= 10) {
-		datumDolaskaZaFront += godinaDolaska + "/0" + mesecDolaska + "/"
-				+ danDolaska;
-	} else if (mesecDolaska >= 10 && danDolaska < 10) {
-		datumDolaskaZaFront += godinaDolaska + "/" + mesecDolaska + "/0"
-				+ danDolaska;
-	} else {
-		datumDolaskaZaFront += godinaDolaska + "/" + mesecDolaska + "/"
-				+ danDolaska;
-	}*/
-
-	/*var danOdlaska = endDate.getDate();
-	var mesecOdlaska = endDate.getMonth() + 1;
-	var godnaOdlaska = endDate.getFullYear();
-	var datumOdlaskaZaFront = "";
-	if (mesecOdlaska < 10 && danOdlaska < 10) {
-		datumOdlaskaZaFront += godnaOdlaska + "/0" + mesecOdlaska + "/0"
-				+ danOdlaska;
-	} else if (mesecOdlaska < 10 && danOdlaska >= 10) {
-		datumOdlaskaZaFront += godnaOdlaska + "/0" + mesecOdlaska + "/"
-				+ danOdlaska;
-	} else if (mesecOdlaska >= 10 && danOdlaska < 10) {
-		datumOdlaskaZaFront += godnaOdlaska + "/" + mesecOdlaska + "/0"
-				+ danOdlaska;
-	} else {
-		datumOdlaskaZaFront += godnaOdlaska + "/" + mesecOdlaska + "/"
-				+ danOdlaska;
-	}*/
-    if(dodatneUsluge==null){
-		var ponuda = JSON.stringify({
-			"datumPolaska" : startDate,
-			"datumOdlaska" : endDate,
-			"brojOsoba" : numOfPers,
-			"mesto" : place
-		});
+    
+    var tipSmestaja;
+    var selektovano = 0;
+    
+    $.each($("input[name='tipovi']:checked"), function(){            
+    	selektovano++;
+    });
+    
+    $.each($("input[name='tipovi']:checked"), function(){            
+    	tipSmestaja = $(this).val();
+    });
+    
+    var kategorija;
+    var selektovanaKategorija = 0;
+    
+    $.each($("input[name='kategorija']:checked"), function(){            
+    	selektovanaKategorija++;
+    });
+    $.each($("input[name='kategorija']:checked"), function(){            
+    	kategorija = $(this).val();
+    });
+    
+    if(selektovano > 1) {
+    	toastr.warning('Odaberite samo jedan tip smestaja');
+    	return;
     }
-    else {
-    	var ponuda = JSON.stringify({
-			"datumPolaska" : startDate,
-			"datumOdlaska" : endDate,
-			"brojOsoba" : numOfPers,
-			"mesto" : place,
-			"nazivDodatneUsluge" : dodatneUsluge
-		});
+    
+    if(selektovanaKategorija > 1) {
+    	toastr.warning('Odaberite samo jednu kategoriju');
+    	return;
     }
+    
+    
+	var ponuda = JSON.stringify({
+		"datumPolaska" : startDate,
+		"datumOdlaska" : endDate,
+		"brojOsoba" : numOfPers,
+		"mesto" : place,
+		"nazivDodatneUsluge" : dodatneUsluge,
+		"tipSmestaja" : tipSmestaja,
+		"kategorija" : kategorija
+	});
 
 	$.ajax({
 		async : false,
@@ -178,7 +247,7 @@ function pretraziSmestajneJedinice() {
 		contentType : "application/json",
 		data : ponuda,
 		success : function(data) {
-
+			toasrt["success"]('Uspesnoooo');
 		}
 	});
 }

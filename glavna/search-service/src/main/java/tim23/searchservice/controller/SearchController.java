@@ -20,11 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tim23.searchservice.config.JwtConfig;
 import tim23.searchservice.dto.DodatneUslugeDTO;
+import tim23.searchservice.dto.KategorijaSmestajaDTO;
 import tim23.searchservice.dto.PonudaDTO;
+import tim23.searchservice.dto.TipSmestajaDTO;
 import tim23.searchservice.model.DodatneUsluge;
+import tim23.searchservice.model.KategorijaSmestaja;
 import tim23.searchservice.model.Soba;
+import tim23.searchservice.model.TipSmestaja;
 import tim23.searchservice.repository.KrajnjiKorisnikRepository;
 import tim23.searchservice.service.DodatneUslugeService;
+import tim23.searchservice.service.KategorijaSmestajaService;
+import tim23.searchservice.service.TipSmestajaService;
 import tim23.searchservice.*;
 @RestController
 @RequestMapping("/search")
@@ -35,6 +41,10 @@ public class SearchController {
 	@Autowired
 	private DodatneUslugeService dodatneUslugeService;
 	@Autowired SearchService searchService;
+	@Autowired
+	private TipSmestajaService tipSmestajaService;
+	@Autowired
+	private KategorijaSmestajaService kategorijaService;
 
 	@GetMapping("/")
 	public String hello(HttpServletRequest request) {
@@ -61,6 +71,38 @@ public class SearchController {
 			uslugeZaFront.add(dodUsl);
 		}
 		return new ResponseEntity<>(uslugeZaFront,HttpStatus.OK);
+	}
+	
+	@RequestMapping(
+			value = "/getAllTipoviSmestaja",
+			method = RequestMethod.GET
+	)
+	public ResponseEntity<?> getTipoviSmestaja() {
+		ArrayList<TipSmestajaDTO> smestajiZaFront = new ArrayList<TipSmestajaDTO>();
+		ArrayList<TipSmestaja> tipovi = tipSmestajaService.getAll();
+		for(int i=0;i<tipovi.size();i++) {
+			TipSmestajaDTO dodUsl = new TipSmestajaDTO();
+			dodUsl.setId(tipovi.get(i).getIdTipa());
+			dodUsl.setNaziv(tipovi.get(i).getNaziv());
+			smestajiZaFront.add(dodUsl);
+		}
+		return new ResponseEntity<>(smestajiZaFront,HttpStatus.OK);
+	}
+	
+	@RequestMapping(
+			value = "/getAllKategorije",
+			method = RequestMethod.GET
+	)
+	public ResponseEntity<?> getKategorije() {
+		ArrayList<KategorijaSmestajaDTO> kategorijeZaFront = new ArrayList<KategorijaSmestajaDTO>();
+		ArrayList<KategorijaSmestaja> kat = kategorijaService.getAll();
+		for(int i=0;i<kat.size();i++) {
+			KategorijaSmestajaDTO kategorija = new KategorijaSmestajaDTO();
+			kategorija.setId(kat.get(i).getId());
+			kategorija.setNaziv(kat.get(i).getNaziv());
+			kategorijeZaFront.add(kategorija);
+		}
+		return new ResponseEntity<>(kategorijeZaFront,HttpStatus.OK);
 	}
 	
 	@RequestMapping(

@@ -1,7 +1,6 @@
 package tim23.searchservice.dto;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class PonudaDTO {
 
@@ -10,6 +9,8 @@ public class PonudaDTO {
 	private Integer brojOsoba;
 	private String mesto;
 	private ArrayList<String> nazivDodatneUsluge;
+	private String tipSmestaja;
+	private String kategorija;
 	
 	public PonudaDTO() {
 		
@@ -17,16 +18,36 @@ public class PonudaDTO {
 	
 	
 	public PonudaDTO(String datumPolaska, String datumOdlaska, Integer brojOsoba, String mesto,
-			ArrayList<String> dodatneUsluge) {
+			ArrayList<String> dodatneUsluge,String tipSmestaja,String kategorija) {
 		super();
 		this.datumPolaska = datumPolaska;
 		this.datumOdlaska = datumOdlaska;
 		this.brojOsoba = brojOsoba;
 		this.mesto = mesto;
 		this.nazivDodatneUsluge = dodatneUsluge;
+		this.tipSmestaja = tipSmestaja;
+		this.kategorija = kategorija;
+	}
+	
+	public String getKategorija() {
+		return kategorija;
 	}
 
-	
+
+	public void setKategorija(String kategorija) {
+		this.kategorija = kategorija;
+	}
+
+
+	public String getTipSmestaja() {
+		return tipSmestaja;
+	}
+
+
+	public void setTipSmestaja(String tipSmestaja) {
+		this.tipSmestaja = tipSmestaja;
+	}
+
 
 	public ArrayList<String> getNazivDodatneUsluge() {
 		return nazivDodatneUsluge;
