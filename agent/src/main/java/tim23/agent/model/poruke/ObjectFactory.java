@@ -78,6 +78,22 @@ public class ObjectFactory {
     	return new GetSobaResponse();
     }
     
+    public GetAdresaListRequest createGetAdresaListRequest() {
+    	return new GetAdresaListRequest();
+    }
+    
+    public GetAdresaListResponse createGetAdresaListResonse() {
+    	return new GetAdresaListResponse();
+    }
+    
+    public GetTipSmestajaListRequest createGetTipoviSmestajaListRequest() {
+    	return new GetTipSmestajaListRequest();
+    }
+    
+    public GetTipSmestajaListResponse createGetTipSmestajaListResponse() {
+    	return new GetTipSmestajaListResponse();
+    }
+    
     /**
      * Create an instance of {@link Agent }
      * 

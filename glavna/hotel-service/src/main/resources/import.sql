@@ -24,3 +24,7 @@ insert into agent_authority (user_id, authority_id) values (1, 2);
 -- lozinka: korisnik
 insert into krajnjikorisnik (idkorisnika, username, password, ime, prezime, uloga, uklonjen, blokiran) values (1, 'korisnik', '$2a$04$dRHKIvyyAUAaYUpuSYHGCezbyOyvYTcd8Ny2XJZokX0ykntxIyZte', 'Korisnik', 'Korisnik', 2, false, false);
 insert into krajnjikorisnik_authority (user_id, authority_id) values (1, 3);
+
+insert into adresa (id,grad,drzava,ulicaibroj) values (1,"Madrid","Spanija","ul2");
+
+insert into tipsmestaja (idtipa, naziv) values (1, 'Hotel');

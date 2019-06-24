@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import tim23.agent.AgentClient;
-import tim23.agent.SobaClient;
 import tim23.agent.config.JwtConfig;
 import tim23.agent.model.Agent;
 import tim23.agent.model.Soba;
@@ -19,21 +18,9 @@ public class HotelController {
 
 	@Autowired
 	private JwtConfig tokenUtils;
-
-//	@Autowired
-//	private SobaClient quoteClient;
 	
 	@Autowired
 	private AgentClient agentClient;
-	
-//	@GetMapping("/test")
-//	public Soba test() {
-//		int soba = 4;
-//
-//		GetSobaResponse response = quoteClient.get(soba);
-//
-//		return response.getSoba();
-//	}
 
 	@GetMapping("/")
 	public Agent hello(HttpServletRequest request) {

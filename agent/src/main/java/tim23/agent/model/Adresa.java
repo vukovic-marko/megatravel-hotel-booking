@@ -56,7 +56,6 @@ public class Adresa {
 
     @XmlElement(name = "Id", required = true)
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
     

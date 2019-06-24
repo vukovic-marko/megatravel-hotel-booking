@@ -7,8 +7,6 @@
 
 
 package tim23.hotelservice.model;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -66,6 +64,7 @@ import javax.xml.bind.annotation.XmlType;
     "idAgenta",
     "tipSmestaja",
     "opisSmestaja",
+    "kategorijaSmestaja"
 //    "dodatneUsluge",
 //    "slika",
 //    "cena"//,
@@ -116,6 +115,11 @@ public class Soba {
     @XmlElement(name = "Opis_smestaja", required = true)
     @Column (name = "opissmestaja")
     private String opisSmestaja;
+    
+    @XmlElement(name = "Kategorija_smestaja", required = true)
+    @ManyToOne
+    @JoinColumn(name="id")
+    private KategorijaSmestaja kategorijaSmestaja;
     
 //    @XmlElement(name = "Rezervacija")
 //    protected List<Rezervacija> rezervacija;
@@ -287,6 +291,30 @@ public class Soba {
     public void setOpisSmestaja(String value) {
         this.opisSmestaja = value;
     }
+
+	public Boolean getOdobreno() {
+		return odobreno;
+	}
+
+	public void setOdobreno(Boolean odobreno) {
+		this.odobreno = odobreno;
+	}
+
+	public KategorijaSmestaja getKategorijaSmestaja() {
+		return kategorijaSmestaja;
+	}
+
+	public void setKategorijaSmestaja(KategorijaSmestaja kategorijaSmestaja) {
+		this.kategorijaSmestaja = kategorijaSmestaja;
+	}
+
+	public Integer getBrojSobe() {
+		return brojSobe;
+	}
+
+	public void setOcena(Double ocena) {
+		this.ocena = ocena;
+	}
 
 
 }

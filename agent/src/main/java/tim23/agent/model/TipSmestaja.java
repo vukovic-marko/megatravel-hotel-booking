@@ -52,7 +52,6 @@ public class TipSmestaja {
 
     @XmlElement(name = "Id_tipa")
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column (name = "idtipa")
     private Integer idTipa;
     

@@ -12,9 +12,13 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 //import tim23.hotelservice.model.poruke.GetSobaResponse;
 //import tim23.hotelservice.model.poruke.Soba;
 
+import tim23.hotelservice.model.Adresa;
 import tim23.hotelservice.model.Agent;
 import tim23.hotelservice.model.Rezervacija;
 import tim23.hotelservice.model.Soba;
+import tim23.hotelservice.model.TipSmestaja;
+import tim23.hotelservice.model.poruke.GetAdresaListRequest;
+import tim23.hotelservice.model.poruke.GetAdresaListResponse;
 import tim23.hotelservice.model.poruke.GetAgentListRequest;
 import tim23.hotelservice.model.poruke.GetAgentListResponse;
 import tim23.hotelservice.model.poruke.GetAgentRequest;
@@ -23,9 +27,13 @@ import tim23.hotelservice.model.poruke.GetReservationListRequest;
 import tim23.hotelservice.model.poruke.GetReservationListResponse;
 import tim23.hotelservice.model.poruke.GetSobaRequest;
 import tim23.hotelservice.model.poruke.GetSobaResponse;
+import tim23.hotelservice.model.poruke.GetTipSmestajaListRequest;
+import tim23.hotelservice.model.poruke.GetTipSmestajaListResponse;
+import tim23.hotelservice.repository.AdresaRepository;
 import tim23.hotelservice.repository.AgentRepository;
 import tim23.hotelservice.repository.RezervacijaRepository;
 import tim23.hotelservice.repository.SobaRepository;
+import tim23.hotelservice.repository.TipSmestajaRepository;
 
 @Endpoint
 public class HotelEndpoint {
@@ -38,6 +46,12 @@ public class HotelEndpoint {
 	
 	@Autowired
 	private SobaRepository sobaRepository;
+	
+	@Autowired
+	private AdresaRepository adresaRepository;
+	
+	@Autowired
+	private TipSmestajaRepository tipSmestajaRepository;
 	
     @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getAgentRequest")
     @ResponsePayload
@@ -82,6 +96,24 @@ public class HotelEndpoint {
     	GetSobaResponse response = new GetSobaResponse();
     	response.setSoba(soba);
     	
+    	return response;
+    }
+
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getAdresaListRequest")
+    @ResponsePayload
+    public GetAdresaListResponse getSoba(@RequestPayload GetAdresaListRequest request) {
+    	List<Adresa> adrese = adresaRepository.findAll();
+    	GetAdresaListResponse response = new GetAdresaListResponse();
+    	response.setAdrese(adrese);
+    	return response;
+    }
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getTipSmestajaListRequest")
+    @ResponsePayload
+    public GetTipSmestajaListResponse getSoba(@RequestPayload GetTipSmestajaListRequest request) {
+    	List<TipSmestaja> tipoviSmestaja = tipSmestajaRepository.findAll();
+    	GetTipSmestajaListResponse response = new GetTipSmestajaListResponse();
+    	response.setTipoviSmestaja(tipoviSmestaja);
     	return response;
     }
 }

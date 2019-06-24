@@ -11,10 +11,15 @@ import org.springframework.context.annotation.Bean;
 
 import tim23.agent.FromDTO.FromSobaDTO;
 import tim23.agent.config.JwtConfig;
+import tim23.agent.model.Adresa;
 import tim23.agent.model.Agent;
-import tim23.agent.model.poruke.GetAgentListRequest;
+import tim23.agent.model.TipSmestaja;
+import tim23.agent.model.poruke.GetAdresaListResponse;
 import tim23.agent.model.poruke.GetAgentListResponse;
+import tim23.agent.model.poruke.GetTipSmestajaListResponse;
+import tim23.agent.repository.AdresaRepository;
 import tim23.agent.repository.AgentRepository;
+import tim23.agent.repository.TipSmestajaRepository;
 
 @SpringBootApplication
 public class AgentApplication implements ApplicationListener<ApplicationReadyEvent> {
@@ -25,17 +30,35 @@ public class AgentApplication implements ApplicationListener<ApplicationReadyEve
 	@Autowired
 	private AgentRepository repo;
 	
+	@Autowired
+	private AdresaRepository adresaRepository;
+	
+	@Autowired
+	private TipSmestajaRepository tipSmestajaRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AgentApplication.class, args);
 	}
 	
 	@Override
 	public void onApplicationEvent(final ApplicationReadyEvent event) {		
-		GetAgentListResponse response = client.getList("");
+		GetAgentListResponse responseAgenti = client.getList("");
+		GetAdresaListResponse responseAdrese = client.getAdrese();
+		GetTipSmestajaListResponse responseTipoviSmestaja = client.getTip();
 		
-		List<Agent> agents = response.getAgent();
+		List<Agent> agents = responseAgenti.getAgent();
 		for (Agent a: agents) {
 			repo.save(a);
+		}
+		
+		List<Adresa> adrese = responseAdrese.getAdrese();
+		for (Adresa a: adrese) {
+			adresaRepository.save(a);
+		}
+		
+		List<TipSmestaja> tipoviSmestaja = responseTipoviSmestaja.getTipoviSmestaja();
+		for (TipSmestaja t: tipoviSmestaja) {
+			tipSmestajaRepository.save(t);
 		}
  
 		return;
