@@ -6,4 +6,5 @@ import tim23.adminservice.model.KategorijaSmestaja;
 
 @Repository
 public interface KategorijaSmestajaRepository extends JpaRepository<KategorijaSmestaja, Integer> {
+	Boolean existsByNaziv(String naziv);
 }

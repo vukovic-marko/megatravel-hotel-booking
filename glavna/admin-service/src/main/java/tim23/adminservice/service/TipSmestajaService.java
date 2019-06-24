@@ -21,6 +21,10 @@ public class TipSmestajaService {
     public ResponseEntity<TipSmestaja> getTipSmestaja(Integer id) {
         return ResponseEntity.ok(tipSmestajaRepository.findByIdTipa(id));
     }
+    
+    public Boolean exists(String naziv) {
+    	return tipSmestajaRepository.existsByNaziv(naziv);
+    }
 
     public ResponseEntity<TipSmestaja> dodajTipSmestaja(TipSmestaja tipSmestaja) {
         return ResponseEntity.ok(tipSmestajaRepository.save(tipSmestaja));

@@ -8,6 +8,7 @@ function allUsers(){
 	
 		url: "http://localhost:8762/admin-service/admin/korisnik",
 	    type: "GET",
+	    contentType:"application/json",
 	    success: function (data) {
       
 	    	for(var i=0;i<data.length;i++){
@@ -29,7 +30,7 @@ function allUsers(){
 		    	cell3.innerHTML = kk.prezime;
 		    	cell4.innerHTML = "<button name = \""+kk.idKorisnika+"\" onclick=\"ukloniFunction()\" id =\""+kk.username+"\" type=\"button\" class=\"btn btn-danger\">Ukloni</button>"
 		    	if(kk.blokiran)
-		    		cell5.innerHTML = "<button onclick=\"odblokirajFunction()\" id =\""+kk.username+"\" type=\"button\" class=\"btn btn-outline-primary\">Odblokiraj</button>"
+		    		cell5.innerHTML = "<button onclick=\"odblokirajFunction()\" id =\""+kk.username+"\" type=\"button\" class=\"btn btn-primary\">Odblokiraj</button>"
 		    		else
 		    			cell5.innerHTML = "<button onclick=\"blokirajFunction()\" id =\""+kk.username+"\" type=\"button\" class=\"btn btn-danger\">Blokiraj</button>"
 				    			
@@ -57,10 +58,10 @@ function ukloniFunction(){
 	    	url: "http://localhost:8762/admin-service/admin/korisnik/"+button.id+"/delete/true",
 	    	type:"DELETE",
 	    	 success: function () {
-	 	    	alert("Uklonjen"+button.id)
+	 	    	alert("Deleted"+button.id)
 
 	 	    	},error:function(){
-	 	    		alert("Nije dobro")
+	 	    		alert("Error")
 	 	    	}
 	 	    
 	    	

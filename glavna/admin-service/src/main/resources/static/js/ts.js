@@ -1,4 +1,26 @@
 $(document).ready(function(){
+	$('#katAddingForm').submit(function (e) {
+		e.preventDefault();
+		
+		var name = document.getElementById("imeS").value;
+
+		$.ajax({
+			url: "http://localhost:8762/admin-service/admin/tipSmestaja/check/"+name,
+		    type:"GET",	    
+		   contentType: 'application/json; charset=utf-8',
+		    success: function (data){
+		    	if(data==false)
+		    	addNewType();
+		    	else if(data==true)
+		    		alert("POSTOJI");
+		    	else 
+		    		alert(data);
+		    },
+		    error: function(){
+		    	alert("Error ");
+		    }
+		});
+	});
 	var tab = document.getElementById("tabelasmestaja")
 	$.ajax({
 		url: "http://localhost:8762/admin-service/admin/tipSmestaja",
@@ -42,7 +64,7 @@ function addNewType(){
         success: function (data) {
         alert("Uspesno");
         },
-        error: function (jqxhr, textStatus, errorThrown) {
+        error: function () {
             
         }
 	});
@@ -68,3 +90,4 @@ function ukloniSmestaj(){
 	});
 	
 }
+

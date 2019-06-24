@@ -43,9 +43,9 @@ public class AdminController {
 	
 	
 	@GetMapping("/register/{username}")
-		public Boolean postoji(@PathVariable String username) {
+	public Boolean postoji(@PathVariable String username) {
 		return agentService.exists(username);
-		}
+	}
 	
 	
 
@@ -108,6 +108,12 @@ public class AdminController {
 		return tipSmestajaService.ukloniTipSmestaja(id);
 	}
 
+	@GetMapping("/tipSmestaja/check/{naziv}")
+	public Boolean postojiTip(@PathVariable String naziv) {
+		return tipSmestajaService.exists(naziv);
+	}
+	
+	
 
 
 	@GetMapping("/kategorijaSmestaja")
@@ -123,6 +129,11 @@ public class AdminController {
 	@DeleteMapping("/kategorijaSmestaja/{id}")
 	public ResponseEntity ukloniKategorijuSmestaja(@PathVariable Integer id) {
 		return kategorijaSmestajaService.ukloniKategorijuSmestaja(id);
+	}
+	
+	@GetMapping("/kategorijaSmestaja/{naziv}")
+	public Boolean postojiKat(@PathVariable String naziv) {
+		return kategorijaSmestajaService.exists(naziv);
 	}
 
 	//----------------------------------------------

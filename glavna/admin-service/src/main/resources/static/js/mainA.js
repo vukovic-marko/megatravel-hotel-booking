@@ -1,4 +1,22 @@
 $(document).ready(function(){
+	var badge = $(".badge-light");
+	$.ajax({
+		url: "http://localhost:8762/admin-service/admin/komentar",
+    	type:"GET",
+    	 success: function (data) {
+    		 var b=0;
+    		 for(var i=0;i<data.length;i++){
+    			 var kk =data[i];
+    			 if(kk.odobreno==false)
+    				 b++
+    		 }
+        badge.text(b);
+    		 
+ 	    	},error:function(){
+ 	    		
+ 	    	}
+	});
+	
 	const left = document.querySelector('.left');
 	const right = document.querySelector('.right');
 	const container = document.querySelector('.container-custom');

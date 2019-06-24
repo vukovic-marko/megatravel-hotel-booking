@@ -7,4 +7,5 @@ import tim23.adminservice.model.TipSmestaja;
 @Repository
 public interface TipSmestajaRepository extends JpaRepository<TipSmestaja, Integer> {
     TipSmestaja findByIdTipa(Integer id);
+    Boolean existsByNaziv(String naziv);
 }

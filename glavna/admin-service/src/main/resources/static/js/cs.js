@@ -1,4 +1,26 @@
 $(document).ready(function(){
+	$('#katDodavanje').submit(function (e) {
+		e.preventDefault();
+		
+		var name = document.getElementById("imeK").value;
+
+		$.ajax({
+			url: "http://localhost:8762/admin-service/admin/kategorijaSmestaja/"+name,
+		    type:"GET",	    
+		   contentType: 'application/json; charset=utf-8',
+		    success: function (data){
+		    	if(data==false)
+		    	addNewKat();
+		    	else if(data==true)
+		    		alert("POSTOJI");
+		    	else 
+		    		alert(data);
+		    },
+		    error: function(){
+		    	alert("Error ");
+		    }
+		});
+	});
 	var tab = document.getElementById("tabelakat")
 	$.ajax({
 		url: "http://localhost:8762/admin-service/admin/kategorijaSmestaja",
@@ -74,3 +96,26 @@ function ukloniKat(){
 	});
 	
 }
+
+$('#katDodavanje').submit(function (e) {
+	e.preventDefault();
+	
+	var name = document.getElementById("imeK").value;
+
+	$.ajax({
+		url: "http://localhost:8762/admin-service/admin/kategorijaSmestaja/"+name,
+	    type:"GET",	    
+	   contentType: 'application/json; charset=utf-8',
+	    success: function (data){
+	    	if(data==false)
+	    	addNewKat();
+	    	else if(data==true)
+	    		alert("POSTOJI");
+	    	else 
+	    		alert(data);
+	    },
+	    error: function(){
+	    	alert("Error ");
+	    }
+	});
+});

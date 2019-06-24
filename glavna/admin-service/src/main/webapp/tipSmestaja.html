@@ -39,7 +39,7 @@ td{
 
 /* demo styles */
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+
 body{
   background: -webkit-linear-gradient(left, #25c481, #25b7c4);
   background: linear-gradient(to right, #25c481, #25b7c4);
@@ -97,7 +97,7 @@ section{
 <script type="text/javascript" src="js/ts.js"></script>
 
 
-<title>TipSmestaja</title>
+<title>Tip Smestaja</title>
 
 </head>
 <body>
@@ -106,15 +106,13 @@ section{
   <nav class="navbar navbar-inverse" id="navBar">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Welcome to MINM</a>
+      <a class="navbar-brand" href="adminMain.html">Welcome to MINM</a>
     </div>
     <ul class="nav navbar-nav" >
 <li><a href="adminMain.html">Back</a></li>    
     </ul>
     <ul class="nav navbar-nav" >
-<li><button style="margin-top: 9px;background-color: black" type="button" class="btn btn-primary">
-  Comments <span class="badge badge-light">4</span>
-</button></li>    
+ 
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
@@ -136,13 +134,13 @@ section{
 
 <div class="container" id="typeAdd" style="width: 100%;border: medium;border-color: blue">
   <div class="row" style="width: 100%;border: medium;border-color: blue">
-  <form onsubmit="return addNewType()"  class="col-xs-12 col-sm-12 col-md-12">
+  <form id ="katAddingForm"  class="col-xs-12 col-sm-12 col-md-12">
   <h2>Add new Type</h2>
  
 		
 	<div class="form-group" >
       <input type="text" class="form-control" id="imeS" placeholder="Type name *" name="type" required>
-    <button style="margin-top: 10px;margin-right: 10;margin-bottom: 10px"  class="btn btn-success">Submit </button>
+    <button type="submit" style="margin-top: 10px;margin-right: 10;margin-bottom: 10px"  class="btn btn-success">Submit </button>
 <a class="btn btn-primary" href="adminMain.html" style="margin-left: 30px;margin-top: 10px;margin-bottom: 10px;" >Back</a>
    </div>
    

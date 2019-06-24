@@ -13,6 +13,11 @@ public class KategorijaSmestajaService {
 
     @Autowired
     private KategorijaSmestajaRepository kategorijaSmestajaRepository;
+    
+    public Boolean exists(String naziv) {
+    return kategorijaSmestajaRepository.existsByNaziv(naziv);
+    
+    }
 
     public ResponseEntity<List<KategorijaSmestaja>> getKategotijeSmestaja() {
         return ResponseEntity.ok(kategorijaSmestajaRepository.findAll());
