@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
+
+import tim23.agent.FromDTO.FromSobaDTO;
 import tim23.agent.config.JwtConfig;
 import tim23.agent.model.Agent;
 import tim23.agent.model.poruke.GetAgentListRequest;
@@ -42,6 +44,11 @@ public class AgentApplication implements ApplicationListener<ApplicationReadyEve
 	@Bean
 	public JwtConfig jwtConfig() {
 		return new JwtConfig();
+	}
+	
+	@Bean
+	public FromSobaDTO fromSobaDTO() {
+		return new FromSobaDTO();
 	}
 
 }

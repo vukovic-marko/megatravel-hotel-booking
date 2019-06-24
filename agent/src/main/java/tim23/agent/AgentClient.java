@@ -3,12 +3,15 @@ package tim23.agent;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
+import tim23.agent.model.Soba;
 import tim23.agent.model.poruke.GetAgentListRequest;
 import tim23.agent.model.poruke.GetAgentListResponse;
 import tim23.agent.model.poruke.GetAgentRequest;
 import tim23.agent.model.poruke.GetAgentResponse;
 import tim23.agent.model.poruke.GetReservationListRequest;
 import tim23.agent.model.poruke.GetReservationListResponse;
+import tim23.agent.model.poruke.GetSobaRequest;
+import tim23.agent.model.poruke.GetSobaResponse;
 
 public class AgentClient extends WebServiceGatewaySupport {
 	
@@ -41,6 +44,17 @@ public class AgentClient extends WebServiceGatewaySupport {
 		GetReservationListResponse response = (GetReservationListResponse) getWebServiceTemplate()
 				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
 						request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
+		
+		return response;
+	}
+	
+	public GetSobaResponse getSoba(Soba soba) {
+		GetSobaRequest request = new GetSobaRequest();
+		request.setSoba(soba);
+		
+		GetSobaResponse response = (GetSobaResponse) getWebServiceTemplate()
+				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
+					request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
 		
 		return response;
 	}

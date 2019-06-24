@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.aspectj.apache.bcel.util.SyntheticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +17,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import tim23.agent.DTO.RezervacijaDTO;
+import tim23.agent.AgentClient;
 import tim23.agent.DTO.SobaDTO;
-import tim23.agent.FromDTO.FromRezervacijaDTO;
+import tim23.agent.FromDTO.FromSobaDTO;
 import tim23.agent.config.JwtConfig;
 import tim23.agent.model.Adresa;
+import tim23.agent.model.Agent;
 import tim23.agent.model.Rezervacija;
-import tim23.agent.model.Slika;
 import tim23.agent.model.Soba;
 import tim23.agent.model.TipSmestaja;
+import tim23.agent.model.poruke.GetSobaResponse;
 import tim23.agent.repository.AgentRepository;
 import tim23.agent.repository.RezervacijaRepository;
-import tim23.agent.repository.SlikaRepository;
+import tim23.agent.repository.SobaRepository;
+//import tim23.agent.repository.SlikaRepository;
 import tim23.agent.service.AgentService;
 
 @RestController
@@ -38,12 +41,18 @@ public class AgentController {
 	private JwtConfig tokenUtils;
 	@Autowired
 	public AgentService as;
-	@Autowired
-	public SlikaRepository sr;
+//	@Autowired
+//	public SyntheticRepository sr;
 	@Autowired
 	private AgentRepository ar;
 	@Autowired
 	private RezervacijaRepository rr;
+	@Autowired
+	private FromSobaDTO sobaConverter;
+	@Autowired
+	private SobaRepository sobaRepository;
+	@Autowired
+	private AgentClient client;
 	
 //	@PostMapping("/makingImage")
 //	public void makeImage(@RequestBody Slika s) {
@@ -106,11 +115,15 @@ public class AgentController {
 	}
 	
 	@PostMapping("/addRoom")
-	public void addRoom(@RequestBody SobaDTO soba){
-		System.out.println(soba.getBroj_sobe()+" "+soba.getBroj_kreveta()+" "+soba.getOpis()+" "+soba.getAdresa().getId()+" "+soba.getTipSmestaja().getIdTipa()+" "+soba.getIdSobe());
-		//ovde ti prosledjujem broj sobe,broj kreveta,opis,adresu celu ne DTO i tip smestaja ceo
-		//naziv tipa smestaja mora biti jedinstven jer findujem po njemu
-		//ti treba ostalo da setujes
+	public Soba addRoom(@RequestBody SobaDTO soba,HttpServletRequest request){
+		Soba s = sobaConverter.convert(soba);
+		String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
+		Agent a = ar.findByUsername(username);
+		s.setIdAgenta(a);
+		GetSobaResponse response = client.getSoba(s);
+		sobaRepository.save(response.getSoba());
+		return response.getSoba();
+		
 	}
 	
 	@GetMapping("/sveAdrese")

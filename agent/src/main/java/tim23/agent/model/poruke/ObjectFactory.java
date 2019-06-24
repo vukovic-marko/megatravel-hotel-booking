@@ -69,7 +69,15 @@ public class ObjectFactory {
     public GetReservationListResponse createGetReservationListResponse() {
     	return new GetReservationListResponse();
     }
-
+    
+    public GetSobaRequest createGetSobaRequest() {
+    	return new GetSobaRequest();
+    }
+    
+    public GetSobaResponse createGetSobaResonse() {
+    	return new GetSobaResponse();
+    }
+    
     /**
      * Create an instance of {@link Agent }
      * 

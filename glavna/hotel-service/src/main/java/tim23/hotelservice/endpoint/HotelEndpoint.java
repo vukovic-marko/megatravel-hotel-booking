@@ -14,14 +14,18 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import tim23.hotelservice.model.Agent;
 import tim23.hotelservice.model.Rezervacija;
+import tim23.hotelservice.model.Soba;
 import tim23.hotelservice.model.poruke.GetAgentListRequest;
 import tim23.hotelservice.model.poruke.GetAgentListResponse;
 import tim23.hotelservice.model.poruke.GetAgentRequest;
 import tim23.hotelservice.model.poruke.GetAgentResponse;
 import tim23.hotelservice.model.poruke.GetReservationListRequest;
 import tim23.hotelservice.model.poruke.GetReservationListResponse;
+import tim23.hotelservice.model.poruke.GetSobaRequest;
+import tim23.hotelservice.model.poruke.GetSobaResponse;
 import tim23.hotelservice.repository.AgentRepository;
 import tim23.hotelservice.repository.RezervacijaRepository;
+import tim23.hotelservice.repository.SobaRepository;
 
 @Endpoint
 public class HotelEndpoint {
@@ -31,6 +35,9 @@ public class HotelEndpoint {
 	
 	@Autowired
 	private RezervacijaRepository rezervacijaRepository;
+	
+	@Autowired
+	private SobaRepository sobaRepository;
 	
     @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getAgentRequest")
     @ResponsePayload
@@ -61,6 +68,19 @@ public class HotelEndpoint {
     	
     	GetReservationListResponse response = new GetReservationListResponse();
     	response.setReservations(r);
+    	
+    	return response;
+    }
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getSobaRequest")
+    @ResponsePayload
+    public GetSobaResponse getSoba(@RequestPayload GetSobaRequest request) {
+    	
+    	Soba s = request.getSoba();
+    	Soba soba = sobaRepository.save(s);
+
+    	GetSobaResponse response = new GetSobaResponse();
+    	response.setSoba(soba);
     	
     	return response;
     }

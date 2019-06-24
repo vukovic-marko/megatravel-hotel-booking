@@ -81,7 +81,7 @@ public class Cena {
     private Double vrednost;
     
     @ManyToOne
-    @JoinColumn(name = "idsobe")
+    @JoinColumn(name = "idsoba")
     ///////////////////////////////////////////////////////////todo proveriti
     
     private Soba soba;
