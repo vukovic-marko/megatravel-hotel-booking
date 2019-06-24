@@ -1,5 +1,7 @@
 package tim23.hotelservice.endpoint;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -11,29 +13,24 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 //import tim23.hotelservice.model.poruke.Soba;
 
 import tim23.hotelservice.model.Agent;
+import tim23.hotelservice.model.Rezervacija;
+import tim23.hotelservice.model.poruke.GetAgentListRequest;
+import tim23.hotelservice.model.poruke.GetAgentListResponse;
 import tim23.hotelservice.model.poruke.GetAgentRequest;
 import tim23.hotelservice.model.poruke.GetAgentResponse;
+import tim23.hotelservice.model.poruke.GetReservationListRequest;
+import tim23.hotelservice.model.poruke.GetReservationListResponse;
 import tim23.hotelservice.repository.AgentRepository;
+import tim23.hotelservice.repository.RezervacijaRepository;
 
 @Endpoint
 public class HotelEndpoint {
 	
-//	@PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getSobaRequest")
-//	@ResponsePayload
-//	public GetSobaResponse getSobe(@RequestPayload GetSobaRequest req) {
-//		// TODO: implement getting rooms
-//		Soba soba = new Soba();
-//		soba.setBrojSobe(req.getBrojSobe());
-//		soba.setBrojKreveta(5);
-//		
-//		GetSobaResponse resp = new GetSobaResponse();
-//		resp.setSoba(soba);
-//		
-//		return resp;
-//	}
-	
 	@Autowired
 	private AgentRepository agentRepository;
+	
+	@Autowired
+	private RezervacijaRepository rezervacijaRepository;
 	
     @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getAgentRequest")
     @ResponsePayload
@@ -45,4 +42,26 @@ public class HotelEndpoint {
 		
 		return response;
 	}
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getAgentListRequest")
+    @ResponsePayload
+    public GetAgentListResponse getAgentList(@RequestPayload GetAgentListRequest request) {
+    	List<Agent> a = agentRepository.findAll();
+    	
+    	GetAgentListResponse response = new GetAgentListResponse();
+    	response.setAgent(a);
+    	
+    	return response;
+    }
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getReservationListRequest")
+    @ResponsePayload
+    public GetReservationListResponse getReservationList(@RequestPayload GetReservationListRequest request) {
+    	List<Rezervacija> r = rezervacijaRepository.findAll();
+    	
+    	GetReservationListResponse response = new GetReservationListResponse();
+    	response.setReservations(r);
+    	
+    	return response;
+    }
 }

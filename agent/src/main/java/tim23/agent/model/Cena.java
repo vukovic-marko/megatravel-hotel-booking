@@ -52,7 +52,8 @@ import javax.xml.bind.annotation.XmlType;
     "idCene",
     "pocetakVazenja",
     "krajVazenja",
-    "vrednost"
+    "vrednost",
+    "soba"
 })
 @XmlRootElement(name = "Cena")
 @Entity

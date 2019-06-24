@@ -53,6 +53,22 @@ public class ObjectFactory {
     public GetAgentResponse createGetAgentResponse() {
         return new GetAgentResponse();
     }
+    
+    public GetAgentListRequest createGetAgentListRequest() {
+    	return new GetAgentListRequest();
+    }
+    
+    public GetAgentListResponse createGetAgentListResponse() {
+    	return new GetAgentListResponse();
+    }
+    
+    public GetReservationListRequest createGetReservationListRequest() {
+    	return new GetReservationListRequest();
+    }
+    
+    public GetReservationListResponse createGetReservationListResponse() {
+    	return new GetReservationListResponse();
+    }
 
     /**
      * Create an instance of {@link Agent }

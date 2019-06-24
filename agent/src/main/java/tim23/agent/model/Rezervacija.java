@@ -59,7 +59,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "datumDolaska",
     "datumOdlaska",
     "brojOsoba",
-    "idSobe",
+    "soba",
     "krajnjiKorisnik",
     "realizovana",
     "ocena"
