@@ -54,7 +54,6 @@ public class DodatneUsluge {
 
     @XmlElement(name = "Id")
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column (name = "id")
     private Integer id;
     

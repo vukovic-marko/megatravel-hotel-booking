@@ -1,5 +1,6 @@
 package tim23.hotelservice.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public class SobeDodatneUsluge {
 	private Soba soba;
 	
     @XmlElement(name = "Id_usluge")
-	@ManyToOne
+    @ManyToOne
 	@JoinColumn(name="id_dodatneusluge")
 	private DodatneUsluge dodatnaUsluga;
     

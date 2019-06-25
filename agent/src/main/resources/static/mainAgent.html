@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
 <style>
-#modalRez{
-width: 900px;
+#modalRez {
+	width: 900px;
 }
-#doc{
-width: 900px;
+
+#doc {
+	width: 900px;
 }
+
 #navBar {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	background-color: lightblue;
-	color:black;
+	color: black;
 }
 
 .fonts {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-#modalCSS{
+#modalCSS {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 	background-color: lightblue;
-	color:black;
+	color: black;
 }
 
 body, html {
@@ -35,244 +37,328 @@ body, html {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	
-}
-.odmakni{
-	margin: 10px;
 }
 
+
+.multiselect {
+	width: 250px;
+}
+
+.selectBox {
+	position: relative;
+}
+
+.selectBox select {
+	width: 100%;
+	font-weight: bold;
+}
+
+.overSelect {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+}
+
+#checkboxes {
+	display: none;
+	border: 1px #dadada solid;
+	background-color: white;
+}
+.odmakni {
+	margin: 10px;
+}
 </style>
 <head>
 <title>Agent</title>
 
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<link rel="stylesheet" type="text/css" href="bootstrap/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="bootstrap/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script type="text/javascript" src="js/mainAdmin.js"></script>
- <script type="text/javascript" src="bootstrap/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="bootstrap/bootstrap/js/bootstrap.js"></script>
 </head>
 
 <body>
 	<div class="bg">
 
-  <nav class="navbar navbar-inverse" id="navBar">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Welcome to MINM</a>
-    </div>
-    <ul class="nav navbar-nav" >
-      <li><a href="#" onclick="return proba()">My Profile</a></li>
-      <li><a href="#" class="b" onclick="return addRoom()">Add Room</a></li>
-       <li><a href="#" class="b" onclick="return reservations()">Reservations</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-    </ul>
-  </div>
-</nav> 
+		<nav class="navbar navbar-inverse" id="navBar">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Welcome to MINM</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="#" onclick="return proba()">My Profile</a></li>
+					<li><a href="#" class="b" onclick="return addRoom()">Add
+							Room</a></li>
+					<li><a href="#" class="b" onclick="return reservations()">Reservations</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a><span class="glyphicon glyphicon-log-out"></span>
+							Log Out</a></li>
+				</ul>
+			</div>
+		</nav>
 
 
-<div class="modal fade" id="modalSoba" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" >
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      <div class="modal-header">    
-		 <div class="w3-card-4">
-		  <div class="w3-container w3-brown">
-		    <h2>New Room</h2>
-		  </div>
+		<div class="modal fade" id="modalSoba" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div class="modal-header">
+						<div class="w3-card-4">
+							<div class="w3-container w3-brown">
+								<h2>New Room</h2>
+							</div>
+						</div>
+					</div>
+					<div class="modal-body">
+						<form class="w3-container">
+							<p>
+								<label class="w3-text-brown"><b>Room number *</b></label> <input
+									class="w3-input w3-border w3-sand" id="brSobe" type="number"
+									onkeypress="return numbersonly(this, event)"
+									required="required" autofocus="autofocus">
+							</p>
+							<p>
+								<label class="w3-text-brown"><b>Number of beds *</b></label> <input
+									class="w3-input w3-border w3-sand" id="brKreveta" type="number"
+									onkeypress="return numbersonly(this, event)"
+									required="required">
+							</p>
+							<p>
+								<label class="w3-text-brown"><b>Description of room</b></label>
+								<textarea class="w3-input w3-border w3-sand" id="opis" rows="2"></textarea>
+							</p>
+							<p>
+								<label class="w3-text-brown"><b>Type of room</b></label> <select
+									id="tipSobe"></select>
+							</p>
+							<p>
+								<label class="w3-text-brown"><b>Additional services</b></label>
+							
+							<form>
+								<div class="multiselect" id="divZaDodatneUsluge">
+									<div class="selectBox" onclick="prikaziUsluge()">
+										<select>
+											<option>Choose additional services</option>
+										</select>
+										<div class="overSelect"></div>
+									</div>
+
+								</div>
+							</form>
+							</p>
+							
+							<p>
+								<label class="w3-text-brown"><b>Address</b></label>
+								<button class="w3-btn w3-brown" type="button"
+									onclick="return getAdrese()">Choose</button>
+							</p>
+							<div class="odmakni">
+								<input id="inpAdr" style="width: 300px; length: 5px;"
+									readonly="readonly" /> <input id="idAdr"
+									style="width: 30px; length: 5px;" readonly="readonly"
+									hidden="hidden" />
+							</div>
+
+							<p>
+								<button class="w3-btn w3-brown" onclick = "sakriModal()">Add</button>
+							</p>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
+
+
+		<div class="modal fade" id="modalAdrese" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div class="modal-header">
+						<div class="w3-card-4">
+							<div class="w3-container w3-brown">
+								<h2>Existing addresses</h2>
+							</div>
+						</div>
+					</div>
+					<div class="modal-body" id="adrese"></div>
+				</div>
+			</div>
 		</div>
-		<div class="modal-body">
-			   <form class="w3-container" onsubmit="return sakriModal()">
-			    <p>      
-			    <label class="w3-text-brown"><b>Room number *</b></label>
-			    <input class="w3-input w3-border w3-sand" id="brSobe" type="number" onkeypress="return numbersonly(this, event)" required="required" autofocus="autofocus"></p>
-			    <p>      
-			    <label class="w3-text-brown"><b>Number of beds *</b></label>
-			    <input class="w3-input w3-border w3-sand" id="brKreveta" type="number" onkeypress="return numbersonly(this, event)" required="required"></p>
-			     <p>      
-			    <label class="w3-text-brown"><b>Description of room</b></label>
-			    <textarea class="w3-input w3-border w3-sand" id="opis" rows="2" ></textarea></p>
-				 <p> 
-				<label class="w3-text-brown"><b>Type of room</b></label>
-				<select id="tipSobe"></select>
-			    </p>
-			     
-			    <p>
-				<label class="w3-text-brown"><b>Address</b></label>
-				<button class="w3-btn w3-brown" type="button" onclick="return getAdrese()">Choose</button>
-			    </p>
-			    <div class="odmakni">
-			    <input id="inpAdr" style="width: 300px; length: 5px; " readonly="readonly"/>
-			     <input id="idAdr" style="width: 30px; length: 5px; " readonly="readonly" hidden="hidden"/>
-			    </div>
-			    
-			    <p> <button class="w3-btn w3-brown" >Add</button></p>
-			  </form>
+
+		<div class="modal fade" id="modalSlike" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div class="modal-header">
+						<div class="w3-card-4">
+							<div class="w3-container w3-brown">
+								<h2>Adding images</h2>
+							</div>
+						</div>
+					</div>
+					<div class="modal-body" id="adrese">
+						<p>
+							<button class="w3-btn w3-brown" id="browse"
+								onclick="return dodajSliku()">Browse</button>
+						</p>
+
+						<input id="file-input" type="file" name="name"
+							style="display: none;" onchange="readURL(this);"
+							accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*" />
+						<div id="slike"></div>
+					</div>
+				</div>
+			</div>
 		</div>
-    </div>
-  </div>
-</div>
 
-
-<div class="modal fade" id="modalAdrese" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" >
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      <div class="modal-header">    
-		 <div class="w3-card-4">
-		  <div class="w3-container w3-brown">
-		    <h2>Existing addresses</h2>
-		  </div>
+		<div class="modal fade" id="modalRez" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" id="doc" role="document">
+				<div class="modal-content">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div class="modal-header">
+						<div class="w3-card-4">
+							<div class="w3-container w3-brown">
+								<h2>Reservations</h2>
+							</div>
+						</div>
+					</div>
+					<div class="modal-body" id="reze"></div>
+				</div>
+			</div>
 		</div>
-		</div>
-		<div class="modal-body" id="adrese">
+
+
+
+		<div class="w3-container">
+			<h2>W3.CSS Lightbox</h2>
+			<p>In this example we combine JavaScript from Slideshows and
+				Modals to create a Lightbox (Modal Image Gallery):</p>
+			<div class="w3-row-padding" style="margin: 0 -16px">
+				<div class="w3-col s4">
+					<img src="4.png" style="width: 100%; cursor: pointer"
+						onclick="openModal();currentDiv(1)" class="w3-hover-shadow">
+				</div>
+				<div class="w3-col s4">
+					<img src="laj.png" style="width: 100%; cursor: pointer"
+						onclick="openModal();currentDiv(2)" class="w3-hover-shadow">
+				</div>
+				<div class="w3-col s4">
+					<img src="booking2.jpg" style="width: 100%; cursor: pointer"
+						onclick="openModal();currentDiv(3)" class="w3-hover-shadow">
+				</div>
+			</div>
+
+			<div id="myModal" class="w3-modal w3-black">
+				<span
+					class="w3-text-white w3-xxlarge w3-hover-text-grey w3-container w3-display-topright"
+					onclick="closeModal()" style="cursor: pointer">×</span>
+				<div class="w3-modal-content">
+
+					<div class="w3-content" style="max-width: 1200px">
+						<img class="mySlides" src="4.png" style="width: 100%"> <img
+							class="mySlides" src="laj.png" style="width: 100%"> <img
+							class="mySlides" src="booking2.jpg" style="width: 100%">
+						<div class="w3-row w3-black w3-center">
+							<div class="w3-display-container">
+								<p id="caption"></p>
+								<span class="w3-display-left w3-btn" onclick="plusDivs(-1)">❮</span>
+								<span class="w3-display-right w3-btn" onclick="plusDivs(1)">❯</span>
+							</div>
+							<div class="w3-col s4">
+								<img class="demo w3-opacity w3-hover-opacity-off" src="4.png"
+									style="width: 100%" onclick="currentDiv(1)"
+									alt="Nature and sunrise">
+							</div>
+							<div class="w3-col s4">
+								<img class="demo w3-opacity w3-hover-opacity-off" src="laj.png"
+									style="width: 100%" onclick="currentDiv(2)" alt="French Alps">
+							</div>
+							<div class="w3-col s4">
+								<img class="demo w3-opacity w3-hover-opacity-off"
+									src="booking2.jpg" style="width: 100%" onclick="currentDiv(3)"
+									alt="Mountains and fjords">
+							</div>
+						</div>
+						<!-- End row -->
+					</div>
+					<!-- End w3-content -->
+
+				</div>
+				<!-- End modal content -->
+			</div>
+			<!-- End modal -->
 
 		</div>
-    </div>
-  </div>
-</div>
 
-<div class="modal fade" id="modalSlike" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" >
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      <div class="modal-header">    
-		 <div class="w3-card-4">
-		  <div class="w3-container w3-brown">
-		  	<h2>Adding images</h2>
-		  </div>
-		</div>
-		</div>
-		<div class="modal-body" id="adrese">
-		  <p> <button class="w3-btn w3-brown" id="browse" onclick="return dodajSliku()">Browse</button></p>
+		<script>
+			function openModal() {
+				document.getElementById('myModal').style.display = "block";
+			}
 
-		  <input id="file-input" type="file" name="name" style="display: none;" onchange="readURL(this);" accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"/>
-				  <div id="slike"></div>
-		</div>
-    </div>
-  </div>
-</div>
-		
-<div class="modal fade" id="modalRez" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" id="doc" role="document">
-    <div class="modal-content" >
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      <div class="modal-header">    
-		 <div class="w3-card-4">
-		  <div class="w3-container w3-brown">
-		  	<h2>Reservations</h2>
-		  </div>
-		</div>
-		</div>
-		<div class="modal-body" id="reze">
-			
-		</div>
-    </div>
-  </div>
-</div>
-		
-		
-		
-<div class="w3-container">
-<h2>W3.CSS Lightbox</h2>
-<p>In this example we combine JavaScript from Slideshows and Modals to create a Lightbox (Modal Image Gallery):</p>
-<div class="w3-row-padding" style="margin:0 -16px">
-  <div class="w3-col s4">
-    <img src="4.png" style="width:100%;cursor:pointer"
-    onclick="openModal();currentDiv(1)" class="w3-hover-shadow">
-  </div>
-  <div class="w3-col s4">
-    <img src="laj.png" style="width:100%;cursor:pointer"
-    onclick="openModal();currentDiv(2)" class="w3-hover-shadow">
-  </div>
-  <div class="w3-col s4">
-    <img src="booking2.jpg" style="width:100%;cursor:pointer"
-    onclick="openModal();currentDiv(3)" class="w3-hover-shadow">
-  </div>
-</div>
+			function closeModal() {
+				document.getElementById('myModal').style.display = "none";
+			}
 
-<div id="myModal" class="w3-modal w3-black">
- <span class="w3-text-white w3-xxlarge w3-hover-text-grey w3-container w3-display-topright" onclick="closeModal()" style="cursor:pointer">×</span>
- <div class="w3-modal-content">
+			var slideIndex = 1;
+			showDivs(slideIndex);
 
-  <div class="w3-content" style="max-width:1200px">
-   <img class="mySlides" src="4.png" style="width:100%">
-   <img class="mySlides" src="laj.png" style="width:100%">
-   <img class="mySlides" src="booking2.jpg" style="width:100%">
-   <div class="w3-row w3-black w3-center">
-    <div class="w3-display-container">
-     <p id="caption"></p>
-     <span class="w3-display-left w3-btn" onclick="plusDivs(-1)">❮</span>
-     <span class="w3-display-right w3-btn" onclick="plusDivs(1)">❯</span>
-    </div>
-    <div class="w3-col s4">
-     <img class="demo w3-opacity w3-hover-opacity-off" src="4.png" style="width:100%" onclick="currentDiv(1)" alt="Nature and sunrise">
-    </div>
-    <div class="w3-col s4">
-     <img class="demo w3-opacity w3-hover-opacity-off" src="laj.png" style="width:100%" onclick="currentDiv(2)" alt="French Alps">
-    </div>
-    <div class="w3-col s4">
-     <img class="demo w3-opacity w3-hover-opacity-off" src="booking2.jpg" style="width:100%" onclick="currentDiv(3)" alt="Mountains and fjords">
-    </div>
-   </div> <!-- End row -->
-  </div> <!-- End w3-content -->
-  
- </div> <!-- End modal content -->
-</div> <!-- End modal -->
+			function plusDivs(n) {
+				showDivs(slideIndex += n);
+			}
 
-</div>
+			function currentDiv(n) {
+				showDivs(slideIndex = n);
+			}
 
-<script>
-function openModal() {
-  document.getElementById('myModal').style.display = "block";
-}
+			function showDivs(n) {
+				var i;
+				var x = document.getElementsByClassName("mySlides");
+				var dots = document.getElementsByClassName("demo");
+				var captionText = document.getElementById("caption");
+				if (n > x.length) {
+					slideIndex = 1
+				}
+				if (n < 1) {
+					slideIndex = x.length
+				}
+				for (i = 0; i < x.length; i++) {
+					x[i].style.display = "none";
+				}
+				for (i = 0; i < dots.length; i++) {
+					dots[i].className = dots[i].className.replace(
+							" w3-opacity-off", "");
+				}
+				x[slideIndex - 1].style.display = "block";
+				dots[slideIndex - 1].className += " w3-opacity-off";
+				captionText.innerHTML = dots[slideIndex - 1].alt;
+			}
+		</script>
 
-function closeModal() {
-  document.getElementById('myModal').style.display = "none";
-}
-
-var slideIndex = 1;
-showDivs(slideIndex);
-
-function plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-function currentDiv(n) {
-  showDivs(slideIndex = n);
-}
-
-function showDivs(n) {
-  var i;
-  var x = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  var captionText = document.getElementById("caption");
-  if (n > x.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = x.length}
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
-  }
-  x[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " w3-opacity-off";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-}
-</script>
-    
 	</div>
 </body>
 </html>

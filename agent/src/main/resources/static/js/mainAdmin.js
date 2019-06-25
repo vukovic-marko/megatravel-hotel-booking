@@ -1,3 +1,5 @@
+var dodatneUsluge = [];
+var expanded = false;
 function proba(){
 	$('#modalSlike').modal();
 //alert('a');
@@ -89,11 +91,50 @@ function addRoom(){
 	    		var myOption = document.createElement("option");
 	    		myOption.text =data[i];
 	    		myOption.text =data[i];
+	    		myOption.value = data[i].id;
 	    		divT.append(myOption);
 
 	    	}
 	    }
 	});
+	
+	$.ajax({
+		async: false,
+		url: "http://localhost:8081/agent/getDodatneUsluge",
+		dataType : "json",
+	    type: "GET",
+	    success: function (data) {
+	    	dodatneUsluge = data;
+	    }
+	});
+}
+
+function prikaziUsluge(){
+	var boxes = document.createElement('div');
+	var glavniDiv = document.getElementById('divZaDodatneUsluge');
+	boxes.setAttribute('id','checkboxes');
+	for (i = 0; i < dodatneUsluge.length; i++) {
+		var input = document.createElement('input');
+		input.setAttribute('type','checkbox');
+		input.setAttribute('id',dodatneUsluge[i].id);
+		var labelaNaziv = document.createElement('label');
+		labelaNaziv.innerHTML = dodatneUsluge[i].naziv;
+		input.setAttribute('name','usluga');
+		input.setAttribute('value',dodatneUsluge[i].id);
+		boxes.append(input);
+		boxes.append(labelaNaziv);
+		var br = document.createElement('br');
+		boxes.append(br);
+	}
+	glavniDiv.append(boxes);
+	var checkboxes = document.getElementById("checkboxes");
+	  if (!expanded) {
+	    checkboxes.style.display = "block";
+	    expanded = true;
+	  } else {
+	    checkboxes.style.display = "none";
+	    expanded = false;
+	  }
 }
 
 function reservations(){
@@ -244,37 +285,44 @@ function sakriModal(){
 		var brSobe=document.getElementById('brSobe').value;
 		var brKreveta=document.getElementById('brKreveta').value;
 		var opis=document.getElementById('opis').value;
+		
+		var dodatneUsluge = [];
+	    $.each($("input[name='usluga']:checked"), function(){            
+	    	dodatneUsluge.push($(this).val());
+	    });
 		var tipSmestaja=null;
 		var adr=null;
+		var usluge = [];
 		//alert(brSobe+" "+brKreveta+" "+opis+" "+idAdr+" "+nazTipa)
-		$.ajax({
-			async: false,
-			url: "http://localhost:8081/agent/adresaId/"+idAdr,
-	        type: "GET",
-			contentType: "application/json",
-	        dataType: "json",
-		    success: function (data) {
-		    	adr=data;
-		    }
-		});
-		
-		$.ajax({
-			async: false,
-			url: "http://localhost:8081/agent/typeRoomNaziv/"+nazTipa,
-		    type: "GET",
-		    dataType: "json",
-		    contentType: "application/json",
-		    success: function (data) {
-		    	tipSmestaja=data;
-		    }
-		});
+//		$.ajax({
+//			async: false,
+//			url: "http://localhost:8081/agent/adresaId/"+idAdr,
+//	        type: "GET",
+//			contentType: "application/json",
+//	        dataType: "json",
+//		    success: function (data) {
+//		    	adr=data;
+//		    }
+//		});
+//		
+//		$.ajax({
+//			async: false,
+//			url: "http://localhost:8081/agent/typeRoomNaziv/"+nazTipa,
+//		    type: "GET",
+//		    dataType: "json",
+//		    contentType: "application/json",
+//		    success: function (data) {
+//		    	tipSmestaja=data;
+//		    }
+//		});
 
 		var soba = JSON.stringify({
 			"broj_sobe": brSobe,
 			"broj_kreveta" : brKreveta,
 			"opis" : opis,
-			"adresa" : adr,
+			"adresa" : idAdr,
 			"tipSmestaja" : tipSmestaja,
+			"dodatneUsluge" : dodatneUsluge
 		});
 		
 		$.ajax({

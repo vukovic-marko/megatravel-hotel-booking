@@ -1,12 +1,12 @@
 package tim23.agent.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.aspectj.apache.bcel.util.SyntheticRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +23,21 @@ import tim23.agent.FromDTO.FromSobaDTO;
 import tim23.agent.config.JwtConfig;
 import tim23.agent.model.Adresa;
 import tim23.agent.model.Agent;
+import tim23.agent.model.DodatneUsluge;
 import tim23.agent.model.Rezervacija;
 import tim23.agent.model.Soba;
+import tim23.agent.model.SobeDodatneUsluge;
 import tim23.agent.model.TipSmestaja;
+import tim23.agent.model.poruke.GetSobaDodatnaUslugaResponse;
 import tim23.agent.model.poruke.GetSobaResponse;
 import tim23.agent.repository.AgentRepository;
+import tim23.agent.repository.DodatneUslugeRepository;
 import tim23.agent.repository.RezervacijaRepository;
+import tim23.agent.repository.SobaDodatneUslugeRepository;
 import tim23.agent.repository.SobaRepository;
 //import tim23.agent.repository.SlikaRepository;
 import tim23.agent.service.AgentService;
+import tim23.agent.service.DodatneUslugeService;
 
 @RestController
 @RequestMapping("/agent")
@@ -53,6 +59,14 @@ public class AgentController {
 	private SobaRepository sobaRepository;
 	@Autowired
 	private AgentClient client;
+	@Autowired
+	private DodatneUslugeRepository dodatneUslugeRepository;
+	
+	@Autowired
+	private DodatneUslugeService dodatneUslugeService;
+	
+	@Autowired
+	private SobaDodatneUslugeRepository sobaDodatnaUslugaRepository;
 	
 //	@PostMapping("/makingImage")
 //	public void makeImage(@RequestBody Slika s) {
@@ -114,14 +128,29 @@ public class AgentController {
 		//return set;
 	}
 	
+	@PostMapping("/getDodatneUsluge")
+	public ResponseEntity<?> getDodatneUsluge(@RequestBody ArrayList<Integer> id){
+		List<DodatneUsluge> usluge = dodatneUslugeService.getAll(id);
+		return new ResponseEntity<>(usluge,HttpStatus.OK);
+	}
+	
 	@PostMapping("/addRoom")
 	public Soba addRoom(@RequestBody SobaDTO soba,HttpServletRequest request){
+		//prvo pronaci sve dodatne usluge po id-u
+		ArrayList<DodatneUsluge> dodatneUsluge = dodatneUslugeService.getAll(soba.getDodatneUsluge());
 		Soba s = sobaConverter.convert(soba);
 		String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
 		Agent a = ar.findByUsername(username);
 		s.setIdAgenta(a);
 		GetSobaResponse response = client.getSoba(s);
-		sobaRepository.save(response.getSoba());
+		
+		Soba nova = sobaRepository.save(response.getSoba());
+		
+		for(int i =0;i <dodatneUsluge.size();i++) {
+			GetSobaDodatnaUslugaResponse dodata = client.getSobaDodatneUsluge(nova,dodatneUsluge.get(i));
+			sobaDodatnaUslugaRepository.save(dodata.getSobeDodatnaUsluga());
+		}
+		
 		return response.getSoba();
 		
 	}
@@ -134,6 +163,12 @@ public class AgentController {
 //		}
 		return new ResponseEntity<>(as.findAllAddresses(),HttpStatus.OK);
 	}
+
+	@GetMapping("/getDodatneUsluge")
+	public ResponseEntity<?> getDodatneUsluge(){
+		return new ResponseEntity<>(dodatneUslugeRepository.findAll(),HttpStatus.OK);
+	}
+	
 	@GetMapping("/adresaId/{id}")
 	public Adresa addressById(@PathVariable Integer id) {
 		//Adresa a=as.findAddressById(id);

@@ -28,3 +28,15 @@ insert into krajnjikorisnik_authority (user_id, authority_id) values (1, 3);
 insert into adresa (id,grad,drzava,ulicaibroj) values (1,"Madrid","Spanija","ul2");
 
 insert into tipsmestaja (idtipa, naziv) values (1, 'Hotel');
+
+--ubacivanje dodatnih usluga
+insert into dodatneusluge(id,naziv,cena) values (1,"Wi-Fi",200);
+insert into dodatneusluge(id,naziv,cena) values (2,"Parking",300);
+insert into dodatneusluge(id,naziv,cena) values (3,"Dorucak",1000);
+insert into dodatneusluge(id,naziv,cena) values (4,"Polu pansion",200);
+insert into dodatneusluge(id,naziv,cena) values (5,"Pansion",3000);
+insert into dodatneusluge(id,naziv,cena) values (6,"All inclusive",5000);
+insert into dodatneusluge(id,naziv,cena) values (7,"Kucni ljubimci",800);
+insert into dodatneusluge(id,naziv,cena) values (8,"Mini kuhinja",500);
+insert into dodatneusluge(id,naziv,cena) values (9,"Privatno kupatilo",500);
+insert into dodatneusluge(id,naziv,cena) values (10,"Besplatno otkazivanje",0);

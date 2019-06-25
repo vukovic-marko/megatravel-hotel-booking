@@ -1,17 +1,16 @@
 package tim23.agent.DTO;
 
-import tim23.agent.model.Adresa;
-import tim23.agent.model.Agent;
-import tim23.agent.model.TipSmestaja;
+import java.util.ArrayList;
 
 public class SobaDTO {
 	private Integer idSobe;
 	private Integer broj_kreveta;
 	private Integer broj_sobe;
 	private String opis;
-	private Adresa adresa;
-	private Agent agent;
-	private TipSmestaja tipSmestaja;
+	private Integer adresa;
+	private Integer agent;
+	private Integer tipSmestaja;
+	private ArrayList<Integer> dodatneUsluge;
 	
 	public Integer getIdSobe() {
 		return idSobe;
@@ -21,11 +20,11 @@ public class SobaDTO {
 		this.idSobe = idSobe;
 	}
 
-	public TipSmestaja getTipSmestaja() {
+	public Integer getTipSmestaja() {
 		return tipSmestaja;
 	}
 
-	public void setTipSmestaja(TipSmestaja tipSmestaja) {
+	public void setTipSmestaja(Integer tipSmestaja) {
 		this.tipSmestaja = tipSmestaja;
 	}
 
@@ -53,24 +52,37 @@ public class SobaDTO {
 		this.opis = opis;
 	}
 
-	public Adresa getAdresa() {
+	public Integer getAdresa() {
 		return adresa;
 	}
 
-	public void setAdresa(Adresa adresa) {
+	public void setAdresa(Integer adresa) {
 		this.adresa = adresa;
 	}
 
-	public Agent getAgent() {
+	public Integer getAgent() {
 		return agent;
 	}
 
-	public void setAgent(Agent agent) {
+	public void setAgent(Integer agent) {
 		this.agent = agent;
 	}
+	
+	public SobaDTO() {
+		
+	}
+	
+	public ArrayList<Integer> getDodatneUsluge() {
+		return dodatneUsluge;
+	}
 
-	public SobaDTO(Integer idSobe,Integer broj_kreveta,Integer broj_sobe,String opis,Adresa adresa,Agent agent,TipSmestaja tipSmestaja) {
-		super();
+	public void setDodatneUsluge(ArrayList<Integer> dodatneUsluge) {
+		this.dodatneUsluge = dodatneUsluge;
+	}
+
+	public SobaDTO(Integer idSobe,Integer broj_kreveta,Integer broj_sobe,
+			String opis,Integer adresa,Integer agent,Integer tipSmestaja,ArrayList<Integer> dodatneUsluge) {
+		this.dodatneUsluge = dodatneUsluge;
 		this.idSobe=idSobe;
 		this.broj_kreveta=broj_kreveta;
 		this.broj_sobe=broj_sobe;

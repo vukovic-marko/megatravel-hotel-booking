@@ -94,6 +94,22 @@ public class ObjectFactory {
     	return new GetTipSmestajaListResponse();
     }
     
+    public GetDodatneUslugeListRequest createDodatneUslugeListRequest() {
+    	return new GetDodatneUslugeListRequest();
+    }
+    
+    public GetDodatneUslugeListResponse createDodatneUslugeListResponse() {
+    	return new GetDodatneUslugeListResponse();
+    }
+    
+    public GetSobaDodatnaUslugaRequest createSobaDodatnaUslugaRequest() {
+    	return new GetSobaDodatnaUslugaRequest();
+    }
+    
+    public GetSobaDodatnaUslugaResponse createSobaDodatnaUslugaResponse() {
+    	return new GetSobaDodatnaUslugaResponse();
+    }
+    
     /**
      * Create an instance of {@link Agent }
      * 
