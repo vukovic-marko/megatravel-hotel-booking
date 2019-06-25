@@ -49,7 +49,11 @@ public class SearchService {
 	@Autowired
 	SearchRepository sr;
   
-	    public List<Soba> fuzzySearch(String brojkreveta,String drzava,String grad, String ulicaibroj,String p, String k,String tipSmestaja,String[] listaUsluga) throws ParseException {
+	    public List<Soba> fuzzySearch(String brojkreveta,String drzava,String grad, String ulicaibroj,String p, String k,String tipSmestaja,String kategorija,ArrayList<String> listaUsluga) throws ParseException {
+	    	if(tipSmestaja==null)
+	    		tipSmestaja="";
+	    	if(kategorija==null)
+	    		kategorija="";
 	    	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-dd-MM");
 	    	java.util.Date pocetak = sdf1.parse(p);
 	       	java.util.Date kraj = sdf1.parse(k);
@@ -58,8 +62,8 @@ public class SearchService {
 	    	Session session = sf.openSession();
 	    	session.beginTransaction();
 
-       Query first = session.createQuery("select s.idSoba from Soba s left outer join Adresa a on a.id = s.adresa left outer join TipSmestaja t on t.idTipa = s.tipSmestaja where t.naziv like :ts and a.drzava = :drz and a.grad = :grd and a.ulicaIBroj = :uib and s.brojKreveta > "+Integer.parseInt(brojkreveta))
-        		.setParameter("drz", drzava).setParameter("grd", grad).setParameter("uib", ulicaibroj).setParameter("ts", "%" +tipSmestaja+ "%");
+       Query first = session.createQuery("select s.idSoba from Soba s left outer join Adresa a on a.id = s.adresa left outer join TipSmestaja t on t.idTipa = s.tipSmestaja left outer join KategorijaSmestaja k on k.id = s.kategorijaSmestaja where t.naziv like :ts and k.naziv like :ks and a.drzava = :drz and a.grad = :grd and a.ulicaIBroj = :uib and s.brojKreveta > "+Integer.parseInt(brojkreveta))
+        		.setParameter("drz", drzava).setParameter("grd", grad).setParameter("uib", ulicaibroj).setParameter("ts", "%" +tipSmestaja+ "%").setParameter("ks", "%"+kategorija+"%");
        Query second = session.createQuery("select r.soba from Rezervacija r left outer join Soba s on s.idSoba = r.soba where (r.datumDolaska > :dd and r.datumOdlaska > :do and r.datumDolaska > :do and r.datumOdlaska> :dd) or (r.datumDolaska < :dd and r.datumOdlaska < :do and r.datumDolaska < :do and r.datumOdlaska< :dd)")
      		.setParameter("dd", pocetak).setParameter("do", kraj);
        
@@ -85,24 +89,26 @@ public class SearchService {
 
 	  }
 	    
-	    if(listaUsluga.length!=0) {
+	    if(listaUsluga.size()!=0) {
 	      for(Integer inti :list3) {
 	    	  String query3 = "select d.naziv from DodatneUsluge d left outer join SobeDodatneUsluge sdu on d.id = sdu.dodatnaUsluga where sdu.soba ="+inti;	
 	         Query uslugeQ = session.createQuery(query3);
 	         List<String>du = uslugeQ.list();
-	         int velicina = listaUsluga.length;
+	         int velicina = listaUsluga.size();
 	         int brojac = 0;
 	         for(int i=0;i<du.size();i++) {
-	        	for(int j=0;j<listaUsluga.length;j++) {
-	        		if(du.get(i).equals(listaUsluga[j])) {
+	        	for(int j=0;j<listaUsluga.size();j++) {
+	        		if(du.get(i).equals(listaUsluga.get(j))) {
 	        			brojac++;
 	        		}
 	        	}
 	        	 
 	         }
-	         if(velicina == brojac)
+	         if(velicina == brojac) {
+	             if(sr.getByidSoba(inti).isOdobreno())
 	        	 listSoba.add(sr.getByidSoba(inti));
-	        
+	         
+	         }
 	  }
 	    }else {
 	    	for(int i=0;i<list3.size();i++) {

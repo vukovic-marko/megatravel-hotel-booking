@@ -123,16 +123,18 @@ public class SearchController {
 		 */
 		return null;
 	}
-	   @GetMapping("/{brojkreveta},{drzava},{grad},{uib},{dd},{dod},{tip},{listUsluge}")
-	    public String search(@PathVariable String brojkreveta,@PathVariable String drzava, @PathVariable String grad,@PathVariable String uib,@PathVariable String dd,@PathVariable String dod,@PathVariable String tip, @RequestParam String[] listUsluge) throws java.text.ParseException {
+	   @GetMapping("/{brojkreveta},{drzava},{grad},{uib},{dd},{dod},{tip},{kat},{listUsluge}")
+	    public String search(@PathVariable String brojkreveta,@PathVariable String drzava, @PathVariable String grad,@PathVariable String uib,@PathVariable String dd,@PathVariable String dod,@PathVariable String tip,@PathVariable String kat, @PathVariable ArrayList<String> listUsluge) throws java.text.ParseException {
 	  
-	   String []listUsluga = listUsluge;
-		   List<Soba> s = searchService.fuzzySearch(brojkreveta,drzava,grad,uib,dd,dod,tip,listUsluga);
+	     if(listUsluge==null)
+	    	 listUsluge = new ArrayList<String>();
+		   List<Soba> s = searchService.fuzzySearch(brojkreveta,drzava,grad,uib,dd,dod,tip,kat,listUsluge);
 	     String ispis="";
 	     for(int i=0;i<s.size();i++) {
 	    	 ispis+= s.get(i).toString() + " \n";
 	     }
 	    	 return ispis ;
+	    	 
 	   }
 
 	   

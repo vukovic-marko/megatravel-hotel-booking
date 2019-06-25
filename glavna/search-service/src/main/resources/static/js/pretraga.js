@@ -196,6 +196,7 @@ function pretraziSmestajneJedinice() {
     $.each($("input[name='usluga']:checked"), function(){            
     	dodatneUsluge.push($(this).val());
     });
+    alert(dodatneUsluge);
     
     var tipSmestaja;
     var selektovano = 0;
@@ -238,14 +239,16 @@ function pretraziSmestajneJedinice() {
 		"tipSmestaja" : tipSmestaja,
 		"kategorija" : kategorija
 	});
+	
+	alert("http://localhost:8762/search-service/search/"+numOfPers+","+place+","+place+","+place+","+startDate+"ada,as,"+dodatneUsluge,);
 
 	$.ajax({
 		async : false,
-		url : "http://localhost:8762/search-service/search/getAllRooms",
-		type : "POST",
+		url : "http://localhost:8762/search-service/search/"+numOfPers+","+place+","+place+","+place+","+startDate+","+endDate+",asd,asd,"+dodatneUsluge,
+		type : "GET",
 		dataType : "json",
 		contentType : "application/json",
-		data : ponuda,
+		
 		success : function(data) {
 			toasrt["success"]('Uspesnoooo');
 		}
