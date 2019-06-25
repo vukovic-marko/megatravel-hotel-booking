@@ -196,7 +196,7 @@ function pretraziSmestajneJedinice() {
     $.each($("input[name='usluga']:checked"), function(){            
     	dodatneUsluge.push($(this).val());
     });
-    alert(dodatneUsluge);
+  
     
     var tipSmestaja;
     var selektovano = 0;
@@ -239,12 +239,15 @@ function pretraziSmestajneJedinice() {
 		"tipSmestaja" : tipSmestaja,
 		"kategorija" : kategorija
 	});
+	var dateP = startDate.replace(/\//g,"_");
+	var dateK = endDate.replace(/\//g,"_");
+
 	
-	alert("http://localhost:8762/search-service/search/"+numOfPers+","+place+","+place+","+place+","+startDate+"ada,as,"+dodatneUsluge,);
+	
 
 	$.ajax({
 		async : false,
-		url : "http://localhost:8762/search-service/search/"+numOfPers+","+place+","+place+","+place+","+startDate+","+endDate+",asd,asd,"+dodatneUsluge,
+		url : "http://localhost:8762/search-service/search/"+numOfPers+","+place+","+place+","+place+","+dateP+","+dateK+","+tipSmestaja+","+kategorija+","+dodatneUsluge,
 		type : "GET",
 		dataType : "json",
 		contentType : "application/json",

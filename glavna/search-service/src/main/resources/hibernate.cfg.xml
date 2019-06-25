@@ -18,6 +18,11 @@
         <mapping class="tim23.searchservice.model.Adresa" />
         <mapping class="tim23.searchservice.model.TipSmestaja" />
         <mapping class="tim23.searchservice.model.Agent" />
-     
-    </session-factory>
+        <mapping class="tim23.searchservice.model.KategorijaSmestaja" />
+         <mapping class="tim23.searchservice.model.Rezervacija" /> 
+        <mapping class="tim23.searchservice.model.Uloga" />
+        <mapping class="tim23.searchservice.model.Komentar" />
+        <mapping class="tim23.searchservice.model.Cena" />
+        <mapping class="tim23.searchservice.model.KrajnjiKorisnik" />
+     </session-factory>
 </hibernate-configuration>

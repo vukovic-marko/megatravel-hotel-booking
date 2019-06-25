@@ -125,10 +125,12 @@ public class SearchController {
 	}
 	   @GetMapping("/{brojkreveta},{drzava},{grad},{uib},{dd},{dod},{tip},{kat},{listUsluge}")
 	    public String search(@PathVariable String brojkreveta,@PathVariable String drzava, @PathVariable String grad,@PathVariable String uib,@PathVariable String dd,@PathVariable String dod,@PathVariable String tip,@PathVariable String kat, @PathVariable ArrayList<String> listUsluge) throws java.text.ParseException {
+	  String dateP = dd.replace("_", "/");
+	  String dateK = dod.replace("_", "/");
 	  
 	     if(listUsluge==null)
 	    	 listUsluge = new ArrayList<String>();
-		   List<Soba> s = searchService.fuzzySearch(brojkreveta,drzava,grad,uib,dd,dod,tip,kat,listUsluge);
+		   List<Soba> s = searchService.fuzzySearch(brojkreveta,drzava,grad,uib,dateP,dateK,tip,kat,listUsluge);
 	     String ispis="";
 	     for(int i=0;i<s.size();i++) {
 	    	 ispis+= s.get(i).toString() + " \n";

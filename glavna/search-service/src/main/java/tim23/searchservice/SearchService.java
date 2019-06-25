@@ -1,48 +1,23 @@
 package tim23.searchservice;
 
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.xml.crypto.Data;
-
-import tim23.searchservice.model.*;
-import tim23.searchservice.repository.DodatneUslugeRepository;
-import tim23.searchservice.repository.SearchRepository;
-import tim23.searchservice.repository.SobeDodatneUslugeRepository;
-
-import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.SessionFactoryBuilder;
-import org.hibernate.boot.internal.SessionFactoryBuilderImpl;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.search.annotations.Factory;
-import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.Search;
-import org.hibernate.search.query.dsl.QueryBuilder;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.core.format.DataFormatDetector;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import tim23.searchservice.model.Soba;
+import tim23.searchservice.repository.SearchRepository;
+
 @Service
 public class SearchService {
 	
@@ -53,10 +28,21 @@ public class SearchService {
 	    	if(tipSmestaja==null)
 	    		tipSmestaja="";
 	    	if(kategorija==null)
-	    		kategorija="";
-	    	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-dd-MM");
-	    	java.util.Date pocetak = sdf1.parse(p);
-	       	java.util.Date kraj = sdf1.parse(k);
+	    		kategorija="";	
+	    	if(tipSmestaja.equals("undefined"))
+	    		tipSmestaja="";
+	    	if(kategorija.equals("undefined"))
+	    		kategorija="";	
+	    	
+	    	String []prviDatum = p.split("/");
+		       String []drugiDatum = k.split("/");
+		       
+		       String pocetak = prviDatum[2]+"-"+prviDatum[0]+"-"+prviDatum[1];
+		       String kraj = drugiDatum[2]+"-"+drugiDatum[0]+"-"+drugiDatum[1];
+		       
+		       java.util.Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(pocetak);  
+		       
+		       java.util.Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(kraj);  
 		       
 	    	SessionFactory sf = new Configuration().configure().buildSessionFactory();
 	    	Session session = sf.openSession();
@@ -65,7 +51,7 @@ public class SearchService {
        Query first = session.createQuery("select s.idSoba from Soba s left outer join Adresa a on a.id = s.adresa left outer join TipSmestaja t on t.idTipa = s.tipSmestaja left outer join KategorijaSmestaja k on k.id = s.kategorijaSmestaja where t.naziv like :ts and k.naziv like :ks and a.drzava = :drz and a.grad = :grd and a.ulicaIBroj = :uib and s.brojKreveta > "+Integer.parseInt(brojkreveta))
         		.setParameter("drz", drzava).setParameter("grd", grad).setParameter("uib", ulicaibroj).setParameter("ts", "%" +tipSmestaja+ "%").setParameter("ks", "%"+kategorija+"%");
        Query second = session.createQuery("select r.soba from Rezervacija r left outer join Soba s on s.idSoba = r.soba where (r.datumDolaska > :dd and r.datumOdlaska > :do and r.datumDolaska > :do and r.datumOdlaska> :dd) or (r.datumDolaska < :dd and r.datumOdlaska < :do and r.datumDolaska < :do and r.datumOdlaska< :dd)")
-     		.setParameter("dd", pocetak).setParameter("do", kraj);
+     		.setParameter("dd", date1).setParameter("do", date2);
        
 	   	List<Integer> list = new LinkedList<>();
 	    list = first.list();
