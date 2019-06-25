@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tim23.agent.AgentClient;
+import tim23.agent.DTO.AgentoveSobeDTO;
 import tim23.agent.DTO.SobaDTO;
 import tim23.agent.FromDTO.FromSobaDTO;
+import tim23.agent.FromDTO.SobaConverter;
 import tim23.agent.config.JwtConfig;
 import tim23.agent.model.Adresa;
 import tim23.agent.model.Agent;
@@ -66,6 +68,9 @@ public class AgentController {
 	private DodatneUslugeService dodatneUslugeService;
 	
 	@Autowired
+	private SobaConverter agentSobaConverter;
+	
+	@Autowired
 	private SobaDodatneUslugeRepository sobaDodatnaUslugaRepository;
 	
 //	@PostMapping("/makingImage")
@@ -87,6 +92,27 @@ public class AgentController {
 		rez.setRealizovana(true);
 		rr.save(rez);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllRooms")
+	public ResponseEntity<?> getAllRooms(HttpServletRequest request){
+		ArrayList<Soba> sobeAgentove = new ArrayList<Soba>();
+		String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
+		Agent agent = ar.findByUsername(username);
+		sobeAgentove = sobaRepository.findByIdAgenta(agent);
+		
+		ArrayList<AgentoveSobeDTO> sobeZaFront = new ArrayList<AgentoveSobeDTO>();
+		
+		for(int i=0;i<sobeAgentove.size();i++) {
+			AgentoveSobeDTO soba = agentSobaConverter.convert(sobeAgentove.get(i)); 
+			ArrayList<SobeDodatneUsluge> uslugeZaSobu = sobaDodatnaUslugaRepository.findBySoba(sobeAgentove.get(i));
+			for(int j=0;j<uslugeZaSobu.size();j++) {
+				String usluga = uslugeZaSobu.get(i).getDodatnaUsluga().getNaziv();
+				soba.getDodatneUsluge().add(usluga);		
+			}
+			sobeZaFront.add(soba);
+		}
+		return new ResponseEntity<>(sobeZaFront,HttpStatus.OK);
 	}
 	
 	   @GetMapping("/mojeRez/{username}")
