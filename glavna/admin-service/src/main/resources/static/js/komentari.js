@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+	
 	var tab = document.getElementById("tabelaKom")
 	$.ajax({
 		url: "http://localhost:8762/admin-service/admin/komentar",
