@@ -6,8 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tim23.reservationservice.model.Agent;
+import tim23.reservationservice.model.KrajnjiKorisnik;
+import tim23.reservationservice.model.Poruka;
 import tim23.reservationservice.model.Rezervacija;
 import tim23.reservationservice.model.Soba;
+import tim23.reservationservice.repository.AgentRepository;
+import tim23.reservationservice.repository.KrajnjiKorisnikRepository;
+import tim23.reservationservice.repository.PorukeRepository;
 import tim23.reservationservice.repository.ReservationRepository;
 import tim23.reservationservice.repository.SobaRepository;
 
@@ -17,6 +23,30 @@ public class ReservationService {
 	private ReservationRepository rr;
 	@Autowired
 	private SobaRepository sr;
+    @Autowired
+    private PorukeRepository pr;
+    @Autowired
+    private KrajnjiKorisnikRepository kkr;
+    @Autowired
+    private AgentRepository ar;
+    
+    public KrajnjiKorisnik getByUsername(String username) {
+    	return kkr.findByUsername(username);
+    }
+    
+    public Agent getAgent(Integer id) {
+    	return ar.findByIdKorisnika(id);
+    	
+    }
+    
+    
+    public List<Poruka>getPoruke(String username){
+    	return pr.getByKlijentPrimalac(username);
+    }
+    
+   public void sacuvaj(Poruka p) {
+	   pr.save(p);
+   }
 
 	
 	public List<Rezervacija> returnReservationByRoomId(Integer id) {
