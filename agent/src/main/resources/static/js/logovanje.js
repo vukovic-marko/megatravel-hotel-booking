@@ -12,7 +12,6 @@ function logujSe(){
 		contentType : 'application/json',
 		data: JSON.stringify(user),
 		success: function (data,status,xhr) {
-			alert('A');
 			var token = xhr.getResponseHeader("Authorization");
 			console.log(token);
 			localStorage.setItem('token', token);
@@ -23,7 +22,7 @@ function logujSe(){
 				alert('Ne postoji nalog sa unetim podacima!');
 			}
 		},
-		error :function(){alert('B');}
+		error :function(){}
 	});
 }
 function podesiStranicu() {

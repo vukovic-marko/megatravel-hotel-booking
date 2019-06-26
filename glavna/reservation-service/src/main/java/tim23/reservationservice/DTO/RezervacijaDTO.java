@@ -2,30 +2,42 @@ package tim23.reservationservice.DTO;
 
 import java.util.Date;
 
-import tim23.reservationservice.model.KrajnjiKorisnik;
-import tim23.reservationservice.model.Soba;
-
 public class RezervacijaDTO {
 
     private Integer idRezervacije;
     private Date datumDolaska;
 	private Date datumOdlaska;
     private Integer brojOsoba;
-    private Soba soba;
-    private KrajnjiKorisnik krajnjiKorisnik;
+    private Integer idSobe;
+	private Integer idKorisnika;
 
 
-	public RezervacijaDTO(Integer idRezervacije, Date datumDolaska, Date datumOdlaska, Integer brojOsoba, Soba soba,
-			KrajnjiKorisnik krajnjiKorisnik) {
+	public Integer getIdKorisnika() {
+		return idKorisnika;
+	}
+
+	public void setIdKorisnika(Integer idKorisnika) {
+		this.idKorisnika = idKorisnika;
+	}
+
+	public RezervacijaDTO(Integer idRezervacije, Date datumDolaska, Date datumOdlaska, Integer brojOsoba, Integer soba,
+			Integer krajnjiKorisnik) {
 		super();
 		this.idRezervacije = idRezervacije;
 		this.datumDolaska = datumDolaska;
 		this.datumOdlaska = datumOdlaska;
 		this.brojOsoba = brojOsoba;
-		this.soba = soba;
-		this.krajnjiKorisnik = krajnjiKorisnik;
+		this.idSobe = soba;
+		this.idKorisnika = krajnjiKorisnik;
 	}
 
+    public Integer getIdSobe() {
+		return idSobe;
+	}
+
+	public void setIdSobe(Integer idSobe) {
+		this.idSobe = idSobe;
+	}
 	public Integer getIdRezervacije() {
 		return idRezervacije;
 	}
@@ -50,18 +62,6 @@ public class RezervacijaDTO {
 	public void setBrojOsoba(Integer brojOsoba) {
 		this.brojOsoba = brojOsoba;
 	}
-	public Soba getSoba() {
-		return soba;
-	}
-	public void setSoba(Soba soba) {
-		this.soba = soba;
-	}
  
-    public KrajnjiKorisnik getKrajnjiKorisnik() {
-		return krajnjiKorisnik;
-	}
 
-	public void setKrajnjiKorisnik(KrajnjiKorisnik krajnjiKorisnik) {
-		this.krajnjiKorisnik = krajnjiKorisnik;
-	}
 }
