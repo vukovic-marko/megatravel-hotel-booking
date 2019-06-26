@@ -34,12 +34,12 @@ public class SearchService {
 	    	if(kategorija.equals("undefined"))
 	    		kategorija="";	
 	    	
-	    	String []prviDatum = p.split("/");
+	    	
+	        	String []prviDatum = p.split("/");
 		       String []drugiDatum = k.split("/");
 		       
 		       String pocetak = prviDatum[2]+"-"+prviDatum[0]+"-"+prviDatum[1];
 		       String kraj = drugiDatum[2]+"-"+drugiDatum[0]+"-"+drugiDatum[1];
-		       
 		       java.util.Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(pocetak);  
 		       
 		       java.util.Date date2=new SimpleDateFormat("yyyy-MM-dd").parse(kraj);  

@@ -35,7 +35,7 @@ import tim23.searchservice.*;
 @RestController
 @RequestMapping("/search")
 public class SearchController {
-
+ private   static ArrayList<String> usluge = new ArrayList<>();
 	@Autowired
 	private JwtConfig tokenUtils;
 	@Autowired
@@ -110,6 +110,9 @@ public class SearchController {
 			method = RequestMethod.POST
 	)
 	public ResponseEntity<?> getAllRooms(@RequestBody PonudaDTO ponuda) {
+		
+		PonudaDTO p = ponuda;
+		usluge = p.getNazivDodatneUsluge();
 		/*
 		 * moja ideja je bila da preuzmem iz ponude koju sam poslala sa fronta datum dolaska i odlaska
 		 * da iscitam iz rezervacije prvo sve sobe koje ne spadaju pod tim datumom.
@@ -123,19 +126,15 @@ public class SearchController {
 		 */
 		return null;
 	}
-	   @GetMapping("/{brojkreveta},{drzava},{grad},{uib},{dd},{dod},{tip},{kat},{listUsluge}")
-	    public String search(@PathVariable String brojkreveta,@PathVariable String drzava, @PathVariable String grad,@PathVariable String uib,@PathVariable String dd,@PathVariable String dod,@PathVariable String tip,@PathVariable String kat, @PathVariable ArrayList<String> listUsluge) throws java.text.ParseException {
-	  String dateP = dd.replace("_", "/");
-	  String dateK = dod.replace("_", "/");
-	  
-	     if(listUsluge==null)
-	    	 listUsluge = new ArrayList<String>();
-		   List<Soba> s = searchService.fuzzySearch(brojkreveta,drzava,grad,uib,dateP,dateK,tip,kat,listUsluge);
-	     String ispis="";
-	     for(int i=0;i<s.size();i++) {
-	    	 ispis+= s.get(i).toString() + " \n";
-	     }
-	    	 return ispis ;
+	   @GetMapping("/{brojkreveta},{drzava},{grad},{uib},{dd},{dod},{tip},{kat}")
+	    public ResponseEntity<?> search(@PathVariable String brojkreveta,@PathVariable String drzava, @PathVariable String grad,@PathVariable String uib,@PathVariable String dd,@PathVariable String dod,@PathVariable String tip,@PathVariable String kat) throws java.text.ParseException {
+	  String dateP = dd.replaceAll("_", "/");
+	  String dateK = dod.replaceAll("_", "/");
+	
+	 
+		   List<Soba> s = searchService.fuzzySearch(brojkreveta,drzava,grad,uib,dateP,dateK,tip,kat,usluge);
+	     
+	    	 return new ResponseEntity<>(s, HttpStatus.OK);
 	    	 
 	   }
 

@@ -239,21 +239,36 @@ function pretraziSmestajneJedinice() {
 		"tipSmestaja" : tipSmestaja,
 		"kategorija" : kategorija
 	});
+	
 	var dateP = startDate.replace(/\//g,"_");
 	var dateK = endDate.replace(/\//g,"_");
 
 	
+
 	
 
 	$.ajax({
 		async : false,
-		url : "http://localhost:8762/search-service/search/"+numOfPers+","+place+","+place+","+place+","+dateP+","+dateK+","+tipSmestaja+","+kategorija+","+dodatneUsluge,
+		url : "http://localhost:8762/search-service/search/getAllRooms",
+		type : "POST",
+		dataType : "json",
+		contentType : "application/json",
+		data:ponuda,
+		success : function(data) {
+			toasrt["success"]('Uspesnoooo');
+		}
+	});
+	
+
+	$.ajax({
+		async : false,
+		url : "http://localhost:8762/search-service/search/"+numOfPers+",asd,asd,asd,"+dateP+","+dateK+","+tipSmestaja+","+kategorija,
 		type : "GET",
 		dataType : "json",
 		contentType : "application/json",
 		
 		success : function(data) {
-			toasrt["success"]('Uspesnoooo');
+	
 		}
 	});
 }

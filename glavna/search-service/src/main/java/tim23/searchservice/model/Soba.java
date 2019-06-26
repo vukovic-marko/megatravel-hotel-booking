@@ -76,7 +76,14 @@ import javax.xml.bind.annotation.XmlType;
 @Table (name = "soba")
 public class Soba {
 
-    @XmlElement(name = "Id_soba")
+    @Override
+	public String toString() {
+		return "Soba [idSoba=" + idSoba + ", brojSobe=" + brojSobe + ", brojKreveta=" + brojKreveta + ", ocena=" + ocena
+				+ ", odobreno=" + odobreno + ", adresa=" + adresa + ", idAgenta=" + idAgenta + ", tipSmestaja="
+				+ tipSmestaja + ", opisSmestaja=" + opisSmestaja + ", kategorijaSmestaja=" + kategorijaSmestaja + "]";
+	}
+
+	@XmlElement(name = "Id_soba")
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column (name = "idsoba")
