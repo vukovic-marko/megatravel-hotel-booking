@@ -2,13 +2,22 @@ package tim23.reservationservice.converterFromDTO;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import tim23.reservationservice.DTO.RezervacijaDTO;
 import tim23.reservationservice.model.KrajnjiKorisnik;
 import tim23.reservationservice.model.Rezervacija;
 import tim23.reservationservice.model.Soba;
+import tim23.reservationservice.repository.KrajnjiKorisnikRepository;
+import tim23.reservationservice.repository.SobaRepository;
 
 public class FromRezervacijaDTO {
 
+	@Autowired
+	KrajnjiKorisnikRepository kkr;
+	@Autowired
+	SobaRepository sr;
+	
     private Integer idRezervacije;
     private Date datumDolaska;
 	private Date datumOdlaska;
@@ -37,8 +46,8 @@ public class FromRezervacijaDTO {
 		this.datumDolaska = rez.getDatumDolaska();
 		this.datumOdlaska = rez.getDatumOdlaska();
 		this.brojOsoba = rez.getBrojOsoba();
-		this.soba = rez.getSoba();
-		this.krajnjiKorisnik = rez.getKrajnjiKorisnik();
+		this.soba = sr.getByIdSoba(rez.getIdSobe());
+		this.krajnjiKorisnik = kkr.getByIdKorisnika(rez.getIdKorisnika());
 
 	}
 	public Integer getIdRezervacije() {

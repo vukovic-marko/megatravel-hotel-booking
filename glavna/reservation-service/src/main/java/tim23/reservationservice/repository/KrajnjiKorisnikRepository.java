@@ -6,4 +6,5 @@ import tim23.reservationservice.model.KrajnjiKorisnik;
 
 public interface KrajnjiKorisnikRepository  extends JpaRepository<KrajnjiKorisnik, Integer>{
 	public KrajnjiKorisnik findByUsername(String username);
+	public KrajnjiKorisnik getByIdKorisnika(Integer id);
 }

@@ -6,4 +6,5 @@ import tim23.reservationservice.model.Soba;
 
 public interface SobaRepository extends JpaRepository<Soba, Integer>{
 	public Soba findByIdSoba(Integer id);
+	public Soba getByIdSoba(Integer id);
 }
