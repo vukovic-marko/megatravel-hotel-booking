@@ -102,12 +102,20 @@ public class ObjectFactory {
     	return new GetDodatneUslugeListResponse();
     }
     
-    public GetSobaDodatnaUslugaRequest createSobaDodatnaUslugaRequest() {
+    public GetSobaDodatnaUslugaRequest createGetSobaDodatnaUslugaRequest() {
     	return new GetSobaDodatnaUslugaRequest();
     }
     
-    public GetSobaDodatnaUslugaResponse createSobaDodatnaUslugaResponse() {
+    public GetSobaDodatnaUslugaResponse createGetSobaDodatnaUslugaResponse() {
     	return new GetSobaDodatnaUslugaResponse();
+    }
+    
+    public GetCenaRequest createGetCenaRequest() {
+    	return new GetCenaRequest();
+    }
+    
+    public GetCenaResponse createGetCenaResponse() {
+    	return new GetCenaResponse();
     }
     
     /**

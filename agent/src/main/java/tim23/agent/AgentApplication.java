@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 
 import tim23.agent.FromDTO.FromSobaDTO;
 import tim23.agent.FromDTO.SobaConverter;
+import tim23.agent.FromDTO.TerminskiPlanCenaConverter;
 import tim23.agent.config.JwtConfig;
 import tim23.agent.model.Adresa;
 import tim23.agent.model.Agent;
@@ -90,6 +91,11 @@ public class AgentApplication implements ApplicationListener<ApplicationReadyEve
 	@Bean
 	public SobaConverter sobaConverter() {
 		return new SobaConverter();
+	}
+	
+	@Bean
+	public TerminskiPlanCenaConverter terminskiPlanCenaConverter() {
+		return new TerminskiPlanCenaConverter();
 	}
 
 }

@@ -4,6 +4,7 @@ package tim23.agent;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
+import tim23.agent.model.Cena;
 import tim23.agent.model.DodatneUsluge;
 import tim23.agent.model.Soba;
 import tim23.agent.model.SobeDodatneUsluge;
@@ -13,6 +14,8 @@ import tim23.agent.model.poruke.GetAgentListRequest;
 import tim23.agent.model.poruke.GetAgentListResponse;
 import tim23.agent.model.poruke.GetAgentRequest;
 import tim23.agent.model.poruke.GetAgentResponse;
+import tim23.agent.model.poruke.GetCenaRequest;
+import tim23.agent.model.poruke.GetCenaResponse;
 import tim23.agent.model.poruke.GetDodatneUslugeListRequest;
 import tim23.agent.model.poruke.GetDodatneUslugeListResponse;
 import tim23.agent.model.poruke.GetReservationListRequest;
@@ -104,6 +107,17 @@ public class AgentClient extends WebServiceGatewaySupport {
 		GetSobaDodatnaUslugaRequest request = new GetSobaDodatnaUslugaRequest();
 		request.setSobaDodatnaUsluga(zaDodavanje);
 		GetSobaDodatnaUslugaResponse response = (GetSobaDodatnaUslugaResponse) getWebServiceTemplate()
+				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
+					request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
+		
+		return response;
+	}
+	
+	public GetCenaResponse addPrice(Cena cena) {
+		GetCenaRequest request = new GetCenaRequest();
+		request.setCena(cena);
+		
+		GetCenaResponse response = (GetCenaResponse) getWebServiceTemplate()
 				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
 					request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
 		

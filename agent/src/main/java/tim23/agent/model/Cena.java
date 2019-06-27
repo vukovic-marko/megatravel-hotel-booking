@@ -62,7 +62,6 @@ public class Cena {
 
     @XmlElement(name = "Id_cene")
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column (name = "idcene")
     private Integer idCene;
     
@@ -149,8 +148,17 @@ public class Cena {
     public void setKrajVazenja(Date value) {
         this.krajVazenja = value;
     }
+    
 
-    /**
+    public Soba getSoba() {
+		return soba;
+	}
+
+	public void setSoba(Soba soba) {
+		this.soba = soba;
+	}
+
+	/**
      * Gets the value of the vrednost property.
      * 
      */

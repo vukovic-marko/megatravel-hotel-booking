@@ -14,6 +14,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import tim23.hotelservice.model.Adresa;
 import tim23.hotelservice.model.Agent;
+import tim23.hotelservice.model.Cena;
 import tim23.hotelservice.model.DodatneUsluge;
 import tim23.hotelservice.model.Rezervacija;
 import tim23.hotelservice.model.Soba;
@@ -25,6 +26,8 @@ import tim23.hotelservice.model.poruke.GetAgentListRequest;
 import tim23.hotelservice.model.poruke.GetAgentListResponse;
 import tim23.hotelservice.model.poruke.GetAgentRequest;
 import tim23.hotelservice.model.poruke.GetAgentResponse;
+import tim23.hotelservice.model.poruke.GetCenaRequest;
+import tim23.hotelservice.model.poruke.GetCenaResponse;
 import tim23.hotelservice.model.poruke.GetDodatneUslugeListRequest;
 import tim23.hotelservice.model.poruke.GetDodatneUslugeListResponse;
 import tim23.hotelservice.model.poruke.GetReservationListRequest;
@@ -37,6 +40,7 @@ import tim23.hotelservice.model.poruke.GetTipSmestajaListRequest;
 import tim23.hotelservice.model.poruke.GetTipSmestajaListResponse;
 import tim23.hotelservice.repository.AdresaRepository;
 import tim23.hotelservice.repository.AgentRepository;
+import tim23.hotelservice.repository.CenaRepository;
 import tim23.hotelservice.repository.DodatneUslugeRepository;
 import tim23.hotelservice.repository.RezervacijaRepository;
 import tim23.hotelservice.repository.SobaDodatnaUslugaRepository;
@@ -74,6 +78,9 @@ public class HotelEndpoint {
 	
 	@Autowired
 	private SobaService sobaService;
+	
+	@Autowired
+	private CenaRepository cenaRepository;
 	
     @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getAgentRequest")
     @ResponsePayload
@@ -165,5 +172,16 @@ public class HotelEndpoint {
     	response.setSobeDodatnaUsluga(s);
     	return response;
     	
+    }
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getCenaRequest")
+    @ResponsePayload
+    public GetCenaResponse addPrice(@RequestPayload GetCenaRequest request) {
+    	Cena cenaZaDodavanje = request.getCena();
+    	Cena dodata = cenaRepository.save(cenaZaDodavanje);
+    	
+    	GetCenaResponse response = new GetCenaResponse();
+    	response.setCena(dodata);
+    	return response;
     }
 }

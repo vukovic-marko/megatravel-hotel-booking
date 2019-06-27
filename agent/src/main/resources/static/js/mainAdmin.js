@@ -328,6 +328,9 @@ function sakriModal(){
 			async: false,
 			url: "http://localhost:8081/agent/addRoom",
 	        type: "POST",
+	        beforeSend: function(request) {
+			    request.setRequestHeader("Authorization", localStorage.getItem('token'));
+			},
 	        contentType: "application/json",
 	        data: soba,
 	        success: function (data) {
