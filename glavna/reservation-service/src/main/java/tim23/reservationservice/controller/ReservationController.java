@@ -62,6 +62,15 @@ public class ReservationController {
 		}
 		}
 	
+	@GetMapping("/soba/{idSobe}")
+	public ResponseEntity<?> rate(@PathVariable Integer idSobe){
+		 Double ocena = rs.ocenaSobe(idSobe);
+		 if(ocena == null)
+			 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			 else
+			 return new ResponseEntity<>(ocena,HttpStatus.OK);
+	}
+	
 	@PostMapping("/add/{idAgentaPrimaoca},{sadrzaj}")
 	public void sendM(@PathVariable Integer idAgentaPrimaoca,@PathVariable String sadrzaj,HttpServletRequest request){
 		String token = tokenUtils.getToken(request);

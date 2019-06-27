@@ -47,6 +47,21 @@ public class ReservationService {
    public void sacuvaj(Poruka p) {
 	   pr.save(p);
    }
+   
+   public double ocenaSobe(Integer id) {
+       Integer brojac = 0;
+       Double suma = 0.0;
+       Double izlazSuma = 0.0;
+	   List<Rezervacija> rezervacije =rr.findAllBySobaIdSoba(id);
+	   for(int i=0;i<rezervacije.size();i++) {
+		   if(rezervacije.get(i).getOcena()!=null) {
+			 suma+=rezervacije.get(i).getOcena();
+			 brojac++;
+		   }
+	   }
+	   izlazSuma = suma/brojac;
+	   return izlazSuma;
+   }
 
 	
 	public List<Rezervacija> returnReservationByRoomId(Integer id) {
