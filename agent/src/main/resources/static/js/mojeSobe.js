@@ -1,30 +1,32 @@
+var idSobe;
+
 $(document).ready(function() {
 	
 	var fromTimeInput = $('#date_added');
-	var toTimeInput = $('#date_modified');
+	//var toTimeInput = $('#date_modified');
 	var fromTime = fromTimeInput.val();
-	var toTime = toTimeInput.val();
+	//var toTime = toTimeInput.val();
 
 	fromTimeInput.datepicker({
 		keyboardNavigation : false,
 		forceParse : false,
 		calendarWeeks : true,
-		autoclose : true,
-		endDate : toTime
+		autoclose : true
+		//endDate : toTime
 	});
-	toTimeInput.datepicker({
-		keyboardNavigation : false,
-		forceParse : false,
-		calendarWeeks : true,
-		autoclose : true,
-		startDate : fromTime
-	});
-	fromTimeInput.on("changeDate", function(e) {
-		toTimeInput.datepicker('setStartDate', e.date);
-	});
-	toTimeInput.on("changeDate", function(e) {
-		fromTimeInput.datepicker('setEndDate', e.date);
-	});
+//	toTimeInput.datepicker({
+//		keyboardNavigation : false,
+//		forceParse : false,
+//		calendarWeeks : true,
+//		autoclose : true,
+//		startDate : fromTime
+//	});
+//	fromTimeInput.on("changeDate", function(e) {
+//		toTimeInput.datepicker('setStartDate', e.date);
+//	});
+//	toTimeInput.on("changeDate", function(e) {
+//		fromTimeInput.datepicker('setEndDate', e.date);
+//	});
 	
 })
 
@@ -38,6 +40,9 @@ function myRooms(){
 		async: false,
 		url: "http://localhost:8081/agent/getAllRooms",
         type: "GET",
+        beforeSend: function(request) {
+		    request.setRequestHeader("Authorization", localStorage.getItem('token'));
+		},
         dataType: "json",
         success: function (data) {
         	for(i=0;i<data.length;i++){
@@ -88,6 +93,34 @@ function myRooms(){
 	});
 }
 
-function dodajTerminskiPlanCenaZaSobu(idSobe){
+function dodajTerminskiPlanCenaZaSobu(id){
 	$('#modalTerminskiPlanCena').modal();
+	idSobe = id;
+}
+
+function dodajTerminskiPlanCena(){
+	var startDate = $('#date_added').val();
+	var datumNiz = startDate.split("/");
+	var datumPocetkaVazenja = new Date(Number(datumNiz[2]),Number(datumNiz[0]-1),Number(datumNiz[1]));
+	var datumKrajaVazenja  = new Date(datumPocetkaVazenja.getFullYear(), datumPocetkaVazenja.getMonth()+1, 0);
+	var cena = $('#cena').val();
+	
+	var terminskiPlanCena = JSON.stringify({
+		"pocetakVazenja" : datumPocetkaVazenja,
+		"krajVazenja" : datumKrajaVazenja,
+		"idSobe" : idSobe,
+		"cena" : cena
+	});
+	
+	$.ajax({
+		async: false,
+		url: "http://localhost:8081/terminskiPlanCena/addTerminskiPlanCena",
+        type: "POST",
+        contentType: "application/json",
+        dataType : "json",
+        data: terminskiPlanCena,
+        success: function (data) {
+        	toastr.success('Uspesno dodavanje');
+        }
+	});
 }
