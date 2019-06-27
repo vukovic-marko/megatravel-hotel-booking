@@ -65,9 +65,9 @@ import javax.xml.bind.annotation.XmlType;
     "idAgenta",
     "tipSmestaja",
     "opisSmestaja",
-    "dodatneUsluge",
-    "slika",
-    "cena",
+//    "dodatneUsluge",
+//    "slika",
+//    "cena",
     "kategorijaSmestaja"
 //    "rezervacija"
 })
