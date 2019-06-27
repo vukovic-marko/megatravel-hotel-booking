@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class AgentoveSobeDTO {
 	
+	private Integer idSobe;
 	private Integer brojSobe;
 	private Integer brojKreveta;
 	private String opis;
@@ -15,9 +16,10 @@ public class AgentoveSobeDTO {
 		
 	}
 
-	public AgentoveSobeDTO(Integer brojSobe, Integer brojKreveta, String opis, String nazivTipaSmestaja,
+	public AgentoveSobeDTO(Integer idSobe,Integer brojSobe, Integer brojKreveta, String opis, String nazivTipaSmestaja,
 			AdresaDTO adresa,ArrayList<String> dodatneUsluge) {
 		super();
+		this.idSobe = idSobe;
 		this.brojSobe = brojSobe;
 		this.brojKreveta = brojKreveta;
 		this.opis = opis;
@@ -26,7 +28,14 @@ public class AgentoveSobeDTO {
 		this.dodatneUsluge = dodatneUsluge;
 	}
 	
-	
+
+	public Integer getIdSobe() {
+		return idSobe;
+	}
+
+	public void setIdSobe(Integer idSobe) {
+		this.idSobe = idSobe;
+	}
 
 	public ArrayList<String> getDodatneUsluge() {
 		return dodatneUsluge;

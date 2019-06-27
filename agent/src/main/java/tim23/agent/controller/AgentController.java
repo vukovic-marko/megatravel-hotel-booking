@@ -107,7 +107,7 @@ public class AgentController {
 			AgentoveSobeDTO soba = agentSobaConverter.convert(sobeAgentove.get(i)); 
 			ArrayList<SobeDodatneUsluge> uslugeZaSobu = sobaDodatnaUslugaRepository.findBySoba(sobeAgentove.get(i));
 			for(int j=0;j<uslugeZaSobu.size();j++) {
-				String usluga = uslugeZaSobu.get(i).getDodatnaUsluga().getNaziv();
+				String usluga = uslugeZaSobu.get(j).getDodatnaUsluga().getNaziv();
 				soba.getDodatneUsluge().add(usluga);		
 			}
 			sobeZaFront.add(soba);
