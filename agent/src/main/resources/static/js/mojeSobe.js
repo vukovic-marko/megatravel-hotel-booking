@@ -1,3 +1,34 @@
+$(document).ready(function() {
+	
+	var fromTimeInput = $('#date_added');
+	var toTimeInput = $('#date_modified');
+	var fromTime = fromTimeInput.val();
+	var toTime = toTimeInput.val();
+
+	fromTimeInput.datepicker({
+		keyboardNavigation : false,
+		forceParse : false,
+		calendarWeeks : true,
+		autoclose : true,
+		endDate : toTime
+	});
+	toTimeInput.datepicker({
+		keyboardNavigation : false,
+		forceParse : false,
+		calendarWeeks : true,
+		autoclose : true,
+		startDate : fromTime
+	});
+	fromTimeInput.on("changeDate", function(e) {
+		toTimeInput.datepicker('setStartDate', e.date);
+	});
+	toTimeInput.on("changeDate", function(e) {
+		fromTimeInput.datepicker('setEndDate', e.date);
+	});
+	
+})
+
+
 function myRooms(){
 	var tabelaSoba = document.getElementById('tabelaSobe');
 	$('#modalMojeSobe').modal();
@@ -10,15 +41,21 @@ function myRooms(){
         dataType: "json",
         success: function (data) {
         	for(i=0;i<data.length;i++){
-        		var redUTabeli = document.createElemenet('tr');
+        		var redUTabeli = document.createElement('tr');
         		var brojSobe = document.createElement('th');
         		var brojKreveta = document.createElement('th');
         		var opis = document.createElement('th');
         		var tipSmestaja = document.createElement('th');
         		var adresa = document.createElement('th');
         		var dodatneUsluge = document.createElement('th');
+        		var terminskiPlanCena = document.createElement('th');
+        		var dugmeZaTerminskiPlanCena = document.createElement('button');
+        		dugmeZaTerminskiPlanCena.innerHTML = "Dodaj terminski plan cena";
+        		dugmeZaTerminskiPlanCena.setAttribute('onclick','dodajTerminskiPlanCenaZaSobu('+data[i].idSobe+')');
+        		dugmeZaTerminskiPlanCena.setAttribute('class',"w3-btn w3-brown");
+        		terminskiPlanCena.append(dugmeZaTerminskiPlanCena);
         		brojSobe.innerHTML = data[i].brojSobe;
-        		brojKrevetea.innerHTML = data[i].brojKreveta;
+        		brojKreveta.innerHTML = data[i].brojKreveta;
         		opis.innerHTML = data[i].opis;
         		tipSmestaja.innerHTML = data[i].nazivTipaSmestaja;
         		adresa.innerHTML = data[i].adresa.grad+","+data[i].adresa.drzava+","+data[i].adresa.ulicaIBroj;
@@ -44,8 +81,13 @@ function myRooms(){
         		redUTabeli.append(tipSmestaja);
         		redUTabeli.append(adresa);
         		redUTabeli.append(dodatneUsluge);
+        		redUTabeli.append(dugmeZaTerminskiPlanCena);
         		tabelaSoba.append(redUTabeli);
         	}
         }
 	});
+}
+
+function dodajTerminskiPlanCenaZaSobu(idSobe){
+	$('#modalTerminskiPlanCena').modal();
 }

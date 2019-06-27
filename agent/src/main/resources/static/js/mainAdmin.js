@@ -91,8 +91,6 @@ function addRoom(){
 	    	for(var i=0;i<data.length;i++){
 	    		var myOption = document.createElement("option");
 	    		myOption.text =data[i];
-	    		myOption.text =data[i];
-	    		myOption.value = data[i].id;
 	    		divT.append(myOption);
 
 	    	}
@@ -306,16 +304,16 @@ function sakriModal(){
 //		    }
 //		});
 //		
-//		$.ajax({
-//			async: false,
-//			url: "http://localhost:8081/agent/typeRoomNaziv/"+nazTipa,
-//		    type: "GET",
-//		    dataType: "json",
-//		    contentType: "application/json",
-//		    success: function (data) {
-//		    	tipSmestaja=data;
-//		    }
-//		});
+		$.ajax({
+			async: false,
+			url: "http://localhost:8081/agent/typeRoomNaziv/"+nazTipa,
+		    type: "GET",
+		    dataType: "json",
+		    contentType: "application/json",
+		    success: function (data) {
+		    	tipSmestaja=data.idTipa;
+	    }
+		});
 
 		var soba = JSON.stringify({
 			"broj_sobe": brSobe,

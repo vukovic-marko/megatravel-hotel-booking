@@ -3,10 +3,7 @@ package tim23.agent.FromDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import tim23.agent.DTO.SobaDTO;
-import tim23.agent.model.Adresa;
-import tim23.agent.model.Agent;
 import tim23.agent.model.Soba;
-import tim23.agent.model.TipSmestaja;
 import tim23.agent.repository.AdresaRepository;
 import tim23.agent.repository.TipSmestajaRepository;
 
