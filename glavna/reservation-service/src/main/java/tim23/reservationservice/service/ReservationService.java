@@ -48,7 +48,11 @@ public class ReservationService {
 	   pr.save(p);
    }
    
-   public double ocenaSobe(Integer id) {
+   public Rezervacija nadjiRezervaciju(Integer id) {
+	   return rr.getByIdRezervacije(id);
+	   }
+   //metoda koja vraca ocenu sobe
+   public double dodajOcenu(Integer id) {
        Integer brojac = 0;
        Double suma = 0.0;
        Double izlazSuma = 0.0;
@@ -61,6 +65,23 @@ public class ReservationService {
 	   }
 	   izlazSuma = suma/brojac;
 	   return izlazSuma;
+   }
+   
+   //metoda koja ocenjuje rezervaciju i update ocenu sobe takodje
+   public void OceniRezervacijuIUpdateOcenuSobe(Integer rezervacijaId,Double ocena) {
+	   Rezervacija rez = rr.getByIdRezervacije(rezervacijaId);
+	   rez.setOcena(ocena);
+	   rr.save(rez);
+	   Integer id = rez.getIdSobe().getIdSoba();
+	   Double revG = dodajOcenu(id);
+	   Soba soba = sr.findByIdSoba(id);
+	   soba.setOcena(revG);
+	   sr.save(soba);
+	   
+   }
+   
+   public List<Rezervacija> getReservationByUsername(String username){
+	   return rr.findAllByKrajnjiKorisnikUsername(username);
    }
 
 	

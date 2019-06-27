@@ -35,6 +35,14 @@ public class ReservationController {
 	@Autowired
 	private PorukeRepository pr;
 	
+	//Vrati sve rezervacije kod korisnika sa username
+	@GetMapping("/findRes/{username}")
+	public ResponseEntity<List> returnReservations(@PathVariable String username){
+	     List<Rezervacija>l = rs.getReservationByUsername(username);
+	     System.out.println(l.size());
+		return ResponseEntity.ok(rs.getReservationByUsername(username));
+	
+	}
 	@GetMapping("/")
 	public String hello(HttpServletRequest request) {
 		String token = tokenUtils.getToken(request);
@@ -64,11 +72,16 @@ public class ReservationController {
 	
 	@GetMapping("/soba/{idSobe}")
 	public ResponseEntity<?> rate(@PathVariable Integer idSobe){
-		 Double ocena = rs.ocenaSobe(idSobe);
+		 Double ocena = rs.dodajOcenu(idSobe);
 		 if(ocena == null)
 			 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			 else
 			 return new ResponseEntity<>(ocena,HttpStatus.OK);
+	}
+	//preko ove metode se ocenjuje rezervacija i update se ocena sobe na koju se odnosi rezervacija
+	@PostMapping("/review/{IdRez}/{Ocena}")
+	public void oceni(@PathVariable Integer IdRez, @PathVariable Double Ocena) {
+		rs.OceniRezervacijuIUpdateOcenuSobe(IdRez, Ocena);
 	}
 	
 	@PostMapping("/add/{idAgentaPrimaoca},{sadrzaj}")
