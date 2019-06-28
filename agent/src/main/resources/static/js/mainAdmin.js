@@ -1,5 +1,41 @@
+var images=[];
 var dodatneUsluge = [];
 var expanded = false;
+///dodato za slike
+function previewFiles() {
+
+	  var preview = document.querySelector('#preview');
+	  var files   = document.querySelector('input[type=file]').files;
+
+	  function readAndPreview(file) {
+
+	    // Make sure `file.name` matches our extensions criteria
+	    if ( /\.(jpe?g|png|gif)$/i.test(file.name) ) {
+	      var reader = new FileReader();
+
+	      reader.addEventListener("load", function () {
+	        var image = new Image();
+	        image.height = 100;
+	        
+	        image.title = file.name;
+	        image.src = this.result;
+	        images.push(this.result);
+	        preview.appendChild( image );
+	      }, false);
+
+	      reader.readAsDataURL(file);
+	    }
+
+	  }
+
+	  if (files) {
+	    [].forEach.call(files, readAndPreview);
+	  }
+
+	}
+
+
+
 function proba(){
 	$('#modalSlike').modal();
 //alert('a');
@@ -273,6 +309,7 @@ function realizuj(id){
 }
 
 function sakriModal(){
+
 	var adresa =document.getElementById('inpAdr').value;
 	var idAdr=document.getElementById('idAdr').value;
 	var nazTipa=document.getElementById('tipSobe').value;
