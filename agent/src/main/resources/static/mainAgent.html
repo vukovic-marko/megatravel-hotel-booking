@@ -119,6 +119,8 @@ body, html {
 							Room</a></li>
 					<li><a href="#" onclick="return myRooms()">My Rooms</a></li>
 					<li><a href="#" class="b" onclick="return reservations()">Reservations</a></li>
+					<li><a href="#" class="b" onclick="return messages()">Messages</a></li>
+					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a><span class="glyphicon glyphicon-log-out"></span>
@@ -208,6 +210,24 @@ body, html {
 			</div>
 		</div>
 
+<div class="modal fade" id="modalPoruke" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					
+					
+					
+					<div class="modal-header">
+						<div class="w3-card-4">
+							<div class="w3-container w3-brown">
+								<h2>Your messages</h2>
+							</div>
+						</div>
+					</div>
+					<div class="modal-body" id="adrese"></div>
+				</div>
+			</div>
+		</div>
 
 		<div class="modal fade" id="modalAdrese" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
