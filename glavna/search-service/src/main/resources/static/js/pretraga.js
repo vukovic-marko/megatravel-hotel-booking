@@ -87,9 +87,9 @@ $(document).ready(function() {
 				401 : function() {
 					alert('Ne postoji nalog sa unetim podacima!');
 				}
-			}
-		})
-	})
+			},error :function(){}
+		});
+	});
 })
 
 function prikaziTipoveSmestaja() {
