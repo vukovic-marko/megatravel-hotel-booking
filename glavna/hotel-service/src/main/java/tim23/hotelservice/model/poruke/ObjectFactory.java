@@ -133,6 +133,14 @@ public class ObjectFactory {
     	return new GetMessageSendResponse();
     }
     
+    public GetRezervacijaRequest createGetRezervacijaRequest() {
+    	return new GetRezervacijaRequest();
+    }
+    
+    public GetRezervacijaResponse createGetRezervacijaResponse() {
+    	return new GetRezervacijaResponse();
+    }
+    
     /**
      * Create an instance of {@link Agent }
      * 
