@@ -117,6 +117,21 @@ public class ObjectFactory {
     public GetCenaResponse createGetCenaResponse() {
     	return new GetCenaResponse();
     }
+    public GetPorukaListRequest createGetPorukaListRequest() {
+    	return new GetPorukaListRequest();
+    }
+    
+    public GetPorukaListResponse createGetPorukaListResponse() {
+    	return new GetPorukaListResponse();
+    }
+    
+    public GetMessageSendRequest createGetMessageSendRequest() {
+    	return new GetMessageSendRequest();
+    }
+    
+    public GetMessageSendResponse createGetMessageSendResponse() {
+    	return new GetMessageSendResponse();
+    }
     
     /**
      * Create an instance of {@link Agent }

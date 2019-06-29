@@ -102,7 +102,8 @@ function dodajTerminskiPlanCena(){
 	var startDate = $('#date_added').val();
 	var datumNiz = startDate.split("/");
 	var datumPocetkaVazenja = new Date(Number(datumNiz[2]),Number(datumNiz[0]-1),Number(datumNiz[1]));
-	var datumKrajaVazenja  = new Date(datumPocetkaVazenja.getFullYear(), datumPocetkaVazenja.getMonth()+1, 0);
+	var datumKrajaVazenja  = new Date();
+	datumKrajaVazenja.setDate(datumPocetkaVazenja.getDate() + 30);
 	var cena = $('#cena').val();
 	
 	var terminskiPlanCena = JSON.stringify({

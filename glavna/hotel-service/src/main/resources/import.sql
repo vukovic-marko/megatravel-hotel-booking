@@ -40,3 +40,9 @@ insert into dodatneusluge(id,naziv,cena) values (7,"Kucni ljubimci",800);
 insert into dodatneusluge(id,naziv,cena) values (8,"Mini kuhinja",500);
 insert into dodatneusluge(id,naziv,cena) values (9,"Privatno kupatilo",500);
 insert into dodatneusluge(id,naziv,cena) values (10,"Besplatno otkazivanje",0);
+
+insert into poruka(idporuka,sadrzaj,agentprimalac,klijentposiljac)
+values (1,"Proba poruka 1",1,1);
+insert into poruka(idporuka,sadrzaj,agentprimalac,klijentposiljac)
+values (2,"Proba poruka 2",1,1);
+

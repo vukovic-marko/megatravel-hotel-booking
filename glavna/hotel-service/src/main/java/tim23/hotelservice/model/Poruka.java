@@ -52,7 +52,7 @@ import javax.xml.bind.annotation.XmlType;
 	    "idPoruka",
 	    "klijentPosiljalac",
 	    "klijentPrimalac",
-	    "agentPosiljalac",
+	    "agentPosiljac",
 	    "agentPrimalac",
 	    "sadrzaj"
 })
