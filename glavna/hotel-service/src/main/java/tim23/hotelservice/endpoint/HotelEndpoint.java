@@ -16,6 +16,8 @@ import tim23.hotelservice.model.Adresa;
 import tim23.hotelservice.model.Agent;
 import tim23.hotelservice.model.Cena;
 import tim23.hotelservice.model.DodatneUsluge;
+import tim23.hotelservice.model.KrajnjiKorisnik;
+import tim23.hotelservice.model.Poruka;
 import tim23.hotelservice.model.Rezervacija;
 import tim23.hotelservice.model.Soba;
 import tim23.hotelservice.model.SobeDodatneUsluge;
@@ -30,6 +32,10 @@ import tim23.hotelservice.model.poruke.GetCenaRequest;
 import tim23.hotelservice.model.poruke.GetCenaResponse;
 import tim23.hotelservice.model.poruke.GetDodatneUslugeListRequest;
 import tim23.hotelservice.model.poruke.GetDodatneUslugeListResponse;
+import tim23.hotelservice.model.poruke.GetMessageSendRequest;
+import tim23.hotelservice.model.poruke.GetMessageSendResponse;
+import tim23.hotelservice.model.poruke.GetPorukaListRequest;
+import tim23.hotelservice.model.poruke.GetPorukaListResponse;
 import tim23.hotelservice.model.poruke.GetReservationListRequest;
 import tim23.hotelservice.model.poruke.GetReservationListResponse;
 import tim23.hotelservice.model.poruke.GetSobaDodatnaUslugaRequest;
@@ -42,6 +48,8 @@ import tim23.hotelservice.repository.AdresaRepository;
 import tim23.hotelservice.repository.AgentRepository;
 import tim23.hotelservice.repository.CenaRepository;
 import tim23.hotelservice.repository.DodatneUslugeRepository;
+import tim23.hotelservice.repository.KrajnjiKorisnikRepository;
+import tim23.hotelservice.repository.PorukaRepository;
 import tim23.hotelservice.repository.RezervacijaRepository;
 import tim23.hotelservice.repository.SobaDodatnaUslugaRepository;
 import tim23.hotelservice.repository.SobaRepository;
@@ -57,6 +65,9 @@ public class HotelEndpoint {
 	
 	@Autowired
 	private RezervacijaRepository rezervacijaRepository;
+	
+	@Autowired
+	private KrajnjiKorisnikRepository krajnjiKorisnikRepository;
 	
 	@Autowired
 	private SobaRepository sobaRepository;
@@ -81,6 +92,10 @@ public class HotelEndpoint {
 	
 	@Autowired
 	private CenaRepository cenaRepository;
+	
+	@Autowired
+	private PorukaRepository porukaRepository;
+	
 	
     @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getAgentRequest")
     @ResponsePayload
@@ -183,5 +198,31 @@ public class HotelEndpoint {
     	GetCenaResponse response = new GetCenaResponse();
     	response.setCena(dodata);
     	return response;
+    }
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getPorukaListRequest")
+    @ResponsePayload
+    public GetPorukaListResponse readMessage(@RequestPayload GetPorukaListRequest request) {
+    	Agent a = request.getAgent();
+    	Agent trazeni = agentRepository.findById(a.getIdKorisnika()).get();
+    	GetPorukaListResponse response = new GetPorukaListResponse();
+    	List<Poruka> listaAgentovihPoruka = porukaRepository.findByAgentPrimalac(trazeni);
+    	response.setPoruke(listaAgentovihPoruka);
+    	return response;
+    }
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getMessageSendRequest")
+    @ResponsePayload
+    public GetMessageSendResponse sendMessage(@RequestPayload GetMessageSendRequest request) {
+    	String agentUsername = request.getPosiljalac();
+    	Agent agentPosiljalac = agentRepository.findByUsername(agentUsername);
+    	String klijentUsername = request.getPrimalac();
+    	KrajnjiKorisnik korisnik = krajnjiKorisnikRepository.findByUsername(klijentUsername);
+    	Poruka poruka = new Poruka();
+    	poruka.setAgentPosiljac(agentPosiljalac);
+    	poruka.setKlijentPrimalac(korisnik);
+    	poruka.setSadrzaj(request.getSadrzaj());
+    	porukaRepository.save(poruka);
+    	return new GetMessageSendResponse();
     }
 }

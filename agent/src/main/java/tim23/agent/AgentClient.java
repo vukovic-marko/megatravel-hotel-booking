@@ -4,6 +4,7 @@ package tim23.agent;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
+import tim23.agent.model.Agent;
 import tim23.agent.model.Cena;
 import tim23.agent.model.DodatneUsluge;
 import tim23.agent.model.Soba;
@@ -18,6 +19,10 @@ import tim23.agent.model.poruke.GetCenaRequest;
 import tim23.agent.model.poruke.GetCenaResponse;
 import tim23.agent.model.poruke.GetDodatneUslugeListRequest;
 import tim23.agent.model.poruke.GetDodatneUslugeListResponse;
+import tim23.agent.model.poruke.GetMessageSendRequest;
+import tim23.agent.model.poruke.GetMessageSendResponse;
+import tim23.agent.model.poruke.GetPorukaListRequest;
+import tim23.agent.model.poruke.GetPorukaListResponse;
 import tim23.agent.model.poruke.GetReservationListRequest;
 import tim23.agent.model.poruke.GetReservationListResponse;
 import tim23.agent.model.poruke.GetSobaDodatnaUslugaRequest;
@@ -118,6 +123,30 @@ public class AgentClient extends WebServiceGatewaySupport {
 		request.setCena(cena);
 		
 		GetCenaResponse response = (GetCenaResponse) getWebServiceTemplate()
+				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
+					request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
+		
+		return response;
+	}
+	
+	public GetPorukaListResponse readMessage(Agent primalac) {
+		GetPorukaListRequest request = new GetPorukaListRequest();
+		request.setAgent(primalac);
+		
+		GetPorukaListResponse response = (GetPorukaListResponse) getWebServiceTemplate()
+				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
+					request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
+		
+		return response;
+	}
+	
+	public GetMessageSendResponse sendMessage(String usernameAgent, String usernameKlijent,String sadrzaj) {
+		GetMessageSendRequest request = new GetMessageSendRequest();
+		request.setPosiljalac(usernameAgent);
+		request.setPrimalac(usernameKlijent);
+		request.setSadrzaj(sadrzaj);
+		
+		GetMessageSendResponse response = (GetMessageSendResponse) getWebServiceTemplate()
 				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
 					request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
 		
