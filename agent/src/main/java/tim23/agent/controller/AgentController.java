@@ -86,13 +86,7 @@ public class AgentController {
 //		 
 //	 }
 	
-	@PostMapping("/realizacija/{id}")
-	public ResponseEntity<?> makeImage(@PathVariable Integer id) {
-		Rezervacija rez=rr.findByIdRezervacije(id);
-		rez.setRealizovana(true);
-		rr.save(rez);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+	
 	
 	@GetMapping("/getAllRooms")
 	public ResponseEntity<?> getAllRooms(HttpServletRequest request){
@@ -114,18 +108,6 @@ public class AgentController {
 		}
 		return new ResponseEntity<>(sobeZaFront,HttpStatus.OK);
 	}
-	
-	   @GetMapping("/mojeRez/{username}")
-	   public ResponseEntity<?> mojeRez(@PathVariable String username) {
-		   //System.out.println(username);
-		   Integer id=as.findAgentByUsername(username);
-		   //System.out.println(id);
-//		   for(Rezervacija r:rr.findBySobaIdAgentaIdKorisnika(id)) {
-//			   System.out.println(r.getIdRezervacije());
-//		   }
-		   return new ResponseEntity<>(rr.findBySobaIdAgentaIdKorisnika(id),HttpStatus.OK);
-		   
-	   }
 	
 //	   @GetMapping("/addRez")
 //	   public ResponseEntity<?> addRez(RezervacijaDTO rezDTO) {
