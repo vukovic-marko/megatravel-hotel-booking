@@ -106,7 +106,7 @@ public class SearchService {
 	    	session.close();
 	    	
 	   
-
+        
 	    	return listSoba;
 	    }
 

@@ -172,6 +172,13 @@ function prikaziUsluge(){
 	  }
 }
 
+
+function messages(){
+	$('#modalPoruke').modal();
+	
+}
+
+
 function reservations(){
 	$('#modalRez').modal();
 	var divT = $('#reze');
@@ -241,9 +248,11 @@ function reservations(){
 				//alert()
 				console.log(v[i].soba);
 			     var myDate = v[i].datumDolaska;
+			     var a = new Date(myDate);
 			     var now = moment(myDate).format('l');
-				sad1.innerHTML= now;
-				myDate = v[i].datumOdlaska;
+	   		     sad1.innerHTML= now;
+				
+				myDate = v[i].datumDolaska;
 				now = moment(myDate).format('l');
 				sad2.innerHTML=now;
 				sad3.innerHTML=v[i].brojOsoba;
@@ -273,13 +282,16 @@ function reservations(){
 //				    });
 				
 				//sad6.innerHTML=v[i].soba.idSoba; //idsobe
-				var today = new Date();
-				var dd = today.getDate();
-
-				var mm = today.getMonth()+1; 
-				var yyyy = today.getFullYear();
-				today = mm+'/'+dd+'/'+yyyy;
-				if(now==today && (v[i].realizovana==false || v[i].realizovana=="" || v[i].realizovana==null)){
+				
+			
+				  var today = new Date();
+				  var dd = String(today.getDate()).padStart(2, '0');
+				  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+				  var yyyy = today.getFullYear();
+				today =yyyy+"-"+mm+"-"+dd;
+				var b = new Date(today);
+				alert(a + "  " + today);
+				if(a.getFullYear() == yyyy && a.getDate() == b.getDate() && a.getMonth() == b.getMonth()  && (v[i].realizovana==false || v[i].realizovana=="" || v[i].realizovana==null)){
 					var preuzmi = document.createElement("INPUT");
 					preuzmi.setAttribute("type", "button");
 					preuzmi.value="Realize";
@@ -289,6 +301,7 @@ function reservations(){
 					sad7.append(preuzmi);
 
 				}else{
+					alert("else");
 					sad7.innerHTML=v[i].realizovana;
 				}
 				red1.append(sad7);
@@ -298,7 +311,7 @@ function reservations(){
 
 	    	}
 	    }
-	}
+	},error:function(){alert("greska");}
 	});
 	divT.append(tabela);
 

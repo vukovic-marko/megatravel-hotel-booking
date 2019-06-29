@@ -10,7 +10,7 @@ $(document).ready(function(){
 	 
 	  
 	$.ajax({
-		url:"http://localhost:8762/reservation-service/reservation/findRes/jkljklj",
+		url:"http://localhost:8762/reservation-service/reservation/findRes",
 		type:"GET",
 	  
 		success: function(data){

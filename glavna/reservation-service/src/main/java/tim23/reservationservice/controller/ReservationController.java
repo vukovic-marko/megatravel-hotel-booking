@@ -36,8 +36,10 @@ public class ReservationController {
 	private PorukeRepository pr;
 	
 	//Vrati sve rezervacije kod korisnika sa username
-	@GetMapping("/findRes/{username}")
-	public ResponseEntity<List> returnReservations(@PathVariable String username){
+	@GetMapping("/findRes")
+	public ResponseEntity<List> returnReservations(HttpServletRequest request){
+		String token = tokenUtils.getToken(request);
+		String username = tokenUtils.getUsernameFromToken(token);
 	     List<Rezervacija>l = rs.getReservationByUsername(username);
 	     System.out.println(l.size());
 		return ResponseEntity.ok(rs.getReservationByUsername(username));
@@ -53,7 +55,7 @@ public class ReservationController {
 
 		return username;
 	}
-	
+	//poruke
 	@GetMapping("/poruke/{username}")
 		public ResponseEntity<?>getMessages(@PathVariable String username){
 			List<Poruka> poruke = rs.getPoruke(username);
@@ -83,7 +85,7 @@ public class ReservationController {
 	public void oceni(@PathVariable Integer IdRez, @PathVariable Double Ocena) {
 		rs.OceniRezervacijuIUpdateOcenuSobe(IdRez, Ocena);
 	}
-	
+	//poruke
 	@PostMapping("/add/{idAgentaPrimaoca},{sadrzaj}")
 	public void sendM(@PathVariable Integer idAgentaPrimaoca,@PathVariable String sadrzaj,HttpServletRequest request){
 		String token = tokenUtils.getToken(request);
