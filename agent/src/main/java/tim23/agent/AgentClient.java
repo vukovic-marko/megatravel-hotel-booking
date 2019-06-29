@@ -27,6 +27,8 @@ import tim23.agent.model.poruke.GetReservationListRequest;
 import tim23.agent.model.poruke.GetReservationListResponse;
 import tim23.agent.model.poruke.GetRezervacijaRequest;
 import tim23.agent.model.poruke.GetRezervacijaResponse;
+import tim23.agent.model.poruke.GetSlikaRequest;
+import tim23.agent.model.poruke.GetSlikaResponse;
 import tim23.agent.model.poruke.GetSobaDodatnaUslugaRequest;
 import tim23.agent.model.poruke.GetSobaDodatnaUslugaResponse;
 import tim23.agent.model.poruke.GetSobaRequest;
@@ -161,6 +163,20 @@ public class AgentClient extends WebServiceGatewaySupport {
 		GetRezervacijaResponse response = (GetRezervacijaResponse) getWebServiceTemplate()
 				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
 					request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
+		
+		return response;
+	}
+	
+	public GetSlikaResponse dodajSliku(byte[] blist, String filename, Integer idSobe, String username) {
+		GetSlikaRequest request = new GetSlikaRequest();
+		request.setSlika(blist);
+		request.setFilename(filename);
+		request.setIdSobe(idSobe);
+		request.setUsername(username);
+		
+		GetSlikaResponse response = (GetSlikaResponse) getWebServiceTemplate()
+				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
+						request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
 		
 		return response;
 	}
