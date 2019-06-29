@@ -28,7 +28,6 @@ insert into krajnjikorisnik_authority (user_id, authority_id) values (1, 3);
 insert into adresa (id,grad,drzava,ulicaibroj) values (1,"Madrid","Spanija","ul2");
 
 insert into tipsmestaja (idtipa, naziv) values (1, 'Hotel');
-
 --ubacivanje dodatnih usluga
 insert into dodatneusluge(id,naziv,cena) values (1,"Wi-Fi",200);
 insert into dodatneusluge(id,naziv,cena) values (2,"Parking",300);
@@ -45,4 +44,5 @@ insert into poruka(idporuka,sadrzaj,agentprimalac,klijentposiljac)
 values (1,"Proba poruka 1",1,1);
 insert into poruka(idporuka,sadrzaj,agentprimalac,klijentposiljac)
 values (2,"Proba poruka 2",1,1);
+
 

@@ -408,6 +408,7 @@ function getAdrese(){
 		url: "http://localhost:8081/agent/sveAdrese",
 	    type: "GET",
 	    success: function (data) {
+	    	console.log(data);
 	    	var divT = $('#adrese');
 	    	divT.empty();
 	    	var tabela=document.createElement("table");
