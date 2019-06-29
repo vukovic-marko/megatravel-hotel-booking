@@ -141,6 +141,14 @@ public class ObjectFactory {
     	return new GetRezervacijaResponse();
     }
     
+    public GetSlikaRequest createGetSlikaRequest() {
+    	return new GetSlikaRequest();
+    }
+    
+    public GetSlikaResponse createGetSlikaResponse() {
+    	return new GetSlikaResponse();
+    }
+    
     /**
      * Create an instance of {@link Agent }
      * 

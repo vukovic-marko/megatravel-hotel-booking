@@ -391,12 +391,37 @@ function sakriModal(){
 	        contentType: "application/json",
 	        data: soba,
 	        success: function (data) {
-	
+	        	console.log(data)
+	        	
+
+	    		console.log($('#browse')[0].files[0]);
+	    		
+	    		var formData = new FormData();
+	    		formData.append('file', $('#browse')[0].files[0])
+	    		
+	    		$.ajax({
+	    		       url : 'http://localhost:8081/slika/' + data.idSoba,
+	    		       headers: {'Authorization' : localStorage.getItem('token')},
+	    		       contentType: false,
+	    		       async: false,
+	    		       type : 'post',
+	    		       data : formData,
+	    		       processData: false,  // tell jQuery not to process the data
+	    		       contentType: false,  // tell jQuery not to set contentType
+	    		       success : function(data) {
+	    		           console.log('success');
+	    		           //alert(data);
+	    		       }, error: function(data) {
+	    		    	   console.log('error');
+	    		    	   console.log(data);
+	    		       }
+	    		});
 	        }//,
 //	        error: function (jqxhr, textStatus, errorThrown) {
 //	            
 //	        }
 		});
+		
 	}
 	
 }

@@ -1,5 +1,10 @@
 package tim23.hotelservice.endpoint;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +24,7 @@ import tim23.hotelservice.model.DodatneUsluge;
 import tim23.hotelservice.model.KrajnjiKorisnik;
 import tim23.hotelservice.model.Poruka;
 import tim23.hotelservice.model.Rezervacija;
+import tim23.hotelservice.model.Slika;
 import tim23.hotelservice.model.Soba;
 import tim23.hotelservice.model.SobeDodatneUsluge;
 import tim23.hotelservice.model.TipSmestaja;
@@ -40,6 +46,8 @@ import tim23.hotelservice.model.poruke.GetReservationListRequest;
 import tim23.hotelservice.model.poruke.GetReservationListResponse;
 import tim23.hotelservice.model.poruke.GetRezervacijaRequest;
 import tim23.hotelservice.model.poruke.GetRezervacijaResponse;
+import tim23.hotelservice.model.poruke.GetSlikaRequest;
+import tim23.hotelservice.model.poruke.GetSlikaResponse;
 import tim23.hotelservice.model.poruke.GetSobaDodatnaUslugaRequest;
 import tim23.hotelservice.model.poruke.GetSobaDodatnaUslugaResponse;
 import tim23.hotelservice.model.poruke.GetSobaRequest;
@@ -53,6 +61,7 @@ import tim23.hotelservice.repository.DodatneUslugeRepository;
 import tim23.hotelservice.repository.KrajnjiKorisnikRepository;
 import tim23.hotelservice.repository.PorukaRepository;
 import tim23.hotelservice.repository.RezervacijaRepository;
+import tim23.hotelservice.repository.SlikaRepository;
 import tim23.hotelservice.repository.SobaDodatnaUslugaRepository;
 import tim23.hotelservice.repository.SobaRepository;
 import tim23.hotelservice.repository.TipSmestajaRepository;
@@ -97,6 +106,9 @@ public class HotelEndpoint {
 	
 	@Autowired
 	private PorukaRepository porukaRepository;
+	
+	@Autowired
+	private SlikaRepository slikaRepository;
 	
 	
     @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getAgentRequest")
@@ -236,5 +248,40 @@ public class HotelEndpoint {
     	rezervacijaZaUpdate.setRealizovana(true);
     	rezervacijaRepository.save(rezervacijaZaUpdate);
     	return new GetRezervacijaResponse();
+    }
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getSlikaRequest")
+    @ResponsePayload
+    public GetSlikaResponse addSlika(@RequestPayload GetSlikaRequest request) {
+    	
+    	byte[] file = request.getSlika();
+    	String filename = request.getFilename();
+    	Integer idSobe = request.getIdSobe();
+    	String username = request.getUsername();
+    	    	
+    	String folder = "../slike/" + username + "/" + idSobe + "/";
+		
+		new File(folder).mkdirs();
+		
+		System.out.println(new File(folder).getAbsolutePath());
+		
+		Path path = Paths.get(folder + filename);
+				
+		try {
+			Files.write(path, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		Soba soba = sobaRepository.findById(idSobe).get();
+		
+		Slika slika = new Slika();
+		slika.setIdSobe(soba);
+		slika.setUrlSlike(path.toAbsolutePath().toString());
+		
+		slikaRepository.save(slika);
+		
+		return new GetSlikaResponse();
+		
     }
 }
