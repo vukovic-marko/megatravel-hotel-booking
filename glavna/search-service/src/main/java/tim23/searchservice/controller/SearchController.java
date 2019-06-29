@@ -126,13 +126,13 @@ public class SearchController {
 		 */
 		return null;
 	}
-	   @GetMapping("/{brojkreveta},{drzava},{grad},{uib},{dd},{dod},{tip},{kat}")
-	    public ResponseEntity<?> search(@PathVariable String brojkreveta,@PathVariable String drzava, @PathVariable String grad,@PathVariable String uib,@PathVariable String dd,@PathVariable String dod,@PathVariable String tip,@PathVariable String kat) throws java.text.ParseException {
+	   @GetMapping("/{brojkreveta},{grad},{dd},{dod},{tip},{kat}")
+	    public ResponseEntity<?> search(@PathVariable String brojkreveta, @PathVariable String grad,@PathVariable String dd,@PathVariable String dod,@PathVariable String tip,@PathVariable String kat) throws java.text.ParseException {
 	  String dateP = dd.replaceAll("_", "/");
 	  String dateK = dod.replaceAll("_", "/");
 	
 	 
-		   List<Soba> s = searchService.fuzzySearch(brojkreveta,drzava,grad,uib,dateP,dateK,tip,kat,usluge);
+		   List<Soba> s = searchService.fuzzySearch(brojkreveta,grad,dateP,dateK,tip,kat,usluge);
 	     
 	    	 return new ResponseEntity<>(s, HttpStatus.OK);
 	    	 
