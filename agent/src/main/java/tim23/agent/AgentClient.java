@@ -25,6 +25,8 @@ import tim23.agent.model.poruke.GetPorukaListRequest;
 import tim23.agent.model.poruke.GetPorukaListResponse;
 import tim23.agent.model.poruke.GetReservationListRequest;
 import tim23.agent.model.poruke.GetReservationListResponse;
+import tim23.agent.model.poruke.GetRezervacijaRequest;
+import tim23.agent.model.poruke.GetRezervacijaResponse;
 import tim23.agent.model.poruke.GetSobaDodatnaUslugaRequest;
 import tim23.agent.model.poruke.GetSobaDodatnaUslugaResponse;
 import tim23.agent.model.poruke.GetSobaRequest;
@@ -147,6 +149,16 @@ public class AgentClient extends WebServiceGatewaySupport {
 		request.setSadrzaj(sadrzaj);
 		
 		GetMessageSendResponse response = (GetMessageSendResponse) getWebServiceTemplate()
+				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
+					request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
+		
+		return response;
+	}
+	
+	public GetRezervacijaResponse realizujRezervaciju(Integer id) {
+		GetRezervacijaRequest request = new GetRezervacijaRequest();
+		request.setIdRezervacije(id);
+		GetRezervacijaResponse response = (GetRezervacijaResponse) getWebServiceTemplate()
 				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
 					request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
 		

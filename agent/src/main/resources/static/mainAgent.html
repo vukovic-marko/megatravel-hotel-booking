@@ -66,11 +66,11 @@ body, html {
 }
 
 #rcorners2 {
-  border-radius: 25px;
-  border: 2px solid #73AD21;
-  padding: 20px; 
-  width: 100%;
-  height: 320px; 
+	border-radius: 25px;
+	border: 2px solid #73AD21;
+	padding: 20px;
+	width: 100%;
+	height: 320px;
 }
 
 #checkboxes {
@@ -120,7 +120,7 @@ body, html {
 					<li><a href="#" onclick="return myRooms()">My Rooms</a></li>
 					<li><a href="#" class="b" onclick="return reservations()">Reservations</a></li>
 					<li><a href="#" class="b" onclick="return messages()">Messages</a></li>
-					
+
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a><span class="glyphicon glyphicon-log-out"></span>
@@ -187,19 +187,20 @@ body, html {
 								<button class="w3-btn w3-brown" type="button"
 									onclick="return getAdrese()">Choose</button>
 							</p>
-   
-							
+
+
 							<div class="odmakni">
 								<input id="inpAdr" style="width: 300px; length: 5px;"
 									readonly="readonly" /> <input id="idAdr"
 									style="width: 30px; length: 5px;" readonly="readonly"
 									hidden="hidden" />
 							</div>
-							
-							<div id = "rcorners2">
-    <input  id="browse" type="file" onchange="previewFiles()" multiple>
-<div  id="preview"></div>
-   			</div>
+
+							<div id="rcorners2">
+								<input id="browse" type="file" onchange="previewFiles()"
+									multiple>
+								<div id="preview"></div>
+							</div>
 
 							<p>
 								<button class="w3-btn w3-brown" onclick="sakriModal()">Add</button>
@@ -210,13 +211,13 @@ body, html {
 			</div>
 		</div>
 
-<div class="modal fade" id="modalPoruke" tabindex="-1" role="dialog"
+	 <div class="modal fade" id="modalPoruke" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					
-					
-					
+
+
+
 					<div class="modal-header">
 						<div class="w3-card-4">
 							<div class="w3-container w3-brown">
@@ -224,10 +225,10 @@ body, html {
 							</div>
 						</div>
 					</div>
-					<div class="modal-body" id="adrese"></div>
+					<div class="modal-body" id="porukeModal"></div>
 				</div>
 			</div>
-		</div>
+		</div> 
 
 		<div class="modal fade" id="modalAdrese" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -348,20 +349,19 @@ body, html {
 					</div>
 					<div class="modal-body" id="cene"></div>
 					<p>
-								<label class="w3-text-brown"><b>Cena *</b></label> <input
-									class="w3-input w3-border w3-sand" id="cena" type="number"
-									onkeypress="return numbersonly(this, event)"
-									required="required">
-							</p>
-					<p>
-					<label>Datum pocetka vazenja</label>
-						<div class="input-group date">
-							<span class="input-group-addon"><i class="fa fa-calendar"></i></span><input
-								id="date_added" type="text" class="form-control"
-								style="height: 30px; width: 100px;"">
-						</div>
+						<label class="w3-text-brown"><b>Cena *</b></label> <input
+							class="w3-input w3-border w3-sand" id="cena" type="number"
+							onkeypress="return numbersonly(this, event)" required="required">
 					</p>
-					
+					<p>
+						<label>Datum pocetka vazenja</label>
+					<div class="input-group date">
+						<span class="input-group-addon"><i class="fa fa-calendar"></i></span><input
+							id="date_added" type="text" class="form-control"
+							style="height: 30px; width: 100px;"">
+					</div>
+					</p>
+
 					<p>
 						<button class="w3-btn w3-brown" onclick="dodajTerminskiPlanCena()">Add</button>
 					</p>

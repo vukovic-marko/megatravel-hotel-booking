@@ -217,12 +217,15 @@ function reservations(){
 	red0.append(z6);
 	red0.append(z7);
 	tabela.append(red0);
-	var username="nina";
 	$.ajax({
 		async: false,
-		url: "http://localhost:8081/agent/mojeRez/"+username,////////
+		url: "http://localhost:8081/rezervacija/mojeRez",
+		beforeSend: function(request) {
+		    request.setRequestHeader("Authorization", localStorage.getItem('token'));
+		},
 	    type: "GET",
 	    success: function (v) {
+	    	console.log(v);
 	    	if(v.length>0){
 	    	for(var i=0;i<v.length;i++){
 	    		var red1=document.createElement("tr");
@@ -243,6 +246,7 @@ function reservations(){
 				sad6.style=" border: 2px solid green ";
 				sad7.style=" border: 2px solid green ";
 				//alert()
+				console.log(v[i].soba);
 			     var myDate = v[i].datumDolaska;
 			     var a = new Date(myDate);
 			     var now = moment(myDate).format('l');
@@ -252,7 +256,10 @@ function reservations(){
 				now = moment(myDate).format('l');
 				sad2.innerHTML=now;
 				sad3.innerHTML=v[i].brojOsoba;
-				//sad4.innerHTML=v[i].krajnjiKorisnik.username; //username
+				sad4.innerHTML=v[i].krajnjiKorisnik.username;
+				sad5.innerHTML = v[i].ocena;
+				sad6.innerHTML = v[i].idSobe.idSoba;
+				sad7.innerHTML = v[i].realizovana;
 				if(v[i].ocena!=0){
 				sad5.innerHTML=v[i].ocena;
 				}
@@ -313,7 +320,7 @@ function reservations(){
 function realizuj(id){
 	$.ajax({
 		async: false,
-		url: "http://localhost:8081/agent/realizacija/"+id,
+		url: "http://localhost:8081/rezervacija/realizacija/"+id,
 	    type: "POST",
 	    success: function (data) {
 	    	reservations();
@@ -401,6 +408,7 @@ function getAdrese(){
 		url: "http://localhost:8081/agent/sveAdrese",
 	    type: "GET",
 	    success: function (data) {
+	    	console.log(data);
 	    	var divT = $('#adrese');
 	    	divT.empty();
 	    	var tabela=document.createElement("table");

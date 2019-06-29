@@ -38,6 +38,8 @@ import tim23.hotelservice.model.poruke.GetPorukaListRequest;
 import tim23.hotelservice.model.poruke.GetPorukaListResponse;
 import tim23.hotelservice.model.poruke.GetReservationListRequest;
 import tim23.hotelservice.model.poruke.GetReservationListResponse;
+import tim23.hotelservice.model.poruke.GetRezervacijaRequest;
+import tim23.hotelservice.model.poruke.GetRezervacijaResponse;
 import tim23.hotelservice.model.poruke.GetSobaDodatnaUslugaRequest;
 import tim23.hotelservice.model.poruke.GetSobaDodatnaUslugaResponse;
 import tim23.hotelservice.model.poruke.GetSobaRequest;
@@ -122,10 +124,11 @@ public class HotelEndpoint {
     @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getReservationListRequest")
     @ResponsePayload
     public GetReservationListResponse getReservationList(@RequestPayload GetReservationListRequest request) {
-    	List<Rezervacija> r = rezervacijaRepository.findAll();
+    	Agent a = agentRepository.findByUsername(request.getUsername());
+    	List<Rezervacija> rezervacije = rezervacijaRepository.findBySobaIdAgenta(a);
     	
     	GetReservationListResponse response = new GetReservationListResponse();
-    	response.setReservations(r);
+    	response.setReservations(rezervacije);
     	
     	return response;
     }
@@ -224,5 +227,14 @@ public class HotelEndpoint {
     	poruka.setSadrzaj(request.getSadrzaj());
     	porukaRepository.save(poruka);
     	return new GetMessageSendResponse();
+    }
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getRezervacijaRequest")
+    @ResponsePayload
+    public GetRezervacijaResponse realizujRezervaciju(@RequestPayload GetRezervacijaRequest request) {
+    	Rezervacija rezervacijaZaUpdate = rezervacijaRepository.findById(request.getIdRezervacije()).get();
+    	rezervacijaZaUpdate.setRealizovana(true);
+    	rezervacijaRepository.save(rezervacijaZaUpdate);
+    	return new GetRezervacijaResponse();
     }
 }
