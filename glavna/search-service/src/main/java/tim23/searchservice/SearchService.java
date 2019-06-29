@@ -24,7 +24,7 @@ public class SearchService {
 	@Autowired
 	SearchRepository sr;
   
-	    public List<Soba> fuzzySearch(String brojkreveta,String drzava,String grad, String ulicaibroj,String p, String k,String tipSmestaja,String kategorija,ArrayList<String> listaUsluga) throws ParseException {
+	    public List<Soba> fuzzySearch(String brojkreveta,String grad,String p, String k,String tipSmestaja,String kategorija,ArrayList<String> listaUsluga) throws ParseException {
 	    	if(tipSmestaja==null)
 	    		tipSmestaja="";
 	    	if(kategorija==null)
@@ -48,8 +48,8 @@ public class SearchService {
 	    	Session session = sf.openSession();
 	    	session.beginTransaction();
 
-       Query first = session.createQuery("select s.idSoba from Soba s left outer join Adresa a on a.id = s.adresa left outer join TipSmestaja t on t.idTipa = s.tipSmestaja left outer join KategorijaSmestaja k on k.id = s.kategorijaSmestaja where t.naziv like :ts and k.naziv like :ks and a.drzava = :drz and a.grad = :grd and a.ulicaIBroj = :uib and s.brojKreveta > "+Integer.parseInt(brojkreveta))
-        		.setParameter("drz", drzava).setParameter("grd", grad).setParameter("uib", ulicaibroj).setParameter("ts", "%" +tipSmestaja+ "%").setParameter("ks", "%"+kategorija+"%");
+       Query first = session.createQuery("select s.idSoba from Soba s left outer join Adresa a on a.id = s.adresa left outer join TipSmestaja t on t.idTipa = s.tipSmestaja left outer join KategorijaSmestaja k on k.id = s.kategorijaSmestaja where t.naziv like :ts and k.naziv like :ks  and a.grad = :grd  and s.brojKreveta > "+Integer.parseInt(brojkreveta))
+        		.setParameter("grd", grad).setParameter("ts", "%" +tipSmestaja+ "%").setParameter("ks", "%"+kategorija+"%");
        Query second = session.createQuery("select r.soba from Rezervacija r left outer join Soba s on s.idSoba = r.soba where (r.datumDolaska > :dd and r.datumOdlaska > :do and r.datumDolaska > :do and r.datumOdlaska> :dd) or (r.datumDolaska < :dd and r.datumOdlaska < :do and r.datumDolaska < :do and r.datumOdlaska< :dd)")
      		.setParameter("dd", date1).setParameter("do", date2);
        
