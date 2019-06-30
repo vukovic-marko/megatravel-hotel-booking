@@ -9,4 +9,6 @@ import tim23.reservationservice.model.Agent;
 public interface AgentRepository extends JpaRepository<Agent, Integer>{
 	public Agent findByIdKorisnika(Integer id);
 
+	Agent findByUsername(String username);
+
 }

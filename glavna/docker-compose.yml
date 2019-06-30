@@ -1,0 +1,132 @@
+version: '3'
+services:
+
+  eureka-server:
+    image: eureka-server
+    container_name: eureka-server
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    depends_on:
+      - docker-mysql
+      
+  docker-mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'baza'
+    ports:
+      - "3307:3306"
+  
+  hotel-service:
+    image: hotel-service
+    build:
+      context: ./hotel-service
+      dockerfile: Dockerfile
+    ports:
+      - "8004"
+    depends_on:
+      - eureka-server
+      - docker-mysql
+      - auth-service
+    links:
+      - docker-mysql
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/baza?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+
+  auth-service:
+    image: auth-service
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    ports:
+      - "9100"
+    depends_on:
+      - eureka-server
+      - docker-mysql
+    links:
+      - docker-mysql
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/baza?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+  
+  reservation-service:
+    image: reservation-service
+    build:
+      context: ./reservation-service
+      dockerfile: Dockerfile
+    ports:
+      - "8002"
+    depends_on:
+      - eureka-server
+      - docker-mysql
+      - auth-service
+      - hotel-service
+    links:
+      - docker-mysql
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/baza?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+
+  search-service:
+    image: search-service
+    build:
+      context: ./search-service
+      dockerfile: Dockerfile
+    ports:
+      - "8003"
+    depends_on:
+      - eureka-server
+      - docker-mysql
+      - auth-service
+      - hotel-service
+    links:
+      - docker-mysql
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/baza?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+
+  admin-service:
+    image: admin-service
+    build:
+      context: ./admin-service
+      dockerfile: Dockerfile
+    ports:
+      - "8003"
+    depends_on:
+      - eureka-server
+      - docker-mysql
+      - auth-service
+      - hotel-service
+    links:
+      - docker-mysql
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/baza?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
+      
+    gateway:
+    image: zuul
+    container_name: zuul
+    build:
+      context: ./zuul
+      dockerfile: Dockerfile
+    ports:
+      - "8762:8762"
+    depends_on:
+      - eureka-server
+      - auth-service
+      - hotel-service
+      - docker-mysql
+      - search-service
+      - admin-service
+    links:
+      - eureka-server
+      - auth-service
+      - hotel-service
+      - docker-mysql
+      - search-service
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka

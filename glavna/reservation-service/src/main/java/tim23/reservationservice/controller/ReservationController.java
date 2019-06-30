@@ -11,9 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tim23.reservationservice.DTO.PorukaDTO;
 import tim23.reservationservice.DTO.RezervacijaDTO;
 import tim23.reservationservice.config.JwtConfig;
 import tim23.reservationservice.converterFromDTO.FromRezervacijaDTO;
@@ -21,6 +23,7 @@ import tim23.reservationservice.model.Agent;
 import tim23.reservationservice.model.KrajnjiKorisnik;
 import tim23.reservationservice.model.Poruka;
 import tim23.reservationservice.model.Rezervacija;
+import tim23.reservationservice.repository.AgentRepository;
 import tim23.reservationservice.repository.PorukeRepository;
 import tim23.reservationservice.service.ReservationService;
 
@@ -34,6 +37,8 @@ public class ReservationController {
 	private ReservationService rs;
 	@Autowired
 	private PorukeRepository pr;
+	@Autowired
+	private AgentRepository agentRepository;
 	
 	//Vrati sve rezervacije kod korisnika sa username
 	@GetMapping("/findRes")
@@ -56,8 +61,10 @@ public class ReservationController {
 		return username;
 	}
 	//poruke
-	@GetMapping("/poruke/{username}")
-		public ResponseEntity<?>getMessages(@PathVariable String username){
+	@GetMapping("/poruke")
+		public ResponseEntity<?>getMessages(HttpServletRequest request){
+		
+		String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
 			List<Poruka> poruke = rs.getPoruke(username);
 			
 		if(poruke==null) {
@@ -86,16 +93,16 @@ public class ReservationController {
 		rs.OceniRezervacijuIUpdateOcenuSobe(IdRez, Ocena);
 	}
 	//poruke
-	@PostMapping("/add/{idAgentaPrimaoca},{sadrzaj}")
-	public void sendM(@PathVariable Integer idAgentaPrimaoca,@PathVariable String sadrzaj,HttpServletRequest request){
+	@PostMapping("/sendMessage")
+	public void sendM(@RequestBody PorukaDTO dto, HttpServletRequest request){
 		String token = tokenUtils.getToken(request);
 		String username = tokenUtils.getUsernameFromToken(token);
 		KrajnjiKorisnik k = rs.getByUsername(username);
-		Agent agent = rs.getAgent(idAgentaPrimaoca);
+		Agent agent = agentRepository.findByUsername(dto.getUsername());
 		Poruka poruka = new Poruka();
 		poruka.setAgentPrimalac(agent);
 		poruka.setKlijentPosiljalac(k);
-		poruka.setSadrzaj(sadrzaj);
+		poruka.setSadrzaj(dto.getContent());
 		rs.sacuvaj(poruka);
 		
 	}
