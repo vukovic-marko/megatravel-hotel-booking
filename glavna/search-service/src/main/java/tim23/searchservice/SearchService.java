@@ -16,14 +16,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tim23.searchservice.model.Rezervacija;
+import tim23.searchservice.model.Slika;
 import tim23.searchservice.model.Soba;
 import tim23.searchservice.repository.SearchRepository;
+import tim23.searchservice.repository.SlikaRepository;
 
 @Service
 public class SearchService {
 	
 	@Autowired
 	SearchRepository sr;
+	@Autowired
+	SlikaRepository slikar;
+	
+	public Slika getSlika(Integer id) {
+		return slikar.findByIdSobe(id);
+	}
   
 	    public List<Soba> fuzzySearch(String brojkreveta,String grad,String p, String k,String tipSmestaja,String kategorija,ArrayList<String> listaUsluga) throws ParseException {
 	    	if(tipSmestaja==null)
