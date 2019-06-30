@@ -248,6 +248,10 @@ function messages(){
 
 }
 
+function logout(){
+	localStorage.removeItem('token');
+	top.location.href = "logovanje.html";
+}
 
 function reservations(){
 	$('#modalRez').modal();
