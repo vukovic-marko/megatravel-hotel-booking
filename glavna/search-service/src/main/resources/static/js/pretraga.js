@@ -1,6 +1,7 @@
 var listaUsluga = [];
 var listaTipovaSmestaja = [];
 var listaKategorija = [];
+var slika;
 var expanded = false;
 var expanded2 = false;
 var expanded3 = false;
@@ -270,7 +271,22 @@ function pretraziSmestajneJedinice() {
 			//window.location.href="rooms.html";
 			var divT = $('#sobe');
 			divT.empty();
+			
+			
+			
+			
 			for(var i=0;i<data.length;i++){
+
+				$.ajax({
+					url:"http://localhost:8762/search-service/search/slika/"+d.idSoba,
+					type:"GET",
+					contentType:"application/json",
+					success:function(date){
+					 slika = date.urlSlike;
+					},
+					error:function(){alert("error");}
+					
+				});
 				var divZaSvakiRestoran = document.createElement("div");
 				var f = document.createElement("form");
 				
@@ -283,6 +299,7 @@ function pretraziSmestajneJedinice() {
 				sad1.innerHTML=data[i].brojKreveta;		
 				red.append(pog1);
 				red.append(sad1);
+				
 				
 				var red2=document.createElement("tr");
 				var pog2=document.createElement("th");
@@ -307,7 +324,12 @@ function pretraziSmestajneJedinice() {
 				sad4.innerHTML=data[i].kategorijaSmestaja.naziv;
 				red4.append(pog4);
 				red4.append(sad4);
-				
+				 var myImage = $('<img/>');
+
+	               myImage.attr('width', 300);
+	               myImage.attr('height', 300);
+	               myImage.attr('class', "groupMediaPhoto");
+	               myImage.attr('src', slika);
 				var red5=document.createElement("tr");
 				var pog5=document.createElement("th");
 				var sad5=document.createElement("td");
@@ -339,9 +361,11 @@ function pretraziSmestajneJedinice() {
 				tabelaArtikala.append(red4);
 				tabelaArtikala.append(red5);
 				tabelaArtikala.append(red6);
+				
 
 				
 				f.append(tabelaArtikala);
+				f.append(myImage);
 				
 				divZaSvakiRestoran.append(f);
 

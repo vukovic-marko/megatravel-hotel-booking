@@ -46,6 +46,11 @@ public class SearchController {
 	@Autowired
 	private KategorijaSmestajaService kategorijaService;
 
+	@GetMapping("/slika/{id}")
+	public ResponseEntity<?>nadjiS(@PathVariable Integer id){
+		return new ResponseEntity<>(searchService.getSlika(id),HttpStatus.OK);
+	}
+	
 	@GetMapping("/")
 	public String hello(HttpServletRequest request) {
 		String token = tokenUtils.getToken(request);
