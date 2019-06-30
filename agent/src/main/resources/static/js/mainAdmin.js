@@ -172,10 +172,66 @@ function prikaziUsluge(){
 	  }
 }
 
+function sendMessage(){
+	$('#sendM').modal();	
+}
+
+function posalji(){
+	var idP = document.getElementById("usr").value;
+	var sad = document.getElementById("mess").value;
+	var por = JSON.stringify({
+		"username":idP,
+		"sadrzaj":sad
+	});
+	
+	$.ajax({
+		url:"http://localhost:8081/poruke/sendMessage",
+		beforeSend: function(request) {
+		    request.setRequestHeader("Authorization", localStorage.getItem('token'));
+		},
+		type:"POST",
+		contentType:"application/json",
+		data:por,
+		success:function(){
+		alert("uspesno");
+		document.location.reload();
+		},
+		error:function(){
+			alert("neuspesno");
+		}
+	});
+	
+}
 
 function messages(){
-	$('#modalPoruke').modal();
-	
+	$('#messagess').modal();
+	var tab = document.getElementById("poruke")
+
+	$.ajax({
+		url:"http://localhost:8081/poruke/getAllMessagess",
+		beforeSend: function(request) {
+		    request.setRequestHeader("Authorization", localStorage.getItem('token'));
+		},
+		type:"GET",
+		success:function(data){
+			for(var i=0;i<data.length;i++){
+			var kk = data[i];
+			var row = tab.insertRow(i+1);
+	    	var cell1 = row.insertCell(0);
+	    	var cell2 = row.insertCell(1);
+	    	
+	    	
+		    
+		        cell1.innerHTML = kk.klijentPosiljalac.username;
+		    	cell2.innerHTML = kk.sadrzaj;
+		    	
+			}
+		},
+		error:function(){
+			
+		}
+	});
+
 }
 
 
@@ -391,37 +447,12 @@ function sakriModal(){
 	        contentType: "application/json",
 	        data: soba,
 	        success: function (data) {
-	        	console.log(data)
-	        	
-
-	    		console.log($('#browse')[0].files[0]);
-	    		
-	    		var formData = new FormData();
-	    		formData.append('file', $('#browse')[0].files[0])
-	    		
-	    		$.ajax({
-	    		       url : 'http://localhost:8081/slika/' + data.idSoba,
-	    		       headers: {'Authorization' : localStorage.getItem('token')},
-	    		       contentType: false,
-	    		       async: false,
-	    		       type : 'post',
-	    		       data : formData,
-	    		       processData: false,  // tell jQuery not to process the data
-	    		       contentType: false,  // tell jQuery not to set contentType
-	    		       success : function(data) {
-	    		           console.log('success');
-	    		           //alert(data);
-	    		       }, error: function(data) {
-	    		    	   console.log('error');
-	    		    	   console.log(data);
-	    		       }
-	    		});
+	
 	        }//,
 //	        error: function (jqxhr, textStatus, errorThrown) {
 //	            
 //	        }
 		});
-		
 	}
 	
 }

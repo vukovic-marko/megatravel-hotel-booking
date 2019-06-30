@@ -52,6 +52,27 @@ body, html {
 	position: relative;
 }
 
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .selectBox select {
 	width: 100%;
 	font-weight: bold;
@@ -119,8 +140,8 @@ body, html {
 							Room</a></li>
 					<li><a href="#" onclick="return myRooms()">My Rooms</a></li>
 					<li><a href="#" class="b" onclick="return reservations()">Reservations</a></li>
-					<li><a href="#" class="b" onclick="return messages()">Messages</a></li>
-
+					<li><a href="#" class="b" onclick="return messages()">Inbox</a></li>
+                    <li><a href="#" class="b" onclick="return sendMessage()">New Message</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a><span class="glyphicon glyphicon-log-out"></span>
@@ -211,25 +232,6 @@ body, html {
 			</div>
 		</div>
 
-	 <div class="modal fade" id="modalPoruke" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-
-
-
-					<div class="modal-header">
-						<div class="w3-card-4">
-							<div class="w3-container w3-brown">
-								<h2>Your messages</h2>
-							</div>
-						</div>
-					</div>
-					<div class="modal-body" id="porukeModal"></div>
-				</div>
-			</div>
-		</div> 
-
 		<div class="modal fade" id="modalAdrese" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -250,7 +252,40 @@ body, html {
 			</div>
 		</div>
 
+	
+	
+		<div class="modal fade" id="sendM" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div class="modal-header">
+						<div class="w3-card-4">
+							<div class="w3-container w3-brown">
+								<h2>Compose new message</h2>
+							</div>
+						</div>
+					</div>
+					<div class="modal-body">
+					 
+    <label for="fname">Username</label>
+    <input type="text" id="usr" name="firstname" placeholder="Username..">
+
+    <label for="lname">Message</label>
+    <input type="text" id="mess" name="lastname" placeholder="Message..">
+					
+					<input type="submit" value="Submit" onclick="return posalji()">
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	
 		<div class="modal fade" id="modalSlike" tabindex="-1" role="dialog"
+	
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -331,6 +366,38 @@ body, html {
 				</div>
 			</div>
 		</div>
+
+
+
+
+		<div class="modal fade" id="messagess" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" id="doc" role="document">
+				<div class="modal-content">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div class="modal-header">
+						<div class="w3-card-4">
+							<div class="w3-container w3-brown">
+								<h2>Messagess</h2>
+							</div>
+						</div>
+					</div>
+					<div>
+						<table id="poruke" border="1">
+						
+					<tr><th scope="col">Posiljalac</th>
+					<th scope="col">Sadrzaj</th></tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
 
 		<div class="modal fade" id="modalTerminskiPlanCena" tabindex="-1"
 			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
