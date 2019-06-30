@@ -10,6 +10,7 @@ public class SobaDTO {
 	private Integer adresa;
 	private Integer agent;
 	private Integer tipSmestaja;
+	private Integer kategorija;
 	private ArrayList<Integer> dodatneUsluge;
 	
 	public Integer getIdSobe() {
@@ -81,7 +82,7 @@ public class SobaDTO {
 	}
 
 	public SobaDTO(Integer idSobe,Integer broj_kreveta,Integer broj_sobe,
-			String opis,Integer adresa,Integer agent,Integer tipSmestaja,ArrayList<Integer> dodatneUsluge) {
+			String opis,Integer adresa,Integer agent,Integer tipSmestaja,Integer kategorija,ArrayList<Integer> dodatneUsluge) {
 		this.dodatneUsluge = dodatneUsluge;
 		this.idSobe=idSobe;
 		this.broj_kreveta=broj_kreveta;
@@ -90,5 +91,14 @@ public class SobaDTO {
 		this.adresa=adresa;
 		this.agent=agent;
 		this.tipSmestaja=tipSmestaja;
+		this.kategorija=kategorija;
+	}
+
+	public Integer getKategorija() {
+		return kategorija;
+	}
+
+	public void setKategorija(Integer kategorija) {
+		this.kategorija = kategorija;
 	}
 }

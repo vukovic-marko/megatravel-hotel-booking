@@ -3,8 +3,10 @@ package tim23.agent.FromDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import tim23.agent.DTO.SobaDTO;
+import tim23.agent.model.KategorijaSmestaja;
 import tim23.agent.model.Soba;
 import tim23.agent.repository.AdresaRepository;
+import tim23.agent.repository.KategorijeRepository;
 import tim23.agent.repository.TipSmestajaRepository;
 
 public class FromSobaDTO {
@@ -15,6 +17,8 @@ public class FromSobaDTO {
 	@Autowired
 	private TipSmestajaRepository tipSmestajaRepository;
 	
+	@Autowired
+	private KategorijeRepository kategRep;
 	
 	public Soba convert(SobaDTO sobaDTO) {
 		Soba soba=new Soba();
@@ -24,6 +28,7 @@ public class FromSobaDTO {
 		soba.setOpisSmestaja(sobaDTO.getOpis());
 		soba.setAdresa(adresaRepository.findById(sobaDTO.getAdresa()).get());
 		soba.setTipSmestaja(tipSmestajaRepository.findById(sobaDTO.getTipSmestaja()).get());
+		soba.setKategorijaSmestaja(kategRep.findById(sobaDTO.getKategorija()).get());
 		soba.setOcena(0d);
 		soba.setOdobreno(false);
 		return soba;

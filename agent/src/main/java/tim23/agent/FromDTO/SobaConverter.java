@@ -21,6 +21,7 @@ public class SobaConverter {
 		sobaDTO.setBrojKreveta(soba.getBrojKreveta());
 		sobaDTO.setBrojSobe(soba.getBrojSobe());
 		sobaDTO.setNazivTipaSmestaja(soba.getTipSmestaja().getNaziv());
+		sobaDTO.setNazivKategorije(soba.getKategorijaSmestaja().getNaziv());
 		sobaDTO.setOpis(soba.getOpisSmestaja());
 		sobaDTO.setIdSobe(soba.getIdSoba());
 		

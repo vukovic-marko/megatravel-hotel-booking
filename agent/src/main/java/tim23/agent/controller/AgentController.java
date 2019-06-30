@@ -26,6 +26,7 @@ import tim23.agent.config.JwtConfig;
 import tim23.agent.model.Adresa;
 import tim23.agent.model.Agent;
 import tim23.agent.model.DodatneUsluge;
+import tim23.agent.model.KategorijaSmestaja;
 import tim23.agent.model.Rezervacija;
 import tim23.agent.model.Soba;
 import tim23.agent.model.SobeDodatneUsluge;
@@ -72,22 +73,7 @@ public class AgentController {
 	
 	@Autowired
 	private SobaDodatneUslugeRepository sobaDodatnaUslugaRepository;
-	
-//	@PostMapping("/makingImage")
-//	public void makeImage(@RequestBody Slika s) {
-//		System.out.println("AAAAAAAAAAAAAAAAAAa");
-//		System.out.println(s.getUrlSlike());
-//		sr.save(s);
-//	}
 
-//	@GetMapping("/nadjiSobu")
-//	   public Integer mojeRez(@RequestBody Soba soba) {
-//		 return soba.getIdSoba();
-//		 
-//	 }
-	
-	
-	
 	@GetMapping("/getAllRooms")
 	public ResponseEntity<?> getAllRooms(HttpServletRequest request){
 		ArrayList<Soba> sobeAgentove = new ArrayList<Soba>();
@@ -108,16 +94,7 @@ public class AgentController {
 		}
 		return new ResponseEntity<>(sobeZaFront,HttpStatus.OK);
 	}
-	
-//	   @GetMapping("/addRez")
-//	   public ResponseEntity<?> addRez(RezervacijaDTO rezDTO) {
-//		   FromRezervacijaDTO fr=new FromRezervacijaDTO(rezDTO);
-//			Rezervacija nova=fr.convert();
-//			as.addReservation(nova);
-//			return new ResponseEntity<>(HttpStatus.OK);
-//	   }
-
-	   
+ 
 	   @GetMapping("/uloga")
 	   public boolean proveriUlogu(HttpServletRequest request) {
 		   String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
@@ -136,6 +113,18 @@ public class AgentController {
 		//return set;
 	}
 	
+	@GetMapping("/sveKategorije")
+	public ResponseEntity<?> allCateg(){
+		List<KategorijaSmestaja> lista=as.findAllCategories();
+		Set<String> set=new HashSet<String>();
+		for(KategorijaSmestaja ts:lista) {
+			set.add(ts.getNaziv());
+			//System.out.println(ts.getNaziv());
+		}
+		return new ResponseEntity<>(set,HttpStatus.OK);
+		//return set;
+	}
+	
 	@PostMapping("/getDodatneUsluge")
 	public ResponseEntity<?> getDodatneUsluge(@RequestBody ArrayList<Integer> id){
 		List<DodatneUsluge> usluge = dodatneUslugeService.getAll(id);
@@ -144,16 +133,19 @@ public class AgentController {
 	
 	@PostMapping("/addRoom")
 	public Soba addRoom(@RequestBody SobaDTO soba,HttpServletRequest request){
+		System.out.println("BBBBBBBB"+soba.getKategorija());
 		//prvo pronaci sve dodatne usluge po id-u
 		ArrayList<DodatneUsluge> dodatneUsluge = dodatneUslugeService.getAll(soba.getDodatneUsluge());
 		Soba s = sobaConverter.convert(soba);
+		System.out.println("AAAAAAAAAA"+s.getKategorijaSmestaja());
 		String username = tokenUtils.getUsernameFromToken(tokenUtils.getToken(request));
 		Agent a = ar.findByUsername(username);
 		s.setIdAgenta(a);
 		GetSobaResponse response = client.getSoba(s);
 		
 		Soba nova = sobaRepository.save(response.getSoba());
-		
+		System.out.println(nova.getKategorijaSmestaja());
+
 		for(int i =0;i <dodatneUsluge.size();i++) {
 			GetSobaDodatnaUslugaResponse dodata = client.getSobaDodatneUsluge(nova,dodatneUsluge.get(i));
 			sobaDodatnaUslugaRepository.save(dodata.getSobeDodatnaUsluga());
@@ -187,6 +179,12 @@ public class AgentController {
 	public TipSmestaja typeRoomByNaziv(@PathVariable String naziv) {
 		//System.out.println("tip "+ as.findTypeRoomByNaziv(naziv));
 		return as.findTypeRoomByNaziv(naziv);
+	}
+	
+	@GetMapping("/CategNaziv/{naziv}")
+	public KategorijaSmestaja categRoomByNaziv(@PathVariable String naziv) {
+		//System.out.println("tip "+ as.findTypeRoomByNaziv(naziv));
+		return as.findCategRoomByNaziv(naziv);
 	}
 
 }

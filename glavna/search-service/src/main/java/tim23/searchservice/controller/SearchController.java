@@ -110,7 +110,6 @@ public class SearchController {
 			method = RequestMethod.POST
 	)
 	public ResponseEntity<?> getAllRooms(@RequestBody PonudaDTO ponuda) {
-		
 		PonudaDTO p = ponuda;
 		usluge = p.getNazivDodatneUsluge();
 		/*
@@ -124,7 +123,7 @@ public class SearchController {
 		 * ali get sve salje preko linije zahteva i dosta je sjebao tu liniju zahteva, dodao joj je
 		 * neke cudne karaktere i nije moglo da prodje, pa sam stavila post tako radi
 		 */
-		return null;
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	   @GetMapping("/{brojkreveta},{grad},{dd},{dod},{tip},{kat}")
 	    public ResponseEntity<?> search(@PathVariable String brojkreveta, @PathVariable String grad,@PathVariable String dd,@PathVariable String dod,@PathVariable String tip,@PathVariable String kat) throws java.text.ParseException {

@@ -245,31 +245,113 @@ function pretraziSmestajneJedinice() {
 
 	
 
-	
 
 	$.ajax({
 		async : false,
 		url : "http://localhost:8762/search-service/search/getAllRooms",
 		type : "POST",
-		dataType : "json",
+	
 		contentType : "application/json",
 		data:ponuda,
 		success : function(data) {
-			toasrt["success"]('Uspesnoooo');
-		}
+		
+		},error: function(){alert("error");}
 	});
 	
-
+	
 	$.ajax({
 		async : false,
-		url : "http://localhost:8762/search-service/search/"+numOfPers+",asd,asd,asd,"+dateP+","+dateK+","+tipSmestaja+","+kategorija,
+		url : "http://localhost:8762/search-service/search/"+numOfPers+","+place+","+dateP+","+dateK+","+tipSmestaja+","+kategorija,
 		type : "GET",
-		dataType : "json",
+
 		contentType : "application/json",
 		
 		success : function(data) {
-	
-		}
+			//window.location.href="rooms.html";
+			var divT = $('#sobe');
+			divT.empty();
+			for(var i=0;i<data.length;i++){
+				var divZaSvakiRestoran = document.createElement("div");
+				var f = document.createElement("form");
+				
+				divZaSvakiRestoran.style=" font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;border: 2px dotted black; opacity: 0.8;background-color: lightblue;width: 400px;padding:10px; float: left; height:180px; margin:15px; margin-bottom:20px;";
+				var tabelaArtikala=document.createElement("table");
+				var red=document.createElement("tr");
+				var pog1=document.createElement("th");
+				pog1.innerHTML="Number of beds:  ";
+				var sad1=document.createElement("td");
+				sad1.innerHTML=data[i].brojKreveta;		
+				red.append(pog1);
+				red.append(sad1);
+				
+				var red2=document.createElement("tr");
+				var pog2=document.createElement("th");
+				pog2.innerHTML="Adress:  ";
+				var sad2=document.createElement("td");
+				sad2.innerHTML=data[i].adresa.ulicaIBroj+" "+data[i].adresa.grad+" "+data[i].adresa.drzava;
+				red2.append(pog2);
+				red2.append(sad2);
+				
+				var red3=document.createElement("tr");
+				var pog3=document.createElement("th");
+				pog3.innerHTML="Type:  ";
+				var sad3=document.createElement("td");
+				sad3.innerHTML=data[i].tipSmestaja.naziv;							
+				red3.append(pog3);
+				red3.append(sad3);
+				
+				var red4=document.createElement("tr");
+				var pog4=document.createElement("th");
+				var sad4=document.createElement("td");
+				pog4.innerHTML="Category:  ";
+				sad4.innerHTML=data[i].kategorijaSmestaja.naziv;
+				red4.append(pog4);
+				red4.append(sad4);
+				
+				var red5=document.createElement("tr");
+				var pog5=document.createElement("th");
+				var sad5=document.createElement("td");
+				pog5.innerHTML="Grade:  ";
+				if(data[i].ocena==0){
+					sad5.innerHTML="Not rated yet";
+				}else{
+					sad5.innerHTML=data[i].ocena;
+				}
+				red5.append(pog5);
+				red5.append(sad5);
+				
+				var red6=document.createElement("tr");
+				var sad6=document.createElement("th");
+				sad6.innerHTML="Description:  ";
+				var opis = document.createElement('td');
+        		var tx=document.createElement('textarea');
+        		tx.setAttribute('rows', '3');
+				tx.setAttribute('cols', '30');
+				tx.setAttribute('readonly', 'readonly');
+				tx.innerHTML= data[i].opis;
+				opis.append(tx);
+				red6.append(sad6);
+				red6.append(opis);
+
+				tabelaArtikala.append(red);
+				tabelaArtikala.append(red2);
+				tabelaArtikala.append(red3);
+				tabelaArtikala.append(red4);
+				tabelaArtikala.append(red5);
+				tabelaArtikala.append(red6);
+
+				
+				f.append(tabelaArtikala);
+				
+				divZaSvakiRestoran.append(f);
+
+				//sviResDiv.append(divZaSvakiRestoran);
+				divT.append(divZaSvakiRestoran);
+			}
+		},
+		error: function(){alert("A");}
+
+		//}
 	});
 }
 

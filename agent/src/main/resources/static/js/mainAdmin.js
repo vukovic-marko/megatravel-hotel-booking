@@ -34,12 +34,6 @@ function previewFiles() {
 
 	}
 
-
-
-function proba(){
-	$('#modalSlike').modal();
-//alert('a');
-}
 function probas(){
 	//$('#modalSlike').modal();
 alert('a');
@@ -135,6 +129,22 @@ function addRoom(){
 	
 	$.ajax({
 		async: false,
+		url: "http://localhost:8081/agent/sveKategorije",
+	    type: "GET",
+	    success: function (data) {
+	    	var divT = $('#kategSobe');
+	    	divT.empty();
+	    	for(var i=0;i<data.length;i++){
+	    		var myOption = document.createElement("option");
+	    		myOption.text =data[i];
+	    		divT.append(myOption);
+
+	    	}
+	    }
+	});
+	
+	$.ajax({
+		async: false,
 		url: "http://localhost:8081/agent/getDodatneUsluge",
 		dataType : "json",
 	    type: "GET",
@@ -143,6 +153,10 @@ function addRoom(){
 	    }
 	});
 }
+
+
+
+
 
 function prikaziUsluge(){
 	var boxes = document.createElement('div');
@@ -389,13 +403,16 @@ function sakriModal(){
 	var adresa =document.getElementById('inpAdr').value;
 	var idAdr=document.getElementById('idAdr').value;
 	var nazTipa=document.getElementById('tipSobe').value;
+	var nazKateg=document.getElementById('kategSobe').value;
+	var brSobe=document.getElementById('brSobe').value;
+	var brKreveta=document.getElementById('brKreveta').value;
 	if(adresa=="" || adresa==null){
-		document.getElementById('inpAdr').style.borderColor ="red";
-		/////////////////////////////////////////////////////stavi neki lepi alert
+		toastr["warning"]("You must enter all the fields marked with a star!");
+	}else if(brSobe=="" || brKreveta==""){
+		toastr["warning"]("You must enter all the fields marked with a star!");
 	}else{ 
-		$('#modalSoba').modal('hide');
-		var brSobe=document.getElementById('brSobe').value;
-		var brKreveta=document.getElementById('brKreveta').value;
+		
+
 		var opis=document.getElementById('opis').value;
 		
 		var dodatneUsluge = [];
@@ -403,20 +420,10 @@ function sakriModal(){
 	    	dodatneUsluge.push($(this).val());
 	    });
 		var tipSmestaja=null;
+		var kategorija=null;
 		var adr=null;
 		var usluge = [];
-		//alert(brSobe+" "+brKreveta+" "+opis+" "+idAdr+" "+nazTipa)
-//		$.ajax({
-//			async: false,
-//			url: "http://localhost:8081/agent/adresaId/"+idAdr,
-//	        type: "GET",
-//			contentType: "application/json",
-//	        dataType: "json",
-//		    success: function (data) {
-//		    	adr=data;
-//		    }
-//		});
-//		
+
 		$.ajax({
 			async: false,
 			url: "http://localhost:8081/agent/typeRoomNaziv/"+nazTipa,
@@ -427,6 +434,18 @@ function sakriModal(){
 		    	tipSmestaja=data.idTipa;
 	    }
 		});
+		
+		
+		$.ajax({
+			async: false,
+			url: "http://localhost:8081/agent/CategNaziv/"+nazKateg,
+		    type: "GET",
+		    dataType: "json",
+		    contentType: "application/json",
+		    success: function (data) {
+		    	kategorija=data.id;
+	    }
+		});
 
 		var soba = JSON.stringify({
 			"broj_sobe": brSobe,
@@ -434,9 +453,12 @@ function sakriModal(){
 			"opis" : opis,
 			"adresa" : idAdr,
 			"tipSmestaja" : tipSmestaja,
+			"kategorija":kategorija,
 			"dodatneUsluge" : dodatneUsluge
 		});
 		
+		if(images.length>0){
+			$('#modalSoba').modal('hide');
 		$.ajax({
 			async: false,
 			url: "http://localhost:8081/agent/addRoom",
@@ -453,6 +475,9 @@ function sakriModal(){
 //	            
 //	        }
 		});
+	}else{
+		toastr["warning"]("You must add an image!");
+	}
 	}
 	
 }

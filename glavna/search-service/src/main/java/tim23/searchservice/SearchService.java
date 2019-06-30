@@ -15,6 +15,7 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tim23.searchservice.model.Rezervacija;
 import tim23.searchservice.model.Soba;
 import tim23.searchservice.repository.SearchRepository;
 
@@ -48,18 +49,40 @@ public class SearchService {
 	    	Session session = sf.openSession();
 	    	session.beginTransaction();
 
-       Query first = session.createQuery("select s.idSoba from Soba s left outer join Adresa a on a.id = s.adresa left outer join TipSmestaja t on t.idTipa = s.tipSmestaja left outer join KategorijaSmestaja k on k.id = s.kategorijaSmestaja where t.naziv like :ts and k.naziv like :ks  and a.grad = :grd  and s.brojKreveta > "+Integer.parseInt(brojkreveta))
-        		.setParameter("grd", grad).setParameter("ts", "%" +tipSmestaja+ "%").setParameter("ks", "%"+kategorija+"%");
+	    	Query first = session.createQuery("select s.idSoba from Soba s left outer join Adresa a on a.id = s.adresa left outer join TipSmestaja t on t.idTipa = s.tipSmestaja left outer join KategorijaSmestaja k on k.id = s.kategorijaSmestaja where t.naziv like '%"+tipSmestaja+"%' and k.naziv like '%"+kategorija+"%'  and a.grad = :grd  and s.brojKreveta >= "+Integer.parseInt(brojkreveta))
+	        		.setParameter("grd", grad);
+    
+       Query half = session.createQuery("from Rezervacija");
+       
+       
        Query second = session.createQuery("select r.soba from Rezervacija r left outer join Soba s on s.idSoba = r.soba where (r.datumDolaska > :dd and r.datumOdlaska > :do and r.datumDolaska > :do and r.datumOdlaska> :dd) or (r.datumDolaska < :dd and r.datumOdlaska < :do and r.datumDolaska < :do and r.datumOdlaska< :dd)")
      		.setParameter("dd", date1).setParameter("do", date2);
        
 	   	List<Integer> list = new LinkedList<>();
+	   	HashSet<Integer> kojeNemajuRez = new HashSet<>();
 	    list = first.list();
+	    List<Rezervacija> sveRezervacije = half.list();
 	    List<Soba> list2 = new LinkedList<>();
-	    list2 = second.list();
-	    System.out.println("list1: "+list.size() + " list2: "+list2.size());
 	    HashSet<Integer>list3 = new HashSet<>();		  
 	    List<Soba> listSoba = new LinkedList<>();	
+            
+	    if(sveRezervacije!=null || sveRezervacije.size()!=0) {
+	        int flag=0;
+	        for(int i=0;i<list.size();i++) {
+	    	flag = 0;
+	    	for(int j=0;j<sveRezervacije.size();j++) {
+	    		if(list.get(i)==sveRezervacije.get(j).getIdSobe().getIdSoba()) {
+	    			flag=1;
+	    		}
+	    	}
+	    	if(flag == 0)//dodaj ako nemaju nijednu rezervaciju
+	    		kojeNemajuRez.add(list.get(i));//presek prvog upita i onih koje nemaju rez
+	    	
+	    }
+	    
+	    
+	    list2 = second.list();
+	    System.out.println("list1: "+list.size() + " list2: "+list2.size());
 	   	
 	    
 	    for(int i=0;i<list.size();i++) {
@@ -74,6 +97,16 @@ public class SearchService {
 		 }
 
 	  }
+	    
+	    for(Integer po:kojeNemajuRez)
+	    	list3.add(po);
+	    }
+	    else
+	    {
+	    	for(int i=0;i<list.size();i++) {
+	    		list3.add(list.get(i));
+	    	}
+	    }
 	    
 	    if(listaUsluga.size()!=0) {
 	      for(Integer inti :list3) {
@@ -91,14 +124,14 @@ public class SearchService {
 	        	 
 	         }
 	         if(velicina == brojac) {
-	             if(sr.getByidSoba(inti).isOdobreno())
-	        	 listSoba.add(sr.getByidSoba(inti));
+	             if(sr.getByIdSoba(inti).isOdobreno())
+	        	 listSoba.add(sr.getByIdSoba(inti));
 	         
 	         }
 	  }
 	    }else {
-	    	for(int i=0;i<list3.size();i++) {
-	    		listSoba.add(sr.getByidSoba(i));
+	    	for(Integer i:list3) {
+	    		listSoba.add(sr.getByIdSoba(i));
 	    	}
 	    }
 	   session.getTransaction().commit();

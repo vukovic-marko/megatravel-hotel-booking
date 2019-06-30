@@ -9,6 +9,7 @@ public class AgentoveSobeDTO {
 	private Integer brojKreveta;
 	private String opis;
 	private String nazivTipaSmestaja;
+	private String nazivKategorije;
 	private AdresaDTO adresa;
 	private ArrayList<String> dodatneUsluge = new ArrayList<String>();
 	
@@ -16,7 +17,7 @@ public class AgentoveSobeDTO {
 		
 	}
 
-	public AgentoveSobeDTO(Integer idSobe,Integer brojSobe, Integer brojKreveta, String opis, String nazivTipaSmestaja,
+	public AgentoveSobeDTO(Integer idSobe,Integer brojSobe, Integer brojKreveta, String opis, String nazivTipaSmestaja,String nazivKategorije,
 			AdresaDTO adresa,ArrayList<String> dodatneUsluge) {
 		super();
 		this.idSobe = idSobe;
@@ -24,6 +25,7 @@ public class AgentoveSobeDTO {
 		this.brojKreveta = brojKreveta;
 		this.opis = opis;
 		this.nazivTipaSmestaja = nazivTipaSmestaja;
+		this.nazivKategorije=nazivKategorije;
 		this.adresa = adresa;
 		this.dodatneUsluge = dodatneUsluge;
 	}
@@ -83,6 +85,14 @@ public class AgentoveSobeDTO {
 
 	public void setAdresa(AdresaDTO adresa) {
 		this.adresa = adresa;
+	}
+
+	public String getNazivKategorije() {
+		return nazivKategorije;
+	}
+
+	public void setNazivKategorije(String nazivKategorije) {
+		this.nazivKategorije = nazivKategorije;
 	}
 	
 	
