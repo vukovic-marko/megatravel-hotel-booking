@@ -45,4 +45,9 @@ insert into poruka(idporuka,sadrzaj,agentprimalac,klijentposiljac) values (2,"Pr
 insert into poruka(idporuka,sadrzaj,agentposiljac,klijentprimalac) values (3,"Proba poruka 3",1,1);
 insert into poruka(idporuka,sadrzaj,agentposiljac,klijentprimalac) values (4,"Proba poruka 4",1,1);
 
-
+insert into kategorijasmestaja(id,naziv) values (1,"*");
+insert into kategorijasmestaja(id,naziv) values (2,"**");
+insert into kategorijasmestaja(id,naziv) values (3,"***");
+insert into kategorijasmestaja(id,naziv) values (4,"****");
+insert into kategorijasmestaja(id,naziv) values (5,"*****");
+insert into kategorijasmestaja(id,naziv) values (6,"Nekategorisan");

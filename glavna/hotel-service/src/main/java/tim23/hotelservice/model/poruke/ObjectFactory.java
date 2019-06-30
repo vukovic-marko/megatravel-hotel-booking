@@ -149,6 +149,14 @@ public class ObjectFactory {
     	return new GetSlikaResponse();
     }
     
+    public GetKategorijaRequest createGetKategorijaRequest() {
+    	return new GetKategorijaRequest();
+    }
+    
+    public GetKategorijaResponse createGetKategorijaResponse() {
+    	return new GetKategorijaResponse();
+    }
+    
     /**
      * Create an instance of {@link Agent }
      * 

@@ -19,6 +19,8 @@ import tim23.agent.model.poruke.GetCenaRequest;
 import tim23.agent.model.poruke.GetCenaResponse;
 import tim23.agent.model.poruke.GetDodatneUslugeListRequest;
 import tim23.agent.model.poruke.GetDodatneUslugeListResponse;
+import tim23.agent.model.poruke.GetKategorijaRequest;
+import tim23.agent.model.poruke.GetKategorijaResponse;
 import tim23.agent.model.poruke.GetMessageSendRequest;
 import tim23.agent.model.poruke.GetMessageSendResponse;
 import tim23.agent.model.poruke.GetPorukaListRequest;
@@ -175,6 +177,16 @@ public class AgentClient extends WebServiceGatewaySupport {
 		request.setUsername(username);
 		
 		GetSlikaResponse response = (GetSlikaResponse) getWebServiceTemplate()
+				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
+						request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
+		
+		return response;
+	}
+	
+	public GetKategorijaResponse getKategorije() {
+		GetKategorijaRequest request = new GetKategorijaRequest();
+		
+		GetKategorijaResponse response = (GetKategorijaResponse) getWebServiceTemplate()
 				.marshalSendAndReceive("http://localhost:8762/hotel-service/ws/poruke",
 						request, new SoapActionCallback("http://www.ftn.uns.ac.rs/poruke"));
 		

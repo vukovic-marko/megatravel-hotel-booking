@@ -16,14 +16,17 @@ import tim23.agent.config.JwtConfig;
 import tim23.agent.model.Adresa;
 import tim23.agent.model.Agent;
 import tim23.agent.model.DodatneUsluge;
+import tim23.agent.model.KategorijaSmestaja;
 import tim23.agent.model.TipSmestaja;
 import tim23.agent.model.poruke.GetAdresaListResponse;
 import tim23.agent.model.poruke.GetAgentListResponse;
 import tim23.agent.model.poruke.GetDodatneUslugeListResponse;
+import tim23.agent.model.poruke.GetKategorijaResponse;
 import tim23.agent.model.poruke.GetTipSmestajaListResponse;
 import tim23.agent.repository.AdresaRepository;
 import tim23.agent.repository.AgentRepository;
 import tim23.agent.repository.DodatneUslugeRepository;
+import tim23.agent.repository.KategorijeRepository;
 import tim23.agent.repository.TipSmestajaRepository;
 
 @SpringBootApplication
@@ -44,6 +47,9 @@ public class AgentApplication implements ApplicationListener<ApplicationReadyEve
 	@Autowired
 	private DodatneUslugeRepository dodatneUslugeRepository;
 	
+	@Autowired
+	private KategorijeRepository kategorijaRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AgentApplication.class, args);
 	}
@@ -54,6 +60,7 @@ public class AgentApplication implements ApplicationListener<ApplicationReadyEve
 		GetAdresaListResponse responseAdrese = client.getAdrese();
 		GetTipSmestajaListResponse responseTipoviSmestaja = client.getTip();
 		GetDodatneUslugeListResponse responseDodatneUsluge = client.getDodatneUsluge();
+		GetKategorijaResponse responseKategorije = client.getKategorije();
 		
 		List<Agent> agents = responseAgenti.getAgent();
 		for (Agent a: agents) {
@@ -73,6 +80,11 @@ public class AgentApplication implements ApplicationListener<ApplicationReadyEve
 		List<DodatneUsluge> dodatneUsluge = responseDodatneUsluge.getDodatneUsluge();
 		for (DodatneUsluge usluga: dodatneUsluge) {
 			dodatneUslugeRepository.save(usluga);
+		}
+		
+		List<KategorijaSmestaja> kategorije = responseKategorije.getKategorija();
+		for(KategorijaSmestaja kat : kategorije) {
+			kategorijaRepository.save(kat);
 		}
  
 		return;

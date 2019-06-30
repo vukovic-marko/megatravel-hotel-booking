@@ -21,6 +21,7 @@ import tim23.hotelservice.model.Adresa;
 import tim23.hotelservice.model.Agent;
 import tim23.hotelservice.model.Cena;
 import tim23.hotelservice.model.DodatneUsluge;
+import tim23.hotelservice.model.KategorijaSmestaja;
 import tim23.hotelservice.model.KrajnjiKorisnik;
 import tim23.hotelservice.model.Poruka;
 import tim23.hotelservice.model.Rezervacija;
@@ -38,6 +39,8 @@ import tim23.hotelservice.model.poruke.GetCenaRequest;
 import tim23.hotelservice.model.poruke.GetCenaResponse;
 import tim23.hotelservice.model.poruke.GetDodatneUslugeListRequest;
 import tim23.hotelservice.model.poruke.GetDodatneUslugeListResponse;
+import tim23.hotelservice.model.poruke.GetKategorijaRequest;
+import tim23.hotelservice.model.poruke.GetKategorijaResponse;
 import tim23.hotelservice.model.poruke.GetMessageSendRequest;
 import tim23.hotelservice.model.poruke.GetMessageSendResponse;
 import tim23.hotelservice.model.poruke.GetPorukaListRequest;
@@ -58,6 +61,7 @@ import tim23.hotelservice.repository.AdresaRepository;
 import tim23.hotelservice.repository.AgentRepository;
 import tim23.hotelservice.repository.CenaRepository;
 import tim23.hotelservice.repository.DodatneUslugeRepository;
+import tim23.hotelservice.repository.KategorijaSmestajaRepository;
 import tim23.hotelservice.repository.KrajnjiKorisnikRepository;
 import tim23.hotelservice.repository.PorukaRepository;
 import tim23.hotelservice.repository.RezervacijaRepository;
@@ -82,6 +86,9 @@ public class HotelEndpoint {
 	
 	@Autowired
 	private SobaRepository sobaRepository;
+	
+	@Autowired
+	private KategorijaSmestajaRepository kategorijaRepository;
 	
 	@Autowired
 	private AdresaRepository adresaRepository;
@@ -283,5 +290,14 @@ public class HotelEndpoint {
 		
 		return new GetSlikaResponse();
 		
+    }
+    
+    @PayloadRoot(namespace = "http://www.ftn.uns.ac.rs/poruke", localPart = "getKategorijaRequest")
+    @ResponsePayload
+    public GetKategorijaResponse getKategorije(@RequestPayload GetKategorijaRequest request) {
+    	List<KategorijaSmestaja> kategorijeSmestaja = kategorijaRepository.findAll();
+    	GetKategorijaResponse response = new GetKategorijaResponse();
+    	response.setKategorija(kategorijeSmestaja);
+    	return response;
     }
 }
