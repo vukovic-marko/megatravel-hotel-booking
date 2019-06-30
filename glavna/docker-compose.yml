@@ -107,7 +107,7 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/baza?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true
       
-    gateway:
+  gateway:
     image: zuul
     container_name: zuul
     build:
@@ -128,5 +128,6 @@ services:
       - hotel-service
       - docker-mysql
       - search-service
+      - admin-service
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka

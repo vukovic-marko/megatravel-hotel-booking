@@ -66,7 +66,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 	@Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:8081", "http://localhost:8762"));
+        configuration.setAllowedOrigins(ImmutableList.of("http://localhost:8081", "http://localhost:8762", "http://localhost:8070", "http://localhost:8071", "http://localhost:8072"));
         configuration.setExposedHeaders(ImmutableList.of("Authorization"));
         configuration.setAllowedMethods(ImmutableList.of("GET", "POST", "OPTIONS", "DELETE"));
         configuration.setMaxAge(3000L);
