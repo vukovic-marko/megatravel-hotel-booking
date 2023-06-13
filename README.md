@@ -11,6 +11,8 @@ Welcome to the GitHub repository for Megatravel, a distributed hotel booking web
 
 ## Architecture
 
+![Architecture](https://github.com/vukovic-marko/megatravel-hotel-booking/blob/master/architecture.png)
+
 The architecture of Megatravel is designed as a distributed system to ensure scalability, maintainability, and flexibility. It comprises the following components:
 
 - Monolithic Backend Agent Application: A robust web application that provides advanced logic for efficient hotel bookings. Built with Spring Boot and Java.
